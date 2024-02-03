@@ -1,4 +1,4 @@
-export { default as theme } from './themes/codeTheme';
+export { default as theme } from './themes/darkTheme';
 
 export { default } from './TubeProgress';
 export type { TubeProgressProps } from './TubeProgress';
