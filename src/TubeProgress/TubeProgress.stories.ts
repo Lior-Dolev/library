@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import TubeProgress, {TubeProgressProps} from './TubeProgress';
+import TubeProgress, { TubeProgressProps } from './TubeProgress';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -14,6 +14,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const CustomValuesConfig: Story = {
+  args: {
+    value: 10,
+    rangesConfig: {
+      dangerLimit: 70,
+      warningLimit: 81,
+    },
+  },
+};
+
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HighBar: Story = {
   args: {
@@ -21,24 +31,14 @@ export const HighBar: Story = {
   },
 };
 
-export const CustomValuesConfig: Story = {
-  args: {
-    value: 80,
-    valuesConfig: {
-      dangerLimit: 70,
-      warningLimit: 81
-    }
-  },
-};
-
 export const LowBar: Story = {
   args: {
-value: 10
+    value: 10,
   },
 };
 
 export const MidBar: Story = {
   args: {
-    value: 30
+    value: 30,
   },
 };
