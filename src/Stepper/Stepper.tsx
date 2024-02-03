@@ -15,12 +15,17 @@ export interface StepperProps {
     label: string;
     subLabel?: ReactNode;
   }[];
+  defaultActiveStepIds?: string[];
 }
 
-const Stepper: FC<StepperProps> = ({ steps }: StepperProps) => {
+const Stepper: FC<StepperProps> = ({
+  defaultActiveStepIds = [],
+  steps,
+}: StepperProps) => {
   const reversedSteps = useMemo(() => [...steps].reverse(), [steps]);
   const stepsLength: number = steps?.length ?? 0;
-  const [activeStepIds, setActiveStepIds] = useState<string[]>([]);
+  const [activeStepIds, setActiveStepIds] =
+    useState<string[]>(defaultActiveStepIds);
 
   const toggleStep = useCallback(
     (id: string) => {

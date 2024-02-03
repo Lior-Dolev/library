@@ -3,42 +3,20 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Divider,
   Paper,
-  Typography,
   styled,
 } from '@mui/material';
 import PanelHeader from '../PanelHeader';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Stepper } from '..';
+import { SubLabel } from './SubLabel';
+import { FilesAccordion } from './FilesAccordion';
 
 const RootContainer = styled(Paper)({
   width: `300px`,
   height: '700px',
   direction: 'rtl',
 });
-
-const Description = styled(`div`)({
-  display: 'flex',
-  gap: '5px',
-});
-
-const StyledDivider = styled(Divider)({
-  borderColor: 'inherit',
-});
-const DescriptionDivider = () => (
-  <StyledDivider orientation="vertical" variant="fullWidth" flexItem />
-);
-
-const SubLabel = ({ source, time }: { source: string; time: number }) => (
-  <>
-    <Description>
-      <Typography variant="caption">{source}</Typography>
-      <DescriptionDivider />
-      <Typography variant="caption">{new Date(time).toDateString()}</Typography>
-    </Description>
-  </>
-);
 
 const steps = [
   {
@@ -60,6 +38,7 @@ const steps = [
     subLabel: <SubLabel source={'בנק ישראל'} time={1706642479921} />,
   },
 ];
+
 export const Page: React.FC = () => {
   return (
     <RootContainer>
@@ -91,6 +70,7 @@ export const Page: React.FC = () => {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </AccordionDetails>
         </Accordion>
+        <FilesAccordion />
       </div>
     </RootContainer>
   );
