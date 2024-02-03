@@ -16,17 +16,9 @@ const IFrame = styled(`iframe`)({
 /**
  * Using browser's (chrome) default file viewer tool.
  *
+ * It is suggested to fetch files as files and not Base64 string,
+ * because using Base64 with large files can easily reach JS string characters limit.
  *
- *
- * 1. Get file as pdf from server:
- *  - It'll save unnessecary parsing
- *  - It's dangeraous using base64 because of JS string limitations (can exceed characters limit)
- * 2. Think of a smart way, in the future, for caching these files:
- *  - Files micro-service that fetches & serves files
- *  - This service should have smart caching for files:
- *      - Cache files for X minutes/hours
- *      - If file updates - clear from cache
- *      - If pod is close to reaching max space - clear oldest files
  */
 const FileViewer: FC<FileViewerProps> = ({
   src,
