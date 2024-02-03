@@ -1,5 +1,5 @@
-import { PaletteOptions, createTheme } from '@mui/material/styles'
-import { stepperThemeComponents } from '../Stepper/stepperTheme'
+import { PaletteOptions, createTheme } from '@mui/material/styles';
+import { stepperThemeComponents } from '../Stepper/stepperTheme';
 
 const codePalette: PaletteOptions = {
   mode: 'dark',
@@ -17,7 +17,7 @@ const codePalette: PaletteOptions = {
     primary: '#c9d1d9', // Light gray text
     secondary: '#8b949e', // Darker gray text
   },
-}
+};
 
 const codeTheme = createTheme({
   direction: 'rtl',
@@ -32,6 +32,6 @@ const codeTheme = createTheme({
     },
     ...stepperThemeComponents,
   },
-})
+});
 
-export default codeTheme
+export default codeTheme;
