@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Divider,
@@ -6,36 +6,36 @@ import {
   Typography,
   TypographyProps,
   styled,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/CloseSharp";
-import TitleIcon from "@mui/icons-material/LocalPizza";
-import TubeProgress from "../TubeProgress";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/CloseSharp';
+import TitleIcon from '@mui/icons-material/LocalPizza';
+import TubeProgress from '../TubeProgress';
 
 const StyledPanelHeader = styled(Box)(({ theme }) => ({
   boxShadow: theme.shadows[5],
   // height: "50px",
   backgroundColor: theme.palette.secondary.main,
-  display: "flex",
-  width: "100%",
-  padding: "0.5em",
-  gap: "0.5em",
+  display: 'flex',
+  width: '100%',
+  padding: '0.5em',
+  gap: '0.5em',
 }));
 
-const Title = ({ variant = "h6", ...rest }: TypographyProps) => (
+const Title = ({ variant = 'h6', ...rest }: TypographyProps) => (
   <Typography variant={variant} {...rest} />
 );
 const StyledTitle = styled(Title)({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const CloseButton = () => (
   <IconButton
     style={{
-      position: "absolute",
+      position: 'absolute',
       left: 0,
       top: 0,
-      color: "inherit",
+      color: 'inherit',
     }}
   >
     <CloseIcon />
@@ -43,12 +43,12 @@ const CloseButton = () => (
 );
 
 const Description = styled(`div`)({
-  display: "flex",
-  gap: "5px",
+  display: 'flex',
+  gap: '5px',
 });
 
 const StyledDivider = styled(Divider)({
-  borderColor: "inherit",
+  borderColor: 'inherit',
 });
 const DescriptionDivider = () => (
   <StyledDivider orientation="vertical" variant="fullWidth" flexItem />
@@ -65,10 +65,10 @@ const PanelHeader: React.FC = () => {
   return (
     <StyledPanelHeader>
       <HeaderPrefix>
-        <TubeProgress />
+        <TubeProgress value={80} />
       </HeaderPrefix>
-      <MainHeader>
-        <StyledTitle>
+      <MainHeader style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+        <StyledTitle noWrap>
           {rootText}
           <TitleIcon />
         </StyledTitle>

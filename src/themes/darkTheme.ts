@@ -27,6 +27,7 @@ const codeTheme = createTheme({
       styleOverrides: {
         root: {
           textAlign: 'right',
+          direction: 'rtl',
         },
       },
     },

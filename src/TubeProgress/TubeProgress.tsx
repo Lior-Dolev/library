@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { forwardRef, type FC } from 'react';
 import { styled, useTheme } from '@mui/material';
 import './TubeProgress.css';
 import TubeProgressCaption from './TubeProgressCaption';
@@ -7,6 +7,7 @@ const TubeProgressWrapper = styled(`div`)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  width: 'fit-content',
 });
 const TubePart = styled(`span`)({
   display: 'block',
@@ -46,40 +47,49 @@ export interface TubeProgressProps {
   rangesConfig?: ValuesConfig;
 }
 
-const TubeProgress: FC<TubeProgressProps> = ({
-  hideCaption = false,
-  value,
-  rangesConfig: { dangerLimit, warningLimit } = {
-    dangerLimit: 20,
-    warningLimit: 40,
-  },
-}: TubeProgressProps) => {
-  const theme = useTheme();
-  const color: string =
-    value < dangerLimit
-      ? theme.palette.error.main
-      : value < warningLimit
-        ? theme.palette.warning.main
-        : theme.palette.success.main;
+const TubeProgress: FC<TubeProgressProps> = forwardRef<
+  HTMLDivElement,
+  TubeProgressProps
+>(
+  (
+    {
+      hideCaption = false,
+      value,
+      rangesConfig: { dangerLimit, warningLimit } = {
+        dangerLimit: 20,
+        warningLimit: 40,
+      },
+      ...rest
+    }: TubeProgressProps,
+    ref?
+  ) => {
+    const theme = useTheme();
+    const color: string =
+      value < dangerLimit
+        ? theme.palette.error.main
+        : value < warningLimit
+          ? theme.palette.warning.main
+          : theme.palette.success.main;
 
-  return (
-    <TubeProgressWrapper>
-      {!hideCaption && <TubeProgressCaption value={value} />}
-      <div
-        className="bar-chart tube"
-        style={
-          {
-            '--tube-value': `${value}%`,
-            '--tube-color': color,
-          } as any
-        }
-      >
-        <TubeEdge />
-        <TubeBody />
-        <TubeEdge />
-      </div>
-    </TubeProgressWrapper>
-  );
-};
+    return (
+      <TubeProgressWrapper ref={ref} {...rest}>
+        {!hideCaption && <TubeProgressCaption value={value} />}
+        <div
+          className="bar-chart tube"
+          style={
+            {
+              '--tube-value': `${value}%`,
+              '--tube-color': color,
+            } as any
+          }
+        >
+          <TubeEdge />
+          <TubeBody />
+          <TubeEdge />
+        </div>
+      </TubeProgressWrapper>
+    );
+  }
+);
 
 export default TubeProgress;
