@@ -23,6 +23,20 @@ const codeTheme = createTheme({
   direction: 'rtl',
   palette: codePalette,
   components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          direction: 'rtl',
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          direction: 'rtl',
+        },
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         root: {

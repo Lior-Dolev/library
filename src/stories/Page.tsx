@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Paper,
-  styled,
-} from '@mui/material';
+import { Paper, styled } from '@mui/material';
 import PanelHeader from '../PanelHeader';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Stepper } from '..';
+import { Accordion, AccordionDetails, AccordionSummary, Stepper } from '..';
 import { SubLabel } from './SubLabel';
 import { FilesAccordion } from './FilesAccordion';
 

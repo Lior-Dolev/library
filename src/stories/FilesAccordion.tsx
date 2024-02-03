@@ -1,7 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { FileViewer, Stepper } from '..';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  FileViewer,
+  Stepper,
+} from '..';
 import { SubLabel } from './SubLabel';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const fileSteps = [
   {
@@ -20,9 +24,7 @@ const fileSteps = [
 
 export const FilesAccordion = () => (
   <Accordion>
-    <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-    >{`קבצים (${fileSteps.length})`}</AccordionSummary>
+    <AccordionSummary>{`קבצים (${fileSteps.length})`}</AccordionSummary>
     <AccordionDetails>
       <Stepper defaultActiveStepIds={['second']} steps={fileSteps} />
     </AccordionDetails>
