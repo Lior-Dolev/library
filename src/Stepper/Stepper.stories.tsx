@@ -1,28 +1,28 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import Stepper from './Stepper'
-import { Divider, Typography, styled } from '@mui/material'
+import type { Meta, StoryObj } from '@storybook/react';
+import Stepper from './Stepper';
+import { Divider, Typography, styled } from '@mui/material';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Components/Stepper',
+  title: 'Stepper',
   component: Stepper,
   tags: ['autodocs'],
-} satisfies Meta<typeof Stepper>
+} satisfies Meta<typeof Stepper>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const Description = styled(`div`)({
   display: 'flex',
   gap: '5px',
-})
+});
 
 const StyledDivider = styled(Divider)({
   borderColor: 'inherit',
-})
+});
 const DescriptionDivider = () => (
   <StyledDivider orientation="vertical" variant="fullWidth" flexItem />
-)
+);
 
 const SubLabel = ({ source, time }: { source: string; time: number }) => (
   <>
@@ -32,7 +32,7 @@ const SubLabel = ({ source, time }: { source: string; time: number }) => (
       <Typography variant="caption">{new Date(time).toDateString()}</Typography>
     </Description>
   </>
-)
+);
 
 const steps = [
   {
@@ -53,8 +53,8 @@ const steps = [
     content: `יש אישור לבצע את העברת הכספים. האישור ניתן ע״י זיבי זובי ותועד במערכת סוכריה על מקל`,
     subLabel: <SubLabel source={'בנק ישראל'} time={1706642479921} />,
   },
-]
+];
 
 export const Default = () => {
-  return <Stepper steps={steps} />
-}
+  return <Stepper steps={steps} />;
+};

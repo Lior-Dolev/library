@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Box, Typography, TypographyProps } from "@mui/material";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Box, Typography, TypographyProps } from '@mui/material';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Components/Typography",
+  title: 'Typography',
   component: Typography,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 } satisfies Meta<typeof Typography>;
 
 export default meta;
@@ -18,27 +18,27 @@ const hebrewIpsumLorem = `איפסום לורם`;
 export const Primary: Story = {
   args: {
     children: hebrewIpsumLorem,
-    variant: "body1",
+    variant: 'body1',
   },
 };
 
-type Variant = TypographyProps["variant"];
+type Variant = TypographyProps['variant'];
 
 export const TypographySystem = () => {
   const variants: Variant[] = [
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "subtitle1",
-    "subtitle2",
-    "body1",
-    "body2",
-    "button",
-    "caption",
-    "overline",
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'subtitle1',
+    'subtitle2',
+    'body1',
+    'body2',
+    'button',
+    'caption',
+    'overline',
   ];
   return (
     <Box>
