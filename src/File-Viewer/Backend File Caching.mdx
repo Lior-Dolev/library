@@ -1,0 +1,52 @@
+# Backend File Caching
+
+Notice that usually the server & browser has automatic implementation for caching with `ETag`.
+
+```jsx
+app.get('/api/get-pdf', (req, res) => {
+  // Set Cache-Control and Expires headers for caching
+  res.setHeader('Cache-Control', 'max-age=3600'); // Cache for 1 hour
+  res.setHeader('Expires', new Date(Date.now() + 3600000).toUTCString()); // Expires in 1 hour
+
+  // Set ETag header for versioning
+  const etag = 'abc123';
+  res.setHeader('ETag', etag);
+
+  // Send the PDF file
+  // Replace this with your actual logic to send the PDF file
+  res.sendFile('/path/to/your/pdf.pdf');
+});
+```
+
+There are 3 headers for caching:
+
+1. Cache-Control
+2. Expires
+3. ETag
+
+### Cache-Control
+
+Setting number of seconds to cache response.
+
+```jsx
+// Set Cache-Control and Expires headers for caching
+res.setHeader('Cache-Control', 'max-age=3600'); // Cache for 1 hour
+```
+
+### Expires
+
+Setting number of milli-seconds that represents expiration date.
+
+```jsx
+res.setHeader('Expires', new Date(Date.now() + 3600000).toUTCString()); // Expires in 1 hour
+```
+
+### ETag
+
+Setting a custom key for versioning.
+
+```jsx
+// Set ETag header for versioning
+const etag = 'abc123';
+res.setHeader('ETag', etag);
+```
