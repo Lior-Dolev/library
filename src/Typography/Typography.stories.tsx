@@ -12,12 +12,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const hebrewIpsumLorem = `איפסום לורם`;
-
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    children: hebrewIpsumLorem,
+    children: 'איפסום לורם',
     variant: 'body1',
   },
 };
