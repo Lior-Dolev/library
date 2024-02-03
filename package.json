@@ -16,8 +16,7 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.14.17",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-pdf": "^6.2.2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.10",
@@ -30,7 +29,6 @@
     "@storybook/test": "^7.6.10",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@types/react-pdf": "^6.2.0",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
