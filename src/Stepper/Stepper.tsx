@@ -1,16 +1,18 @@
 import {
-  Stepper as StyledStepper,
+  Stepper as MUIStepper,
   Step,
-  StepContent as StyledStepContent,
-  StepLabel as StyledStepLabel,
+  StepContent as MUIStepContent,
   Typography,
 } from '@mui/material';
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
 import StepIcon from './StepIcon';
+import StepLabel from './StepLabel';
 
 export interface StepperProps {
   steps: {
     content?: ReactNode;
+    disabled?: boolean;
+    error?: string;
     id: string;
     label: string;
     subLabel?: ReactNode;
@@ -41,34 +43,36 @@ const Stepper: FC<StepperProps> = ({
   );
 
   return (
-    <StyledStepper orientation="vertical">
-      {reversedSteps.map(({ label, content, subLabel, id }, index) => (
-        <Step
-          key={id}
-          completed
-          active={activeStepIds.includes(id)}
-          disabled={!content}
-        >
-          <StyledStepLabel
-            StepIconComponent={StepIcon}
-            StepIconProps={{
-              icon: stepsLength - index,
-            }}
-            optional={subLabel}
-            onClick={() => toggleStep(id)}
+    <MUIStepper orientation="vertical">
+      {reversedSteps.map(
+        ({ content, disabled, error, label, subLabel, id }, index) => (
+          <Step
+            key={id}
+            completed
+            active={activeStepIds.includes(id)}
+            disabled={!content || disabled}
           >
-            {label}
-          </StyledStepLabel>
-          <StyledStepContent>
-            {typeof content === 'string' ? (
-              <Typography>{content}</Typography>
-            ) : (
-              content
-            )}
-          </StyledStepContent>
-        </Step>
-      ))}
-    </StyledStepper>
+            <StepLabel
+              StepIconComponent={StepIcon}
+              stepsLength={stepsLength}
+              index={index}
+              error={error}
+              optional={subLabel}
+              toggleStep={() => toggleStep(id)}
+            >
+              {label}
+            </StepLabel>
+            <MUIStepContent>
+              {typeof content === 'string' ? (
+                <Typography>{content}</Typography>
+              ) : (
+                content
+              )}
+            </MUIStepContent>
+          </Step>
+        )
+      )}
+    </MUIStepper>
   );
 };
 

@@ -64,7 +64,8 @@ export const FilesAccordion = () => {
     {
       id: 'landscape',
       label: 'landscape.pdf',
-      content: <FileViewer src={'landscape.pdf'} height={300} />,
+      error: 'קובץ לא תקין בעליל',
+      // content: <FileViewer src={'landscape.pdf'} height={300} />,
       subLabel: <SourceDateStepSubLabel source={'סתם'} time={1700642439921} />,
     },
     {
