@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Divider,
   IconButton,
   Typography,
   TypographyProps,
@@ -10,6 +9,7 @@ import {
 import CloseIcon from '@mui/icons-material/CloseSharp';
 import TitleIcon from '@mui/icons-material/LocalPizza';
 import TubeProgress from '../TubeProgress';
+import { Caption, CaptionList } from '..';
 
 const StyledPanelHeader = styled(Box)(({ theme }) => ({
   boxShadow: theme.shadows[5],
@@ -42,18 +42,6 @@ const CloseButton = () => (
   </IconButton>
 );
 
-const Description = styled(`div`)({
-  display: 'flex',
-  gap: '5px',
-});
-
-const StyledDivider = styled(Divider)({
-  borderColor: 'inherit',
-});
-const DescriptionDivider = () => (
-  <StyledDivider orientation="vertical" variant="fullWidth" flexItem />
-);
-
 const HeaderPrefix = styled(`div`)({});
 const MainHeader = styled(`div`)({});
 
@@ -72,11 +60,10 @@ const PanelHeader: React.FC = () => {
           {rootText}
           <TitleIcon />
         </StyledTitle>
-        <Description>
-          <Title variant="caption">{subText1}</Title>
-          <DescriptionDivider />
-          <Title variant="caption">{subText2}</Title>
-        </Description>
+        <CaptionList>
+          <Caption>{subText1}</Caption>
+          <Caption>{subText2}</Caption>
+        </CaptionList>
       </MainHeader>
       <CloseButton />
     </StyledPanelHeader>

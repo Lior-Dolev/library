@@ -1,8 +1,13 @@
 import React from 'react';
 import { Paper, styled } from '@mui/material';
 import PanelHeader from '../PanelHeader';
-import { Accordion, AccordionDetails, AccordionSummary, Stepper } from '..';
-import { SubLabel } from './SubLabel';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stepper,
+  SourceDateStepSubLabel,
+} from '..';
 import { FilesAccordion } from './FilesAccordion';
 
 const RootContainer = styled(Paper)({
@@ -16,19 +21,23 @@ const steps = [
     id: 'first',
     label: 'נוצרה בקשה חדשה להעברת כספים',
     content: `הבקשה נוצרה על ידי הרצי הלוי `,
-    subLabel: <SubLabel source={'ATM'} time={1700642439921} />,
+    subLabel: <SourceDateStepSubLabel source={'ATM'} time={1700642439921} />,
   },
   {
     id: 'second',
     label: 'הבקשה הגיעה אל בנק ישראל ',
     content: 'סתם עוד פירוט על הבקשה אם יש',
-    subLabel: <SubLabel source={'בנק ישראל'} time={1700642479921} />,
+    subLabel: (
+      <SourceDateStepSubLabel source={'בנק ישראל'} time={1700642479921} />
+    ),
   },
   {
     id: 'third',
     label: 'הבקשה אושרה',
     content: `יש אישור לבצע את העברת הכספים. האישור ניתן ע״י זיבי זובי ותועד במערכת סוכריה על מקל`,
-    subLabel: <SubLabel source={'בנק ישראל'} time={1706642479921} />,
+    subLabel: (
+      <SourceDateStepSubLabel source={'בנק ישראל'} time={1706642479921} />
+    ),
   },
 ];
 
