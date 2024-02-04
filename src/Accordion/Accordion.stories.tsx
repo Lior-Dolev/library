@@ -1,7 +1,14 @@
 import type { Meta } from '@storybook/react';
-import { Accordion, AccordionDetails, Typography } from '@mui/material';
-import AccordionSummary from './AccordionSummary';
-import { FileViewer, SourceDateStepSubLabel, Stepper, Tooltip } from '..';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  FileViewer,
+  SourceDateStepSubLabel,
+  Stepper,
+  Tooltip,
+} from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

@@ -1,13 +1,17 @@
 export { default as darkTheme } from './themes/darkTheme';
 
-export { Accordion, AccordionDetails, AccordionSummary } from './Accordion';
+export {
+  default as Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from './Accordion';
 export type {
   AccordionProps,
   AccordionDetailsProps,
   AccordionSummaryProps,
 } from './Accordion';
 
-export { Caption, CaptionDivider, CaptionList } from './CaptionList';
+export { default as Caption, CaptionDivider, CaptionList } from './CaptionList';
 export type {
   CaptionProps,
   CaptionDividerProps,
@@ -30,3 +34,6 @@ export type { StepperProps, StepIconProps, StepLabelProps } from './Stepper';
 
 export { default as Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
+
+export { default as Typography } from './Typography';
+export type { TypographyProps } from './Typography';

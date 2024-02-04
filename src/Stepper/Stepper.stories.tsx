@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/react';
-import Stepper from './Stepper';
-import SourceDateStepSubLabel from './SourceDateStepSubLabel';
+import { Stepper, SourceDateStepSubLabel } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

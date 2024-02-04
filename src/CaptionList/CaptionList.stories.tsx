@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/react';
-import CaptionList from './CaptionList';
-import Caption from './Caption';
+import { Caption, CaptionList } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

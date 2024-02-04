@@ -1,7 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { Typography } from '@mui/material';
-import Tooltip, { TooltipProps } from './Tooltip';
-import TubeProgress from '../TubeProgress';
+import { Tooltip, TooltipProps, TubeProgress, Typography } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

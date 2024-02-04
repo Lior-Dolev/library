@@ -1,4 +1,4 @@
-export { default as Caption } from './Caption';
+export { default } from './Caption';
 export type { CaptionProps } from './Caption';
 
 export { default as CaptionDivider } from './CaptionDivider';

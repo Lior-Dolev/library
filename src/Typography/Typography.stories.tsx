@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, TypographyProps } from '@mui/material';
+import { Box } from '@mui/material';
+import { Typography, TypographyProps } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
