@@ -4,7 +4,7 @@ import { Children, FC, ReactNode, isValidElement } from 'react';
 
 const CaptionListWrapper = styled(`div`)({
   display: 'flex',
-  gap: '1em',
+  gap: '0.5em',
 });
 
 export interface CaptionListProps {
