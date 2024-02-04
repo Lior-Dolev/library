@@ -62,17 +62,12 @@ export const TitleTextOverflow = () => (
   </Accordion>
 );
 
-/**
- *
- * @todo - Add invalid file indication
- */
 export const FilesAccordion = () => {
   const steps = [
     {
       id: 'landscape',
       label: 'landscape.pdf',
       error: 'קובץ לא תקין בעליל',
-      // content: <FileViewer src={'landscape.pdf'} height={300} />,
       subLabel: <SourceDateStepSubLabel source={'סתם'} time={1700642439921} />,
     },
     {
@@ -86,7 +81,7 @@ export const FilesAccordion = () => {
   ];
 
   return (
-    <Accordion>
+    <Accordion defaultExpanded>
       <AccordionSummary>{`קבצים (${steps.length})`}</AccordionSummary>
       <AccordionDetails>
         <Stepper defaultActiveStepIds={['hebrew']} steps={steps} />
