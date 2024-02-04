@@ -8,7 +8,7 @@ import {
   Stepper,
   SourceDateStepSubLabel,
 } from '..';
-import { FilesAccordion } from './FilesAccordion';
+import { FilesAccordion } from '../Accordion/Accordion.stories';
 
 const RootContainer = styled(Paper)({
   width: `300px`,
