@@ -1,23 +1,26 @@
 import {
   AccordionSummary as MUIAccordionSummary,
-  AccordionSummaryProps,
-  styled,
+  AccordionSummaryProps as MUIAccordionSummaryProps,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export type { AccordionSummaryProps };
-
-const StyledAccordionSummary = styled(MUIAccordionSummary)`
-  .MuiAccordionSummary-content {
-    width: calc(100% - 24px);
-  }
-`;
+export interface AccordionSummaryProps extends MUIAccordionSummaryProps {
+  expandIcon?: ReactNode | boolean;
+}
 
 const AccordionSummary: FC<AccordionSummaryProps> = ({
+  expandIcon = true,
   ...rest
-}: AccordionSummaryProps) => (
-  <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} {...rest} />
-);
+}: AccordionSummaryProps) => {
+  const expandIconComponent: ReactNode =
+    typeof expandIcon === 'boolean' ? (
+      <ExpandMoreIcon key={'expand-icon'} />
+    ) : (
+      expandIcon
+    );
+
+  return <MUIAccordionSummary expandIcon={expandIconComponent} {...rest} />;
+};
 
 export default AccordionSummary;

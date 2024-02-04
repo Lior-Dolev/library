@@ -1,7 +1,6 @@
 import React from 'react';
 import { Paper, styled } from '@mui/material';
 import PanelHeader from '../PanelHeader';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Stepper } from '..';
 import { SubLabel } from './SubLabel';
 import { FilesAccordion } from './FilesAccordion';
@@ -40,11 +39,7 @@ export const Page: React.FC = () => {
       <div>ssdkmfdksl</div>
       <div>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
+          <AccordionSummary aria-controls="panel1-content" id="panel1-header">
             מסלול הפיצה
           </AccordionSummary>
           <AccordionDetails>
@@ -52,11 +47,7 @@ export const Page: React.FC = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2-content"
-            id="panel2-header"
-          >
+          <AccordionSummary aria-controls="panel2-content" id="panel2-header">
             פירוט מרכיבים
           </AccordionSummary>
           <AccordionDetails>
