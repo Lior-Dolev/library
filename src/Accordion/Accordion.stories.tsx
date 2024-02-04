@@ -20,7 +20,7 @@ export const Default = () => (
   <Accordion>
     <AccordionSummary aria-controls="panel2-content" id="panel2-header">
       <Tooltip title={text}>
-        <Typography noWrap>{text}</Typography>
+        <Typography>{text}</Typography>
       </Tooltip>
     </AccordionSummary>
     <AccordionDetails>
