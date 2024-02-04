@@ -7,6 +7,13 @@ export type {
   AccordionSummaryProps,
 } from './Accordion';
 
+export { Caption, CaptionDivider, CaptionList } from './CaptionList';
+export type {
+  CaptionProps,
+  CaptionDividerProps,
+  CaptionListProps,
+} from './CaptionList';
+
 export { default as FileViewer } from './File-Viewer';
 export type { FileViewerProps } from './File-Viewer';
 
