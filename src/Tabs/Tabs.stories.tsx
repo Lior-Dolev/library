@@ -1,6 +1,3 @@
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Meta } from '@storybook/react';
 import { useState } from 'react';
@@ -11,13 +8,10 @@ import {
   AccordionSummary,
   SourceDateStepSubLabel,
   Stepper,
+  TabPanel,
+  Tabs,
+  Tab,
 } from '..';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -28,33 +22,6 @@ const meta = {
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 const steps = [
   {
@@ -82,26 +49,19 @@ const steps = [
 ];
 
 export const Default = () => {
-  const [value, setValue] = useState(0);
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const onChange = (event: React.SyntheticEvent, newValue: number): void => {
+    setActiveTabIndex(newValue);
   };
 
   return (
     <Box>
-      <Box>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="fullWidth"
-        >
-          <Tab label="ראשי" {...a11yProps(0)} />
-          <Tab label="מקור" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <CustomTabPanel value={value} index={0}>
+      <Tabs value={activeTabIndex} onChange={onChange}>
+        <Tab label="ראשי" tabIndex={0} />
+        <Tab label="מקור" tabIndex={1} />
+      </Tabs>
+      <TabPanel active={activeTabIndex === 0} index={0}>
         <Accordion>
           <AccordionSummary aria-controls="panel1-content" id="panel1-header">
             מסלול הפיצה
@@ -120,10 +80,10 @@ export const Default = () => {
           </AccordionDetails>
         </Accordion>
         <FilesAccordion />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      </TabPanel>
+      <TabPanel active={activeTabIndex === 1} index={1}>
         איפסום לורם 2
-      </CustomTabPanel>
+      </TabPanel>
     </Box>
   );
 };

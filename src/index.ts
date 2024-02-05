@@ -32,6 +32,9 @@ export {
 } from './Stepper';
 export type { StepperProps, StepIconProps, StepLabelProps } from './Stepper';
 
+export { default as Tabs, Tab, TabPanel } from './Tabs';
+export type { TabsProps, TabProps, TabPanelProps } from './Tabs';
+
 export { default as Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 
