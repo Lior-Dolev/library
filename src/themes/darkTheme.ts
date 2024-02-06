@@ -30,6 +30,13 @@ const codeTheme = createTheme({
         },
       },
     },
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          direction: 'rtl',
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {

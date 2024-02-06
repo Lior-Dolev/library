@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { Meta } from '@storybook/react';
 import { useState } from 'react';
-import { FilesAccordion } from '../Accordion/Accordion.stories';
+import { FilesAccordion, FormAccordion } from '../Accordion/Accordion.stories';
 import {
   Accordion,
   AccordionDetails,
@@ -82,7 +82,9 @@ export const Default = () => {
         <FilesAccordion />
       </TabPanel>
       <TabPanel active={activeTabIndex === 1} index={1}>
-        איפסום לורם 2
+        <FormAccordion />
+        <FormAccordion />
+        <FormAccordion />
       </TabPanel>
     </Box>
   );

@@ -9,6 +9,9 @@ import {
   Stepper,
   Tooltip,
 } from '..';
+import TextField from '@mui/material/TextField';
+import { FC, ReactNode } from 'react';
+import Grid from '@mui/material/Grid';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -85,6 +88,54 @@ export const FilesAccordion = () => {
       <AccordionSummary>{`קבצים (${steps.length})`}</AccordionSummary>
       <AccordionDetails>
         <Stepper defaultActiveStepIds={['hebrew']} steps={steps} />
+      </AccordionDetails>
+    </Accordion>
+  );
+};
+
+interface FormRowProps {
+  children: ReactNode;
+  label: string;
+}
+
+const FormRow: FC<FormRowProps> = ({ children, label }: FormRowProps) => (
+  <Grid
+    container
+    spacing={2}
+    style={{
+      alignItems: 'center',
+    }}
+  >
+    <Grid
+      item
+      style={{
+        width: '33%',
+      }}
+    >
+      <Typography noWrap>{label}</Typography>
+    </Grid>
+    <Grid
+      item
+      style={{
+        width: '67%',
+      }}
+    >
+      {children}
+    </Grid>
+  </Grid>
+);
+
+export const FormAccordion = () => {
+  return (
+    <Accordion>
+      <AccordionSummary>{`טופס לקריאה`}</AccordionSummary>
+      <AccordionDetails>
+        <FormRow label="שם פרטי">
+          <TextField variant="standard" value={'ליאור'} disabled />
+        </FormRow>
+        <FormRow label="שם משפחה">
+          <TextField variant="standard" value={'דולב'} disabled />
+        </FormRow>
       </AccordionDetails>
     </Accordion>
   );
