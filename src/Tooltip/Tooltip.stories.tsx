@@ -1,17 +1,14 @@
 import type { Meta } from '@storybook/react';
 import { Tooltip, TooltipProps, TubeProgress, Typography } from '..';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Tooltip',
   component: Tooltip,
-
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   args: {
     title: 'שלום אני טולטיפ ויש לי הרבה מה להגיד',
   },
-} satisfies Meta<typeof Tooltip>;
+} as Meta<typeof Tooltip>;
 
 export default meta;
 

@@ -1,12 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { Stepper, SourceDateStepSubLabel } from '..';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Stepper',
   component: Stepper,
   tags: ['autodocs'],
-} satisfies Meta<typeof Stepper>;
+} as Meta<typeof Stepper>;
 
 export default meta;
 

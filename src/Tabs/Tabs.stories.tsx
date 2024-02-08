@@ -13,13 +13,11 @@ import {
   Tab,
 } from '..';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Tabs',
   component: Tabs,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof Tabs>;
+} as Meta<typeof Tabs>;
 
 export default meta;
 

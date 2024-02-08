@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TubeProgress, TubeProgressProps } from '..';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Tube Progress',
   component: TubeProgress,
@@ -9,7 +8,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<TubeProgressProps>;
+} as Meta<TubeProgressProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
