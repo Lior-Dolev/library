@@ -1,5 +1,30 @@
 # Contributers Guide
 
+## Imports
+
+type imports:
+
+```jsx
+// Good
+import type { FC } from 'react';
+import { type FC, useState } from 'react';
+
+// Bad
+import { FC } from 'react';
+import { FC, useState } from 'react';
+
+```
+
+Specific imports:
+
+```jsx
+// Good
+import Box from '@mui/material/Box';
+
+// Bad
+import { Box } from '@mui/material';
+```
+
 ## Styling
 
 Our components are mostly based on MUI components.

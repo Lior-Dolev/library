@@ -1,0 +1,19 @@
+{
+  "name": "@horus-library/stepper",
+  "version": "1.0.0",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && vite build"
+  },
+  "devDependencies": {
+    "@horus-library/caption": "*",
+    "@horus-library/tooltip": "*"
+  },
+  "peerDependencies": {
+    "@mui/material": "5.15.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

@@ -1,7 +1,6 @@
 import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
 import type { Preview, Decorator } from '@storybook/react';
-import darkTheme from '../src/themes/darkTheme';
-import lightTheme from '../src/themes/lightTheme';
+import { darkTheme, lightTheme } from '@horus-library/theme';
 import React, { useMemo } from 'react';
 
 enum ThemeType {
