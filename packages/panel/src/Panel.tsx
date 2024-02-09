@@ -1,15 +1,14 @@
 import React, { FC, ReactNode, useState } from 'react';
 import { Box, Grid, Paper, TextField, styled } from '@mui/material';
 import { PanelHeader } from './PanelHeader';
-import {
-  Accordion,
+import Accordion, {
   AccordionDetails,
   AccordionSummary,
 } from '@horus-library/accordion';
-import { FileViewer } from '@horus-library/file-viewer';
-import { SourceDateStepSubLabel, Stepper } from '@horus-library/stepper';
-import { Tabs, Tab, TabPanel } from '@horus-library/tabs';
-import { Typography } from '@horus-library/typography';
+import FileViewer from '@horus-library/file-viewer';
+import Stepper, { SourceDateStepSubLabel } from '@horus-library/stepper';
+import Tabs, { Tab, TabPanel } from '@horus-library/tabs';
+import Typography from '@horus-library/typography';
 
 const RootContainer = styled(Paper)({
   width: `300px`,

@@ -1,2 +1,1 @@
-export { default as Typography } from '@mui/material/Typography';
-export type { TypographyProps } from '@mui/material/Typography';
+export { Typography as default, type TypographyProps } from '@mui/material';

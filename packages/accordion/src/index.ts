@@ -1,8 +1,11 @@
-export { default as Accordion } from '@mui/material/Accordion';
-export type { AccordionProps } from '@mui/material/Accordion';
+export {
+  Accordion as default,
+  type AccordionProps,
+  AccordionDetails,
+  type AccordionDetailsProps,
+} from '@mui/material';
 
-export { default as AccordionDetails } from '@mui/material/AccordionDetails';
-export type { AccordionDetailsProps } from '@mui/material/AccordionDetails';
-
-export { default as AccordionSummary } from './AccordionSummary';
-export type { AccordionSummaryProps } from './AccordionSummary';
+export {
+  default as AccordionSummary,
+  type AccordionSummaryProps,
+} from './AccordionSummary';

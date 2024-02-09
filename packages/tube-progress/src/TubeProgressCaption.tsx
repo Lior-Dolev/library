@@ -1,4 +1,5 @@
-import { Typography, styled } from '@mui/material';
+import { styled } from '@mui/material';
+import Typography from '@horus-library/typography';
 import type { FC } from 'react';
 
 interface TubeProgressCaptionProps {

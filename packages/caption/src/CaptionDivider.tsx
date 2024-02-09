@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-import Divider from '@mui/material/Divider';
-import type { DividerProps } from '@mui/material/Divider';
+import { Divider, type DividerProps } from '@mui/material';
 import type { FC } from 'react';
 
 export interface CaptionDividerProps extends DividerProps {}

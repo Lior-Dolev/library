@@ -2,8 +2,8 @@ import {
   Stepper as MUIStepper,
   Step,
   StepContent as MUIStepContent,
-  Typography,
 } from '@mui/material';
+import Typography from '@horus-library/typography';
 import { type FC, type ReactNode, useCallback, useMemo, useState } from 'react';
 import StepIcon from './StepIcon';
 import StepLabel from './StepLabel';

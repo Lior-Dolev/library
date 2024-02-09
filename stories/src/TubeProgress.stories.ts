@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TubeProgress, TubeProgressProps } from '.';
+import TubeProgress, { TubeProgressProps } from '@horus-library/tube-progress';
+import '@horus-library/tube-progress/dist/style.css';
 
 const meta = {
   title: 'Tube Progress',

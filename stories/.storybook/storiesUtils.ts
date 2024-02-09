@@ -77,7 +77,7 @@ export const getPackagesStoriesPaths = (): string[] => {
 
   const allStoryFilePaths: string[] = packageDirectoryNames.flatMap(
     (packageName) => {
-      const packageBaseDirectoryPath: string = `${packagesRootDirectoryPath}/${packageName}/src`;
+      const packageBaseDirectoryPath: string = `${packagesRootDirectoryPath}/src`;
 
       const packageAllFilePaths: string[] = recursivelyFindFilesByRegex(
         packageBaseDirectoryPath,
@@ -88,5 +88,6 @@ export const getPackagesStoriesPaths = (): string[] => {
     }
   );
 
+  console.log(allStoryFilePaths);
   return allStoryFilePaths;
 };

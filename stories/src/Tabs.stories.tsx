@@ -1,16 +1,15 @@
 import Box from '@mui/material/Box';
 import { Meta } from '@storybook/react';
 import { FC, ReactNode, useState } from 'react';
-import { FileViewer } from '@horus-library/file-viewer';
-import {
-  Accordion,
+import FileViewer from '@horus-library/file-viewer';
+import Accordion, {
   AccordionDetails,
   AccordionSummary,
 } from '@horus-library/accordion';
-import { SourceDateStepSubLabel, Stepper } from '@horus-library/stepper';
-import { TabPanel, Tabs, Tab } from '.';
+import Stepper, { SourceDateStepSubLabel } from '@horus-library/stepper';
+import Tabs, { TabPanel, Tab } from '@horus-library/tabs';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@horus-library/typography';
+import Typography from '@horus-library/typography';
 import { TextField } from '@mui/material';
 
 const meta = {

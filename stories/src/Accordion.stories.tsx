@@ -1,9 +1,12 @@
 import type { Meta } from '@storybook/react';
-import { Accordion, AccordionSummary, AccordionDetails } from '.';
-import { Typography } from '@horus-library/typography';
-import { FileViewer } from '@horus-library/file-viewer';
-import { Tooltip } from '@horus-library/tooltip';
-import { SourceDateStepSubLabel, Stepper } from '@horus-library/stepper';
+import Accordion, {
+  AccordionSummary,
+  AccordionDetails,
+} from '@horus-library/accordion';
+import Typography from '@horus-library/typography';
+import FileViewer from '@horus-library/file-viewer';
+import Tooltip from '@horus-library/tooltip';
+import Stepper, { SourceDateStepSubLabel } from '@horus-library/stepper';
 import TextField from '@mui/material/TextField';
 import type { FC, ReactNode } from 'react';
 import Grid from '@mui/material/Grid';

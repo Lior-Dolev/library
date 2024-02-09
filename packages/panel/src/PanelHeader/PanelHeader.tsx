@@ -2,11 +2,11 @@ import React from 'react';
 import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { Typography, type TypographyProps } from '@horus-library/typography';
+import Typography, { type TypographyProps } from '@horus-library/typography';
 import CloseIcon from '@mui/icons-material/CloseSharp';
 import TitleIcon from '@mui/icons-material/LocalPizza';
-import { TubeProgress } from '@horus-library/tube-progress';
-import { Caption, CaptionList } from '@horus-library/caption';
+import TubeProgress from '@horus-library/tube-progress';
+import Caption, { CaptionList } from '@horus-library/caption';
 
 const StyledPanelHeader = styled(Box)(({ theme }) => ({
   boxShadow: theme.shadows[5],

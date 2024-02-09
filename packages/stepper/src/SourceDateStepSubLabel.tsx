@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Caption, CaptionList } from '@horus-library/caption';
+import Caption, { CaptionList } from '@horus-library/caption';
 import { formatMilliSecondsDate } from './dateFormatter';
 
 export interface SourceDateStepSubLabelProps {

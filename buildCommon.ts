@@ -10,6 +10,7 @@ interface PackageJson {
 const commonGlobals = {
   '@emotion/react': 'emReact',
   '@emotion/styled': 'emStyled',
+  '@mui/material': 'MaterialUI',
   react: 'React',
   'react-dom': 'ReactDOM',
 };
@@ -65,6 +66,7 @@ export const commonUserConfig = (
         external,
         output: {
           globals,
+          exports: 'named', // Disable warning for named and default exports together
         },
       },
     },

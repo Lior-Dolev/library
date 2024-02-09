@@ -1,15 +1,23 @@
 {
-  "name": "@horus-library/stepper",
+  "name": "@horus-library/stories",
   "version": "1.0.0",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && vite build"
+    "build": "echo nothing",
+    "storybook": "storybook dev -p 6006"
   },
   "devDependencies": {
+    "@horus-library/accordion": "*",
     "@horus-library/caption": "*",
+    "@horus-library/file-viewer": "*",
+    "@horus-library/panel": "*",
+    "@horus-library/stepper": "*",
+    "@horus-library/tabs": "*",
+    "@horus-library/theme": "*",
     "@horus-library/tooltip": "*",
+    "@horus-library/tube-progress": "*",
     "@horus-library/typography": "*"
   },
   "peerDependencies": {

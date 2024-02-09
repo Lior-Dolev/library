@@ -7,12 +7,6 @@
   "scripts": {
     "build": "tsc && vite build"
   },
-  "devDependencies": {
-    "@horus-library/file-viewer": "*",
-    "@horus-library/stepper": "*",
-    "@horus-library/tooltip": "*",
-    "@horus-library/typography": "*"
-  },
   "peerDependencies": {
     "@mui/material": "5.15.6",
     "react": "18.2.0",

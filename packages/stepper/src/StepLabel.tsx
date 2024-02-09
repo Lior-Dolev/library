@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import type { FC, ReactElement, ReactNode } from 'react';
 import StepIcon from './StepIcon';
-import { Tooltip } from '@horus-library/tooltip';
+import Tooltip from '@horus-library/tooltip';
 
 export interface StepLabelProps {
   children: ReactNode;

@@ -1,2 +1,1 @@
-export { default as TubeProgress } from './TubeProgress';
-export type { TubeProgressProps } from './TubeProgress';
+export { default, type TubeProgressProps } from './TubeProgress';

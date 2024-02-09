@@ -1,2 +1,1 @@
-export { default as FileViewer } from './FileViewer';
-export type { FileViewerProps } from './FileViewer';
+export { default, type FileViewerProps } from './FileViewer';

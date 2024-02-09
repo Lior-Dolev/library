@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
-import { Tooltip, TooltipProps } from '.';
-import { TubeProgress } from '@horus-library/tube-progress';
-import { Typography } from '@horus-library/typography';
+import Tooltip, { TooltipProps } from '@horus-library/tooltip';
+import TubeProgress from '@horus-library/tube-progress';
+import Typography from '@horus-library/typography';
 
 const meta = {
   title: 'Tooltip',

@@ -1,4 +1,4 @@
-import MUITabs, { type TabsProps as MUITabsProps } from '@mui/material/Tabs';
+import { Tabs as MUITabs, type TabsProps as MUITabsProps } from '@mui/material';
 import type { FC } from 'react';
 
 export interface TabsProps extends MUITabsProps {}

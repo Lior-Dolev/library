@@ -1,4 +1,4 @@
-import MUITab, { type TabProps as MUITabProps } from '@mui/material/Tab';
+import { Tab as MUITab, type TabProps as MUITabProps } from '@mui/material';
 import { a11yProps } from './a11y';
 import { type FC, useMemo } from 'react';
 

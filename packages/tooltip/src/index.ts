@@ -1,2 +1,1 @@
-export { default as Tooltip } from './Tooltip';
-export type { TooltipProps } from './Tooltip';
+export { default, type TooltipProps } from './Tooltip';

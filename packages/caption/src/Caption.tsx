@@ -1,4 +1,4 @@
-import { Typography, type TypographyProps } from '@horus-library/typography';
+import Typography, { type TypographyProps } from '@horus-library/typography';
 import type { FC } from 'react';
 
 export interface CaptionProps extends TypographyProps {}

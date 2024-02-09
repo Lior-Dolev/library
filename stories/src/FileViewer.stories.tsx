@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { FileViewer } from '.';
+import FileViewer from '@horus-library/file-viewer';
 
 const meta = {
   title: 'File Viewer',

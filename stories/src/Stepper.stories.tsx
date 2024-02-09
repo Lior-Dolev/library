@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { Stepper, SourceDateStepSubLabel } from '.';
+import Stepper, { SourceDateStepSubLabel } from '@horus-library/stepper';
 
 const meta = {
   title: 'Stepper',

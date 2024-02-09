@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import CaptionDivider from './CaptionDivider';
-import { Children, isValidElement } from 'react';
-import type { FC, ReactNode } from 'react';
+import { Children, type FC, isValidElement, type ReactNode } from 'react';
 
 const flexClass = css`
   display: flex;

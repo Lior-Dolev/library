@@ -1,6 +1,7 @@
-import MUIAccordionSummary, {
+import {
+  AccordionSummary as MUIAccordionSummary,
   type AccordionSummaryProps as MUIAccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
+} from '@mui/material';
 import type { FC, ReactNode } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 

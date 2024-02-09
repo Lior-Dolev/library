@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { Caption, CaptionList } from '.';
+import Caption, { CaptionList } from '@horus-library/caption';
 
 const meta = {
   title: 'Caption List',
