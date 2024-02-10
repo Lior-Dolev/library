@@ -35,16 +35,18 @@
 
      ```jsx
      // stories/src/YourComponent.stories.tsx
-     import type { Meta, Story } from '@storybook/react';
-     import YourComponent from '@horus-library/your-component';
+     import type { Meta, StoryObj } from '@storybook/react';
+     import YourComponent, { type YourComponentProps } from '@horus-library/your-component';
 
      const meta = {
        title: 'Components/YourComponent',
        component: YourComponent,
        tags: ['autodocs'],
-     } as Meta<typeof YourComponent>;
+     } as Meta<YourComponentProps>;
 
      export default meta;
+
+     type Story = StoryObj<typeof meta>;
 
      export const Default: Story = {
        args: {},

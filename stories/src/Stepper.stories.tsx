@@ -1,13 +1,18 @@
-import type { Meta } from '@storybook/react';
-import Stepper, { SourceDateStepSubLabel } from '@horus-library/stepper';
+import type { Meta, StoryObj } from '@storybook/react';
+import Stepper, {
+  SourceDateStepSubLabel,
+  type StepperProps,
+} from '@horus-library/stepper';
 
 const meta = {
   title: 'Components/Stepper',
   component: Stepper,
   tags: ['autodocs'],
-} as Meta<typeof Stepper>;
+} as Meta<StepperProps>;
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const steps = [
   {
@@ -34,6 +39,8 @@ const steps = [
   },
 ];
 
-export const Default = () => {
-  return <Stepper steps={steps} />;
+export const Default: Story = {
+  args: {
+    steps,
+  },
 };

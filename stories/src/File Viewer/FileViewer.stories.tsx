@@ -1,16 +1,26 @@
-import type { Meta } from '@storybook/react';
-import FileViewer from '@horus-library/file-viewer';
+import type { Meta, StoryObj } from '@storybook/react';
+import FileViewer, { type FileViewerProps } from '@horus-library/file-viewer';
 
 const meta = {
   title: 'Components/File Viewer',
   component: FileViewer,
   tags: ['autodocs'],
-} as Meta<typeof FileViewer>;
+} as Meta<FileViewerProps>;
 
 export default meta;
 
-export const Vertical = () => <FileViewer src="./עברית.pdf" height={400} />;
+type Story = StoryObj<typeof meta>;
 
-export const Horizontal = () => (
-  <FileViewer src="./landscape.pdf" height={400} />
-);
+export const Vertical: Story = {
+  args: {
+    src: './עברית.pdf',
+    height: 400,
+  },
+};
+
+export const Horizontal: Story = {
+  args: {
+    src: './landscape.pdf',
+    height: 400,
+  },
+};

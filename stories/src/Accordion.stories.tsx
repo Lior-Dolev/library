@@ -1,7 +1,8 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Accordion, {
   AccordionSummary,
   AccordionDetails,
+  AccordionProps,
 } from '@horus-library/accordion';
 import Typography from '@horus-library/typography';
 import FileViewer from '@horus-library/file-viewer';
@@ -15,7 +16,7 @@ const meta = {
   title: 'Components/Accordion',
   component: Accordion,
   tags: ['autodocs'],
-} as Meta<typeof Accordion>;
+} satisfies Meta<typeof Accordion>;
 
 export default meta;
 
