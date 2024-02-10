@@ -8,8 +8,8 @@ interface PackageJson {
 }
 
 const commonGlobals = {
-  '@emotion/react': 'emReact',
-  '@emotion/styled': 'emStyled',
+  '@emotion/react': 'emotionReact',
+  '@emotion/styled': 'emotionStyled',
   '@mui/material': 'MaterialUI',
   react: 'React',
   'react-dom': 'ReactDOM',
