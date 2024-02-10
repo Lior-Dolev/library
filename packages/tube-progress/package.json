@@ -9,7 +9,7 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
-    "@horus-library/typography": "*"
+    "@horus-library/caption": "*"
   },
   "peerDependencies": {
     "@emotion/react": "11.11.3",

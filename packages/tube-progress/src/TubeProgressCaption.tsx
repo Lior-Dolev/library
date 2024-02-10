@@ -1,17 +1,19 @@
-import { styled } from '@mui/material';
-import Typography from '@horus-library/typography';
+import Caption from '@horus-library/caption';
+import { css } from '@emotion/react';
 import type { FC } from 'react';
 
 interface TubeProgressCaptionProps {
   value: number;
 }
 
-const Caption = styled(Typography)({
+const fixPercentageAlignmentCss = css({
   paddingLeft: '1ch',
 });
 
 const TubeProgressCaption: FC<TubeProgressCaptionProps> = ({
   value,
-}: TubeProgressCaptionProps) => <Caption variant="caption">{value}%</Caption>;
+}: TubeProgressCaptionProps) => (
+  <Caption css={fixPercentageAlignmentCss}>{value}%</Caption>
+);
 
 export default TubeProgressCaption;

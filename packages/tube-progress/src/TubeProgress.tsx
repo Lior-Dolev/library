@@ -1,27 +1,20 @@
-import { forwardRef, type FC } from 'react';
-import { styled, useTheme } from '@mui/material';
+import {
+  forwardRef,
+  HTMLAttributes,
+  DetailedHTMLProps,
+  RefAttributes,
+  ForwardRefExoticComponent,
+} from 'react';
+import { useTheme } from '@mui/material';
+import { css } from '@emotion/react';
 import TubeProgressCaption from './TubeProgressCaption';
-import './TubeProgress.css';
+import TubeParts from './TubeParts';
 
-const TubeProgressWrapper = styled(`div`)({
+const flexAlignedItemsCss = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   width: 'fit-content',
-});
-const TubePart = styled(`span`)({
-  display: 'block',
-  position: 'relative',
-});
-
-const TubeEdge = styled(TubePart)({
-  height: '5%',
-  background:
-    'linear-gradient(90deg, #000 0%, #fff 15%, #eee 20%, #000 40%, #000 90%, #fff 95%, #000 100%)',
-});
-
-const TubeBody = styled(TubePart)({
-  height: '90%',
 });
 
 interface ValuesConfig {
@@ -29,7 +22,8 @@ interface ValuesConfig {
   warningLimit: number;
 }
 
-export interface TubeProgressProps {
+export interface TubeProgressProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /**
    * Hide value text caption
    */
@@ -47,10 +41,9 @@ export interface TubeProgressProps {
   rangesConfig?: ValuesConfig;
 }
 
-const TubeProgress: FC<TubeProgressProps> = forwardRef<
-  HTMLDivElement,
-  TubeProgressProps
->(
+const TubeProgress: ForwardRefExoticComponent<
+  Omit<TubeProgressProps, 'ref'> & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TubeProgressProps>(
   (
     {
       hideCaption = false,
@@ -72,22 +65,10 @@ const TubeProgress: FC<TubeProgressProps> = forwardRef<
           : theme.palette.success.main;
 
     return (
-      <TubeProgressWrapper ref={ref} {...rest}>
+      <div css={flexAlignedItemsCss} ref={ref} {...rest}>
         {!hideCaption && <TubeProgressCaption value={value} />}
-        <div
-          className="bar-chart tube"
-          style={
-            {
-              '--tube-value': `${value}%`,
-              '--tube-color': color,
-            } as any
-          }
-        >
-          <TubeEdge />
-          <TubeBody />
-          <TubeEdge />
-        </div>
-      </TubeProgressWrapper>
+        <TubeParts color={color} edgeHeight={5} value={value} />
+      </div>
     );
   }
 );
