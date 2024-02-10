@@ -1,0 +1,90 @@
+# Contributor Introduction
+
+Welcome to our library!
+
+## Setup
+
+Run these commands from root folder:
+
+```npm
+npm i
+
+npm run build
+
+npm run start
+```
+
+## Monorepo Introduction
+
+This project is built as a monorepo - multiple micro packages that work togther.
+
+Each package of a monorepo is called a **workspace**.
+
+**Monorepo benefits:**
+
+- Each workspace can be built and published independetly
+- Workspaces can install each other locally as their latest version,
+  without the need to publish them first and then install the latest package later
+- `npm` creates a smart `node_modules` folder structure which shares dependencies accross workspaces.
+  For example - if every workspace has `react` dependency - `npm` will install it once.
+- It's much easier to manage all workspaces in one place - keep the same guidelines, examples, etc.
+
+## How it works (Setup explained)
+
+When we run `npm i` in root folder:
+
+- `npm` will install all dependencies as we know
+- `npm` will install all workspaces dependencies
+- `npm` will create a link folder for every workspace - this link folder will point to `workspace/dist` folder,
+  which at the beginning will be empty.
+
+How does `npm` knows what are our workspaces? We defined it in root `package.json` as the following example:
+
+```npm
+"workspaces": [
+    "packages/*",
+    "stories"
+  ]
+```
+
+When we run `npm build` in root folder:
+
+- `npm` will look for `build` command in root `package.json` and will find: `lerna run build`
+- `lerna run build` (a CLI command based on `@lerna/run` package) will run `build` command for every workspace
+
+Alternatively we could've run `npm run build --workspaces` which runs `build` command for every workspace,
+but `npm run` command runs in alphabetic order, whereas `lerna run` command considers the dependency tree,
+which means that if `PackageA` installs `PackageB` in its dependencies then it will know to run `build` for `PackageB` before `PackageA`.
+
+When we run `npm run start` in root folder:
+
+- `npm` will look for `start` command in root `package.json` and will find: `npm run start --workspace @horus-library/stories`
+- `npm run start --workspace @horus-library/stories` will run `npm run start` in `@horus-library/stories` workspace -
+  which will run storybook
+
+## Project Structure
+
+All packages can be found under `packages/*` folder.
+
+All stories will be written separatly in `stories` workspace.
+
+`stories` workspace will install every other workspace - that way our stories will use these components exactly like the user will!
+
+## Developer watch mode
+
+When we run storybook as developers who want to watch our component as we create and modify it -
+we want to see the changes immediately.
+
+The issue with that is that `stories` installs our component as a dependency,
+and it won't see any changes unless we run `npm run build` for our workspace.
+
+To fix that we'll also run our workspace in watch mode:
+
+```npm
+// first terminal window - run storybook in root folder
+npm run start
+
+// second terminal window - run `your-component` in watch mode (in root folder as well)
+npm run watch --workspace @horus-library/your-component
+
+```

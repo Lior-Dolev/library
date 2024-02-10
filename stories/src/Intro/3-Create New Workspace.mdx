@@ -1,0 +1,58 @@
+# Create New Workspace
+
+## New Workspace Setup
+
+1. Create a new folder under `packages` for your workspace
+2. Copy & paste the following files from another workspace:
+
+   - `package.json`
+   - `tsconfig.json`
+   - `vite.config.ts`
+
+3. In your `package.json`:
+
+   - Change the name to fit your workspace, for example: `@horus-library/your-component`
+   - Remove dependencies you don't need
+
+4. Add `src` folder and `index.ts` file inside it
+5. In your `index.ts` file - paste the following mock:
+
+   ```jsx
+   // src/index.ts
+   const mock = () => <div>hello world</div>;
+   export default mock;
+   ```
+
+6. In root folder run the following commands:
+
+   - `npm i` - to create a new link from root `node_modules` to your workspace `dist` folder
+   - `npm run build --workspace @horus-library/your-component` - to build your workspace
+
+7. In `stories` workspace:
+
+   - In `package.json` file - add your workspace as a dependency
+   - Create a new simple story for your component as the following mock:
+
+     ```jsx
+     // stories/src/YourComponent.stories.tsx
+     import type { Meta, Story } from '@storybook/react';
+     import YourComponent from '@horus-library/your-component';
+
+     const meta = {
+       title: 'Components/YourComponent',
+       component: YourComponent,
+       tags: ['autodocs'],
+     } as Meta<typeof YourComponent>;
+
+     export default meta;
+
+     export const Default: Story = {
+       args: {},
+     };
+     ```
+
+8. In root folder - open 2 terminal windows:
+   - first terminal window - run `npm run start` command to run storybook - you should see your new story under Components folder
+   - second retminal window - run `npm run watch --workspace @horus-library/your-component` command to enable you watch your changes in your stories as you develop. (try to change `hello world` to another text to make sure it works)
+
+## Don't forget to read the guidelines before you start writing code!
