@@ -9,9 +9,8 @@ export interface PanelHeaderProps {
   onClose: () => void;
 }
 
-const fluidCss = css({
+const flexCss = css({
   display: 'flex',
-  flex: 1,
   width: '100%',
 });
 
@@ -22,6 +21,7 @@ const paddedContentCss = css({
 
 const baseCss = css({
   direction: 'rtl',
+  flexGrow: 0,
 });
 
 const PanelHeader: FC<PanelHeaderProps> = ({
@@ -34,14 +34,14 @@ const PanelHeader: FC<PanelHeaderProps> = ({
     <Box
       css={[
         baseCss,
-        fluidCss,
+        flexCss,
         css({
           boxShadow: theme.shadows[5],
           backgroundColor: theme.palette.secondary.main,
         }),
       ]}
     >
-      <div css={[fluidCss, paddedContentCss]}>{children}</div>
+      <div css={[flexCss, paddedContentCss]}>{children}</div>
       <CloseButton onClick={onClose} />
     </Box>
   );

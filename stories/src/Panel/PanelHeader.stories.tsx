@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PanelHeader, type PanelHeaderProps } from '@horus-library/panel';
-import TubeProgress from '@horus-library/tube-progress';
 import Caption, { CaptionList } from '@horus-library/caption';
 import TitleIcon from '@mui/icons-material/LocalPizza';
 import Typography from '@horus-library/typography';
@@ -26,69 +25,43 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const rootText = `הזמנה מס 1234`;
-const subText1 = `פלורנטין`;
-const subText2 = `רחוב: 59`;
+const rootText = `מס׳ 1234`;
+const subText1 = `ליאורדו`;
+const subText2 = `בית: א`;
+const subText3 = `סוג: פיצות וסלטים`;
+const status = `בהכנה`;
 
-export const LastTube: Story = {
+export const Default: Story = {
   render: (args) => (
     <PanelHeader {...args}>
       <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
         <Typography css={flexAlign} variant={'h6'} noWrap>
           {rootText}
-          <TitleIcon />
+          <TitleIcon
+            style={{
+              fill: 'mediumpurple',
+              marginRight: '0.3em',
+            }}
+          />
         </Typography>
         <CaptionList>
           <Caption>{subText1}</Caption>
           <Caption>{subText2}</Caption>
         </CaptionList>
         <CaptionList>
-          <Caption>{subText1}</Caption>
-          <Caption>{subText2}</Caption>
-        </CaptionList>
-      </div>
-      <TubeProgress value={80} />
-    </PanelHeader>
-  ),
-};
-
-export const FirstTube: Story = {
-  render: (args) => (
-    <PanelHeader {...args}>
-      <TubeProgress value={80} />
-      <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-        <Typography css={flexAlign} variant={'h6'} noWrap>
-          {rootText}
-          <TitleIcon />
-        </Typography>
-        <CaptionList>
-          <Caption>{subText1}</Caption>
-          <Caption>{subText2}</Caption>
-        </CaptionList>
-        <CaptionList>
-          <Caption>{subText1}</Caption>
-          <Caption>{subText2}</Caption>
-        </CaptionList>
-      </div>
-    </PanelHeader>
-  ),
-};
-
-export const NoTube: Story = {
-  render: (args) => (
-    <PanelHeader {...args}>
-      <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-        <Typography css={flexAlign} variant={'h6'} noWrap>
-          {rootText}
-          <TitleIcon />
-        </Typography>
-        <CaptionList>
-          <Caption>{subText1}</Caption>
-          <Caption>{subText2}</Caption>
-        </CaptionList>
-        <CaptionList>
-          <Caption>{subText1}</Caption>
-          <Caption>{subText2}</Caption>
+          <Caption>{subText3}</Caption>
+          <Caption>
+            <span>סטטוס: </span>
+            <span
+              style={{
+                border: '1px solid orange',
+                padding: '0.2em',
+                borderRadius: '0.3em',
+              }}
+            >
+              {status}
+            </span>
+          </Caption>
         </CaptionList>
       </div>
     </PanelHeader>
