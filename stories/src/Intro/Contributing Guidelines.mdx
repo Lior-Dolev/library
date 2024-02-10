@@ -1,0 +1,54 @@
+# Contributing Guidelines
+
+## Import type
+
+```jsx
+// Good
+import type { FC } from 'react';
+import { type FC, useState } from 'react';
+
+// Bad
+import { FC } from 'react';
+import { FC, useState } from 'react';
+```
+
+Using `import type` allows us to use the type for type-checking purposes
+without including the actual runtime values of the module in the emitted JavaScript code.
+
+It has few benefits:
+
+1. **Code Size:** If you have a large codebase with many modules and you import a lot of functions or classes that you don’t actually use in a specific module, it can lead to a larger compiled JavaScript bundle. This can affect load times and overall performance.
+2. **Tree Shaking:** Some bundlers (like Webpack) can perform tree shaking, which means they can eliminate unused code from the final bundle. If you use `import type`, it explicitly signals to the bundler that you don’t need the imported values, making tree shaking more effective.
+3. **Readability and Maintainability:** Using `import type` can also improve the readability of your code by clearly indicating that you are only interested in the types from the imported module. This can make the code more maintainable and easier to understand for other developers.
+
+## MUI imports:
+
+```jsx
+// Good
+import { Box } from '@mui/material';
+
+// Bad
+import Box from '@mui/material/Box';
+```
+
+When a workspace (library component) is being built - the bundler doesn't recognize `@mui/material/Box` as `@mui/material`
+and then it adds `Box` into bundle (although we want to import it as peer dependency)
+and worse than that - it loses `theme` capabilities by doing that.
+
+## Styling
+
+Our components are mostly based on MUI components.
+Every theme change should be included in Theme package.
+
+## Dependencies
+
+When we add or change dependencies:
+
+{/* prettier-ignore */}
+1. Make sure the package fills all the requirements
+2. Add/update an MDX file to your story that compares between 3 most known libraries
+and why you chose this one.
+Comparison parameters:
+    1. Package size
+    2. Count of weekly downloads
+3. Use fixed version of package - prefer `"react": "18.18.0"` over `"react": "^18.18.0"`
