@@ -71,13 +71,88 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: {
-        method: 'alphabetical',
-        order: ['Intro', 'Components'],
+      /**
+       * Folders order: Intro, Components
+       * In folders order: Docs, stories alphabetic, other docs alphabetic
+       */
+      storySort: (a, b) => {
+        const storyFoldersOrder = ['Intro', 'Components'];
+        if (a.id === b.id) {
+          return 0;
+        }
+
+        const getFoldersByTitle = (value) => {
+          if (!value || typeof value !== 'string' || !value.includes('/')) {
+            return [''];
+          }
+
+          return value.split('/');
+        };
+
+        const [rootFolderA, subFolderA] = getFoldersByTitle(a.title);
+        const [rootFolderB, subFolderB] = getFoldersByTitle(b.title);
+
+        if (!rootFolderA && rootFolderB) {
+          return 1;
+        }
+
+        if (!rootFolderB && rootFolderA) {
+          return -1;
+        }
+
+        if (rootFolderA !== rootFolderB) {
+          const folderAIndex = storyFoldersOrder.indexOf(rootFolderA);
+          const folderBIndex = storyFoldersOrder.indexOf(rootFolderB);
+
+          if (folderAIndex - folderBIndex > 0) {
+            return 1;
+          }
+
+          if (folderBIndex - folderAIndex > 0) {
+            return -1;
+          }
+
+          return rootFolderA.localeCompare(rootFolderB, undefined, {
+            numeric: true,
+          });
+        }
+
+        if (subFolderA !== subFolderB) {
+          return subFolderA.localeCompare(subFolderB, undefined, {
+            numeric: true,
+          });
+        }
+
+        const isDocs = (value) => {
+          return value.type === 'docs';
+        };
+        const isStory = (value) => {
+          return value.type === 'story';
+        };
+        const isRootDocs = (value) => {
+          return isDocs(value) && value.name === 'Docs';
+        };
+
+        if (isRootDocs(a)) {
+          return -1;
+        }
+
+        if (isRootDocs(b)) {
+          return 1;
+        }
+
+        if ((isStory(a) && isStory(b)) || (isDocs(a) && isDocs(b))) {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        }
+
+        if (isStory(a)) {
+          return -1;
+        }
+
+        return 1;
       },
     },
   },
-
   decorators: [withMUITheme],
 };
 
