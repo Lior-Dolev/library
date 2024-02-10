@@ -1,8 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import { getPackagesStoriesPaths } from './storiesUtils';
 
 const config: StorybookConfig = {
-  stories: getPackagesStoriesPaths(),
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

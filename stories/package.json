@@ -5,7 +5,10 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "echo nothing",
+    "build": "npm run build-storybook",
+    "build-storybook": "storybook build",
+    "dev": "npm run start",
+    "start": "npm run storybook",
     "storybook": "storybook dev -p 6006"
   },
   "devDependencies": {
@@ -19,6 +22,17 @@
     "@horus-library/tooltip": "*",
     "@horus-library/tube-progress": "*",
     "@horus-library/typography": "*"
+  },
+  "dependencies": {
+    "@storybook/addon-essentials": "7.6.13",
+    "@storybook/addon-interactions": "7.6.13",
+    "@storybook/addon-links": "7.6.13",
+    "@storybook/addon-onboarding": "1.0.11",
+    "@storybook/blocks": "7.6.13",
+    "@storybook/react": "7.6.13",
+    "@storybook/react-vite": "7.6.13",
+    "@storybook/test": "7.6.1",
+    "storybook": "7.6.13"
   },
   "peerDependencies": {
     "@mui/material": "5.15.6",

@@ -3,13 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "stories"
   ],
   "scripts": {
     "build": "lerna run build",
+    "clean": "lerna clean",
+    "dev": "npm run dev --workspace @horus-library/stories",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "start": "npm run start --workspace @horus-library/stories"
   },
   "dependencies": {
     "@emotion/react": "11.11.3",
@@ -20,28 +22,20 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@lerna/clean": "6.6.2",
     "@lerna/run": "6.6.2",
-    "@storybook/addon-essentials": "^7.6.10",
-    "@storybook/addon-interactions": "^7.6.10",
-    "@storybook/addon-links": "^7.6.10",
-    "@storybook/addon-onboarding": "^1.0.11",
-    "@storybook/blocks": "^7.6.10",
-    "@storybook/react": "^7.6.10",
-    "@storybook/react-vite": "^7.6.10",
-    "@storybook/test": "^7.6.10",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "eslint-plugin-storybook": "^0.6.15",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "@vitejs/plugin-react": "4.2.1",
+    "eslint": "8.56.0",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.5",
+    "eslint-plugin-storybook": "0.6.15",
     "prettier": "3.2.4",
-    "storybook": "^7.6.10",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8",
+    "typescript": "5.3.3",
+    "vite": "5.0.12",
     "vite-plugin-dts": "3.7.2"
   }
 }

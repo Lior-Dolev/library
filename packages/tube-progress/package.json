@@ -5,8 +5,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && vite build",
-    "storybook": "storybook dev -p 6003"
+    "build": "tsc && vite build"
   },
   "devDependencies": {
     "@horus-library/typography": "*"
