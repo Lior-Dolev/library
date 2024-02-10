@@ -13,7 +13,7 @@ import Typography from '@horus-library/typography';
 import { TextField } from '@mui/material';
 
 const meta = {
-  title: 'Tabs',
+  title: 'Components/Tabs',
   component: Tabs,
   tags: ['autodocs'],
 } as Meta<typeof Tabs>;

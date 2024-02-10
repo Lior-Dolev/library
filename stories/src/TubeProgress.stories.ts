@@ -3,7 +3,7 @@ import TubeProgress, { TubeProgressProps } from '@horus-library/tube-progress';
 import '@horus-library/tube-progress/dist/style.css';
 
 const meta = {
-  title: 'Tube Progress',
+  title: 'Components/Tube Progress',
   component: TubeProgress,
   parameters: {
     layout: 'centered',

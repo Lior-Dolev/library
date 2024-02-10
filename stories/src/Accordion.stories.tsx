@@ -12,7 +12,7 @@ import type { FC, ReactNode } from 'react';
 import Grid from '@mui/material/Grid';
 
 const meta = {
-  title: 'Accordion',
+  title: 'Components/Accordion',
   component: Accordion,
   tags: ['autodocs'],
 } as Meta<typeof Accordion>;

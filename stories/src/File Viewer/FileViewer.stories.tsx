@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import FileViewer from '@horus-library/file-viewer';
 
 const meta = {
-  title: 'File Viewer',
+  title: 'Components/File Viewer',
   component: FileViewer,
   tags: ['autodocs'],
 } as Meta<typeof FileViewer>;

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import Typography, { type TypographyProps } from '@horus-library/typography';
 
 const meta = {
-  title: 'Typography',
+  title: 'Components/Typography',
   component: Typography,
   tags: ['autodocs'],
 } as Meta<typeof Typography>;

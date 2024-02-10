@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import Caption, { CaptionList } from '@horus-library/caption';
 
 const meta = {
-  title: 'Caption List',
+  title: 'Components/Caption List',
   component: CaptionList,
   tags: ['autodocs'],
 } as Meta<typeof CaptionList>;

@@ -4,7 +4,7 @@ import TubeProgress from '@horus-library/tube-progress';
 import Typography from '@horus-library/typography';
 
 const meta = {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
   args: {
