@@ -7,6 +7,32 @@ interface PackageJson {
   peerDependencies?: object;
 }
 
+const horusLibraryPrefix = '@horus-library/';
+
+const formatWorkspaceUMDName = (value: string): string => {
+  const workspaceDashedName = value.split(horusLibraryPrefix)[1];
+
+  let prevDash = true;
+
+  const camelCaseWorkspaceName = [...workspaceDashedName]
+    .map((char) => {
+      if (prevDash) {
+        prevDash = false;
+        return char.toUpperCase();
+      }
+
+      if (char === '-') {
+        prevDash = true;
+        return '';
+      }
+
+      return char;
+    })
+    .join('');
+
+  return `HorusLibrary${camelCaseWorkspaceName}`;
+};
+
 const commonGlobals = {
   '@emotion/react': 'emotionReact',
   '@emotion/styled': 'emotionStyled',
@@ -25,11 +51,11 @@ const getGlobals = (external: string[]) => {
   }
 
   const existingGloabls: string[] = external.filter(
-    (value) => !!commonGlobals[value]
+    (value) => !!commonGlobals[value] || value.startsWith(horusLibraryPrefix)
   );
   const existingGloablsEntries = existingGloabls.map((value) => [
     value,
-    commonGlobals[value],
+    commonGlobals[value] ?? formatWorkspaceUMDName(value),
   ]);
 
   return Object.fromEntries(existingGloablsEntries);
@@ -42,6 +68,7 @@ export const commonUserConfig = (
   const { name, peerDependencies } = packageJson;
   const external = getExternal(peerDependencies);
   const globals = getGlobals(external);
+  const umdName = formatWorkspaceUMDName(name);
 
   return {
     plugins: [
@@ -67,6 +94,7 @@ export const commonUserConfig = (
         output: {
           globals,
           exports: 'named', // Disable warning for named and default exports together
+          name: umdName,
         },
       },
     },
