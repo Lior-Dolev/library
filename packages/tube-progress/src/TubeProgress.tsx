@@ -1,9 +1,9 @@
 import {
   forwardRef,
-  HTMLAttributes,
-  DetailedHTMLProps,
-  RefAttributes,
-  ForwardRefExoticComponent,
+  type HTMLAttributes,
+  type DetailedHTMLProps,
+  type RefAttributes,
+  type ForwardRefExoticComponent,
 } from 'react';
 import { useTheme } from '@mui/material';
 import { css } from '@emotion/react';
