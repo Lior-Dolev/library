@@ -17,7 +17,6 @@ export interface IChatHeaderProps {
   isLoading?: boolean;
 }
 
-
 const ChatHeader: FC<IChatHeaderProps> = ({
   children,
   id,
@@ -30,5 +29,7 @@ const ChatHeader: FC<IChatHeaderProps> = ({
       {title}
     </div>
   </div>;
+
+ChatHeader.displayName = 'ChatHeader'
 
 export default ChatHeader;

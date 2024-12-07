@@ -42,4 +42,6 @@ const ChatFooter: ForwardRefExoticComponent<IChatFooterPropsWithRef> = forwardRe
   </div>
 ))
 
+ChatFooter.displayName = 'ChatFooter'
+
 export default ChatFooter;
