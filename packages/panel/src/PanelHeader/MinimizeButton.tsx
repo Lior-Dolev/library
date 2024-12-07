@@ -1,12 +1,12 @@
 import type { IconButtonProps } from '@mui/material';
-import CloseIcon from '@mui/icons-material/CloseSharp';
+import MinimizeIcon from '@mui/icons-material/Remove';
 import type { FC } from 'react';
 import BaseActionButton from './BaseActionButton'
 
-const CloseButton: FC<IconButtonProps> = (props: IconButtonProps) => (
+const MinimizeButton: FC<IconButtonProps> = (props: IconButtonProps) => (
   <BaseActionButton {...props}>
-    <CloseIcon />
+    <MinimizeIcon />
   </BaseActionButton>
 );
 
-export default CloseButton;
+export default MinimizeButton;

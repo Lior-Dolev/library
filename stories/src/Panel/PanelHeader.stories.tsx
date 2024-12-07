@@ -35,7 +35,11 @@ export const Default: Story = {
   render: (args) => (
     <PanelHeader {...args}>
       <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-        <Typography css={flexAlign} variant={'h6'} noWrap>
+        <Typography
+          css={flexAlign}
+          variant={'h6'}
+          noWrap
+        >
           {rootText}
           <TitleIcon
             style={{
@@ -65,5 +69,98 @@ export const Default: Story = {
         </CaptionList>
       </div>
     </PanelHeader>
+  ),
+};
+
+export const WithMinimize: Story = {
+  render: (args) => (
+    <PanelHeader
+      {...args}
+      onMinimize={() => {}}
+    >
+      <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+        <Typography
+          css={flexAlign}
+          variant={'h6'}
+          noWrap
+        >
+          {rootText}
+          <TitleIcon
+            style={{
+              fill: 'mediumpurple',
+              marginRight: '0.3em',
+            }}
+          />
+        </Typography>
+        <CaptionList>
+          <Caption>{subText1}</Caption>
+          <Caption>{subText2}</Caption>
+        </CaptionList>
+        <CaptionList>
+          <Caption>{subText3}</Caption>
+          <Caption>
+            <span>סטטוס: </span>
+            <span
+              style={{
+                border: '1px solid orange',
+                padding: '0.2em',
+                borderRadius: '0.3em',
+              }}
+            >
+              {status}
+            </span>
+          </Caption>
+        </CaptionList>
+      </div>
+    </PanelHeader>
+  ),
+};
+
+export const LoadingPanelHeader: Story = {
+  args: {
+    isLoading: true,
+  },
+  render: (args) => (
+    <div style={{ width: '300px' }}>
+      <PanelHeader
+        {...args}
+        onMinimize={() => {}}
+      >
+        <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+          <Typography
+            css={flexAlign}
+            variant={'h6'}
+            noWrap
+          >
+            {rootText}
+            <TitleIcon
+              style={{
+                fill: 'mediumpurple',
+                marginRight: '0.3em',
+              }}
+            />
+          </Typography>
+          <CaptionList>
+            <Caption>{subText1}</Caption>
+            <Caption>{subText2}</Caption>
+          </CaptionList>
+          <CaptionList>
+            <Caption>{subText3}</Caption>
+            <Caption>
+              <span>סטטוס: </span>
+              <span
+                style={{
+                  border: '1px solid orange',
+                  padding: '0.2em',
+                  borderRadius: '0.3em',
+                }}
+              >
+                {status}
+              </span>
+            </Caption>
+          </CaptionList>
+        </div>
+      </PanelHeader>
+    </div>
   ),
 };

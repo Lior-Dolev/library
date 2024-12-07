@@ -14,6 +14,7 @@
   "devDependencies": {
     "@horus-library/accordion": "*",
     "@horus-library/caption": "*",
+    "@horus-library/chat": "*",
     "@horus-library/file-viewer": "*",
     "@horus-library/panel": "*",
     "@horus-library/stepper": "*",
@@ -21,7 +22,8 @@
     "@horus-library/theme": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*"
+    "@horus-library/typography": "*",
+    "esbuild-plugin-react-virtualized": "1.0.4"
   },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.13",
