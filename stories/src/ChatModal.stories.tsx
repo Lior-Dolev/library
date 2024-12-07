@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage } from '@horus-library/chat';
+import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
@@ -142,4 +142,43 @@ export const ChatDefault = () => {
       </Chat>
     </div>
   )
+}
+
+const author84 = {
+  username: `ליאור דולב`,
+  unitName: `חט׳ חי״ר 84`,
+  userId: `m7542344`
+}
+
+
+const author162 = {
+  username: `גל בן אריה`,
+  unitName: `אוגדה 162`,
+  userId: `m7572345`
+}
+
+const createUnitTooltip = ({ userId, unitName, username }: { username: string; unitName: string; userId: string }) => `${unitName}, ${username}, ${userId}`
+
+export const ChatMessageAvatarNumbers = () => {
+  return (<div style={{ display: 'flex', gap: '1em' }} >
+    <ChatMessageAvatar tooltipContent={createUnitTooltip(author84)} >84</ChatMessageAvatar>
+    <ChatMessageAvatar tooltipContent={createUnitTooltip(author162)} >162</ChatMessageAvatar>
+  </div>)
+}
+
+const iafText = `ח״א`
+
+const authorIAF = {
+  username: `גל בן אריה`,
+  unitName: `ח״א`,
+  userId: `m7572345`
+}
+
+export const ChatMessageAvatarText = () => {
+  return <ChatMessageAvatar tooltipContent={createUnitTooltip(authorIAF)}>{iafText}</ChatMessageAvatar>
+}
+
+const botText = `הבוט של הורוס אש`
+export const ChatMessageAvatarLogo = () => {
+  return <ChatMessageAvatar tooltipContent={botText} src={'./horus logo.jpg'} />
 }
