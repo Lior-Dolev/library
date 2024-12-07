@@ -1,16 +1,29 @@
 import type { FC, ReactNode } from "react";
-import ChatMessageContent from './ChatMessageContent';
+import { css } from "@emotion/react";
 
 export interface IChatMessageProps {
   children: ReactNode;
   direction: 'ltr' | 'rtl'
 }
 
+
+const chatMessageGridCss = css({
+  height: '100%',
+  display: 'grid',
+  gridTemplateAreas: `
+      "avatar content"
+      "metadata metadata"
+      `,
+  gridTemplateColumns: `auto 1fr`,
+  gridTemplateRows: `1fr auto`,
+  columnGap: '0.5rem'
+})
+
 const ChatMessage: FC<IChatMessageProps> = ({ children, direction }) => {
   return (<div style={{
     direction,
-  }} >
-    <ChatMessageContent>{children}</ChatMessageContent>
+  }} css={chatMessageGridCss} >
+    {children}
   </div>)
 }
 

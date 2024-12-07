@@ -11,6 +11,9 @@ const ChatMessageContent: FC<IChatMessageContentProps> = ({ children }) => <div 
   borderRadius: '10px',
   padding: '0.625rem 1.25rem',
   maxWidth: '70%',
+  gridArea: 'content'
 }} >{typeof children === 'string' ? <Typography style={{ whiteSpace: 'pre-wrap' }} >{children}</Typography> : children} </div>
+
+ChatMessageContent.displayName = 'ChatMessageContent'
 
 export default ChatMessageContent;

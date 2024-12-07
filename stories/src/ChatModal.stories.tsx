@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar } from '@horus-library/chat';
+import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
@@ -82,34 +82,61 @@ export const ChatRightMessage = () => {
   )
 }
 
-const messages: { text: string, isMine: boolean }[] = [
+const author84 = {
+  username: `ליאור דולב`,
+  unitName: `חט׳ חי״ר 84`,
+  userId: `m7542344`
+}
+
+
+const author162 = {
+  username: `גל בן אריה`,
+  unitName: `אוגדה 162`,
+  userId: `m7572345`
+}
+
+const createUnitTooltip = ({ userId, unitName, username }: { username: string; unitName: string; userId: string }) => `${unitName}, ${username}, ${userId}`
+
+const messages: { text: string, isMine: boolean, avatarText: string, avatarTooltip: string }[] = [
   {
     text: `הייתי היום בבריכה והלכתי אחרי זה לים.
 אח״כ התקלחתי והתיישבתי על הספה ואז הדלקתי את הטלויזיה.
 לא היה מה לראות בנטפליקס.`,
-    isMine: false
+    isMine: false,
+    avatarText: '162',
+    avatarTooltip: createUnitTooltip(author162)
   },
   {
     text: `די נו, לא באמת...`,
-    isMine: true
+    isMine: true,
+    avatarText: '84',
+    avatarTooltip: createUnitTooltip(author84)
   },
   {
     text: `לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולהע צופעט למרקוח איבן איף, ברומץ כלרשט מיחוצים. קלאצי לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. קוואזי במר מודוף.`,
-    isMine: false
+    isMine: false,
+    avatarText: '162',
+    avatarTooltip: createUnitTooltip(author162)
   },
   {
     text: `קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
     isMine: false,
+    avatarText: '162',
+    avatarTooltip: createUnitTooltip(author162)
   },
   {
     text: `קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.`,
     isMine: true,
+    avatarText: '84',
+    avatarTooltip: createUnitTooltip(author84)
   },
   {
     text: `הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.
 
 קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף מוסן מנת. להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
     isMine: true,
+    avatarText: '84',
+    avatarTooltip: createUnitTooltip(author84)
   }
 ]
 
@@ -125,7 +152,6 @@ export const ChatDefault = () => {
     chatFooterRef.current?.clearTextbox(); // Clear the textbox
   };
 
-
   return (
     <div style={{ height: '500px' }} >
       <Chat>
@@ -134,7 +160,12 @@ export const ChatDefault = () => {
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
         <ChatMain>
-          {messages.map(({ text, isMine }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >{text}</ChatMessage>)}
+          {messages.map(({ text, isMine, avatarText, avatarTooltip }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
+            <ChatMessageAvatar tooltipContent={avatarTooltip} ><Typography>{avatarText}</Typography></ChatMessageAvatar>
+            <ChatMessageContent>
+              {text}
+            </ChatMessageContent>
+          </ChatMessage>)}
         </ChatMain>
         <ChatFooter isLoading={isLoading} onSubmit={onSubmit} ref={chatFooterRef}>
           <Button variant={'contained'} >{text}</Button>
@@ -143,21 +174,6 @@ export const ChatDefault = () => {
     </div>
   )
 }
-
-const author84 = {
-  username: `ליאור דולב`,
-  unitName: `חט׳ חי״ר 84`,
-  userId: `m7542344`
-}
-
-
-const author162 = {
-  username: `גל בן אריה`,
-  unitName: `אוגדה 162`,
-  userId: `m7572345`
-}
-
-const createUnitTooltip = ({ userId, unitName, username }: { username: string; unitName: string; userId: string }) => `${unitName}, ${username}, ${userId}`
 
 export const ChatMessageAvatarNumbers = () => {
   return (<div style={{ display: 'flex', gap: '1em' }} >
