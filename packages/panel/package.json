@@ -9,13 +9,6 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
-    "@horus-library/accordion": "*",
-    "@horus-library/caption": "*",
-    "@horus-library/file-viewer": "*",
-    "@horus-library/stepper": "*",
-    "@horus-library/tabs": "*",
-    "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*"
   },
   "peerDependencies": {
     "@mui/material": "5.15.6",
