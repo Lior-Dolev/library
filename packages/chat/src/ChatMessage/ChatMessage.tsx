@@ -6,13 +6,12 @@ export interface IChatMessageProps {
   direction: 'ltr' | 'rtl'
 }
 
-
 const chatMessageGridCss = css({
   height: '100%',
   display: 'grid',
   gridTemplateAreas: `
       "avatar content"
-      "metadata metadata"
+      "none metadata"
       `,
   gridTemplateColumns: `auto 1fr`,
   gridTemplateRows: `1fr auto`,

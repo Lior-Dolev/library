@@ -9,6 +9,8 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
+    "@horus-library/caption": "*",
+    "@horus-library/formatter": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/typography": "*"
   },

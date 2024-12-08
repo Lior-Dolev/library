@@ -27,7 +27,6 @@ const chatGrid2RowsCss = css({
 const Chat: FC<IChatProps> = ({ children, readOnly }) => {
   validateChildren(children);
 
-  // Handle `readOnly` by conditionally hiding the footer
   const filteredChildren =
     readOnly && children.length === 3
       ? children.slice(0, 2)

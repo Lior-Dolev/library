@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent } from '@horus-library/chat';
+import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageMatadata, ChatMessageDateTime } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
@@ -97,48 +97,61 @@ const author162 = {
 
 const createUnitTooltip = ({ userId, unitName, username }: { username: string; unitName: string; userId: string }) => `${unitName}, ${username}, ${userId}`
 
-const messages: { text: string, isMine: boolean, avatarText: string, avatarTooltip: string }[] = [
-  {
-    text: `הייתי היום בבריכה והלכתי אחרי זה לים.
+const messages: {
+  text: string,
+  isMine: boolean,
+  avatarText: string,
+  avatarTooltip: string,
+  timestamp: number
+}[] = [
+    {
+      text: `הייתי היום בבריכה והלכתי אחרי זה לים.
 אח״כ התקלחתי והתיישבתי על הספה ואז הדלקתי את הטלויזיה.
 לא היה מה לראות בנטפליקס.`,
-    isMine: false,
-    avatarText: '162',
-    avatarTooltip: createUnitTooltip(author162)
-  },
-  {
-    text: `די נו, לא באמת...`,
-    isMine: true,
-    avatarText: '84',
-    avatarTooltip: createUnitTooltip(author84)
-  },
-  {
-    text: `לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולהע צופעט למרקוח איבן איף, ברומץ כלרשט מיחוצים. קלאצי לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. קוואזי במר מודוף.`,
-    isMine: false,
-    avatarText: '162',
-    avatarTooltip: createUnitTooltip(author162)
-  },
-  {
-    text: `קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
-    isMine: false,
-    avatarText: '162',
-    avatarTooltip: createUnitTooltip(author162)
-  },
-  {
-    text: `קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.`,
-    isMine: true,
-    avatarText: '84',
-    avatarTooltip: createUnitTooltip(author84)
-  },
-  {
-    text: `הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.
+      isMine: false,
+      avatarText: '162',
+      avatarTooltip: createUnitTooltip(author162),
+      timestamp: new Date('2024-12-06T05:27:36.391Z').getTime()
+
+    },
+    {
+      text: `די נו, לא באמת...`,
+      isMine: true,
+      avatarText: '84',
+      avatarTooltip: createUnitTooltip(author84),
+      timestamp: new Date('2024-12-07T05:29:08.105Z').getTime()
+    },
+    {
+      text: `לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולהע צופעט למרקוח איבן איף, ברומץ כלרשט מיחוצים. קלאצי לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. קוואזי במר מודוף.`,
+      isMine: false,
+      avatarText: '162',
+      avatarTooltip: createUnitTooltip(author162),
+      timestamp: new Date('2024-12-07T05:29:35.695Z').getTime()
+    },
+    {
+      text: `קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
+      isMine: false,
+      avatarText: '162',
+      avatarTooltip: createUnitTooltip(author162),
+      timestamp: new Date('2024-12-08T07:36:54.591Z').getTime()
+    },
+    {
+      text: `קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.`,
+      isMine: true,
+      avatarText: '84',
+      avatarTooltip: createUnitTooltip(author84),
+      timestamp: new Date('2024-12-08T08:23:26.075Z').getTime()
+    },
+    {
+      text: `הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.
 
 קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף מוסן מנת. להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
-    isMine: true,
-    avatarText: '84',
-    avatarTooltip: createUnitTooltip(author84)
-  }
-]
+      isMine: true,
+      avatarText: '84',
+      avatarTooltip: createUnitTooltip(author84),
+      timestamp: new Date().getTime()
+    }
+  ]
 
 export const ChatDefault = () => {
   const chatFooterRef = useRef<IChatFooterFormRef>(null);
@@ -160,11 +173,14 @@ export const ChatDefault = () => {
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
         <ChatMain>
-          {messages.map(({ text, isMine, avatarText, avatarTooltip }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
+          {messages.map(({ text, isMine, avatarText, avatarTooltip, timestamp }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
             <ChatMessageAvatar tooltipContent={avatarTooltip} ><Typography>{avatarText}</Typography></ChatMessageAvatar>
             <ChatMessageContent>
               {text}
             </ChatMessageContent>
+            <ChatMessageMatadata>
+              <ChatMessageDateTime timestamp={timestamp} />
+            </ChatMessageMatadata>
           </ChatMessage>)}
         </ChatMain>
         <ChatFooter isLoading={isLoading} onSubmit={onSubmit} ref={chatFooterRef}>
