@@ -5,7 +5,7 @@ export interface IChatMessageMatadataProps {
 }
 
 const ChatMessageMatadata: FC<IChatMessageMatadataProps> = ({ children }) => {
-  return (<div style={{ gridArea: 'metadata' }} >{children}</div>)
+  return (<div style={{ gridArea: 'metadata', display: 'flex', alignItems: 'center', gap: '0.5em' }} >{children}</div>)
 }
 
 ChatMessageMatadata.displayName = 'ChatMessageMatadata';

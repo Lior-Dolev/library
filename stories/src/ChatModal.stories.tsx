@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageMatadata, ChatMessageDateTime } from '@horus-library/chat';
+import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageMatadata, ChatMessageDateTime, SeenByUnits, ChatMessageSeenByUnits } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
@@ -102,7 +102,9 @@ const messages: {
   isMine: boolean,
   avatarText: string,
   avatarTooltip: string,
-  timestamp: number
+  timestamp: number,
+  hasSeenByAll: boolean;
+  seenByUsers: SeenByUnits
 }[] = [
     {
       text: `הייתי היום בבריכה והלכתי אחרי זה לים.
@@ -111,36 +113,78 @@ const messages: {
       isMine: false,
       avatarText: '162',
       avatarTooltip: createUnitTooltip(author162),
-      timestamp: new Date('2024-12-06T05:27:36.391Z').getTime()
-
+      timestamp: new Date('2024-12-06T05:27:36.391Z').getTime(),
+      hasSeenByAll: true,
+      seenByUsers: {
+        [author162.unitName]: [
+          { userId: author162.userId, username: author162.username, timestamp: new Date('2024-12-06T05:27:36.391Z').getTime() },
+          { userId: 'o123741', username: 'ניצן אמיר', timestamp: new Date('2024-12-06T06:30:36.391Z').getTime() },
+        ],
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date('2024-12-07T05:29:08.105Z').getTime() },
+        ]
+      }
     },
     {
       text: `די נו, לא באמת...`,
       isMine: true,
       avatarText: '84',
       avatarTooltip: createUnitTooltip(author84),
-      timestamp: new Date('2024-12-07T05:29:08.105Z').getTime()
+      timestamp: new Date('2024-12-07T05:29:08.105Z').getTime(),
+      hasSeenByAll: true,
+      seenByUsers: {
+        [author162.unitName]: [
+          { userId: author162.userId, username: author162.username, timestamp: new Date('2024-12-07T05:29:35.695Z').getTime() },
+        ],
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date('2024-12-07T05:29:08.105Z').getTime() },
+        ]
+      }
     },
     {
       text: `לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולהע צופעט למרקוח איבן איף, ברומץ כלרשט מיחוצים. קלאצי לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. קוואזי במר מודוף.`,
       isMine: false,
       avatarText: '162',
       avatarTooltip: createUnitTooltip(author162),
-      timestamp: new Date('2024-12-07T05:29:35.695Z').getTime()
+      timestamp: new Date('2024-12-07T05:29:35.695Z').getTime(),
+      hasSeenByAll: true,
+      seenByUsers: {
+        [author162.unitName]: [
+          { userId: author162.userId, username: author162.username, timestamp: new Date('2024-12-07T05:29:35.695Z').getTime() },
+        ],
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date('2024-12-08T08:23:26.075Z').getTime() },
+        ]
+      }
     },
     {
       text: `קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
       isMine: false,
       avatarText: '162',
       avatarTooltip: createUnitTooltip(author162),
-      timestamp: new Date('2024-12-08T07:36:54.591Z').getTime()
+      timestamp: new Date('2024-12-08T07:36:54.591Z').getTime(),
+      hasSeenByAll: true,
+      seenByUsers: {
+        [author162.unitName]: [
+          { userId: author162.userId, username: author162.username, timestamp: new Date('2024-12-08T07:36:54.591Z').getTime() },
+        ],
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date('2024-12-08T08:23:26.075Z').getTime() },
+        ]
+      }
     },
     {
       text: `קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.`,
       isMine: true,
       avatarText: '84',
       avatarTooltip: createUnitTooltip(author84),
-      timestamp: new Date('2024-12-08T08:23:26.075Z').getTime()
+      timestamp: new Date('2024-12-08T08:23:26.075Z').getTime(),
+      hasSeenByAll: false,
+      seenByUsers: {
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date('2024-12-08T08:23:26.075Z').getTime() },
+        ]
+      }
     },
     {
       text: `הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.
@@ -149,7 +193,13 @@ const messages: {
       isMine: true,
       avatarText: '84',
       avatarTooltip: createUnitTooltip(author84),
-      timestamp: new Date().getTime()
+      timestamp: new Date().getTime(),
+      hasSeenByAll: false,
+      seenByUsers: {
+        [author84.unitName]: [
+          { userId: author84.userId, username: author84.username, timestamp: new Date().getTime() },
+        ]
+      }
     }
   ]
 
@@ -173,12 +223,13 @@ export const ChatDefault = () => {
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
         <ChatMain>
-          {messages.map(({ text, isMine, avatarText, avatarTooltip, timestamp }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
+          {messages.map(({ avatarText, avatarTooltip, hasSeenByAll, isMine, seenByUsers, text, timestamp }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
             <ChatMessageAvatar tooltipContent={avatarTooltip} ><Typography>{avatarText}</Typography></ChatMessageAvatar>
             <ChatMessageContent>
               {text}
             </ChatMessageContent>
             <ChatMessageMatadata>
+              <ChatMessageSeenByUnits hasSeenByAll={hasSeenByAll} seenByUsers={seenByUsers} />
               <ChatMessageDateTime timestamp={timestamp} />
             </ChatMessageMatadata>
           </ChatMessage>)}
