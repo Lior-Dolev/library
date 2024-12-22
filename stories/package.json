@@ -21,7 +21,8 @@
     "@horus-library/theme": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*"
+    "@horus-library/typography": "*",
+    "@horus-library/search":"*"
   },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.13",
