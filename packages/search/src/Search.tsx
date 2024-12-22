@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 type GroupHeader = {
   type: string;
@@ -32,6 +32,8 @@ const Search: FC<ISearchProps> = (
     //   onItemClick,
   }: ISearchProps
 ) => {
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
+
   return <div> SEARCH</div>;
 };
 
