@@ -1,20 +1,23 @@
 import { debounce, InputAdornment, TextField } from '@mui/material';
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState, type KeyboardEvent } from 'react';
 import SearchIcon from './SearchIcon';
 import { css } from '@emotion/react';
 interface ISearchBoxProps {
+  onClick: () => void;
   onSearch: (text: string) => void | Promise<void>;
   isSearching: boolean;
   searchDebounceMS?: number;
   placeholder?: string;
   onEscape: () => void;
+  onKeyDownCapture?: (event: KeyboardEvent<HTMLDivElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLDivElement>) => void;
 }
 
 const inputBaseCss = css({
-  width: '10em',
+  width: '20em',
   transition: 'width 0.3s ease-in-out', // Smooth transition
   ':focus-within': {
-    width: '20em', // Target the focus-within state of the container
+    width: '40em', // Target the focus-within state of the container
   },
   '& .MuiInputBase-input': {
     textAlign: 'right', // Align text inside the input
@@ -26,6 +29,9 @@ const SearchBox: FC<ISearchBoxProps> = ({
   searchDebounceMS = 300,
   placeholder = 'חיפוש',
   onSearch,
+  onClick,
+  onKeyDown,
+  onKeyDownCapture,
 }) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -47,6 +53,7 @@ const SearchBox: FC<ISearchBoxProps> = ({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    onKeyDown?.(event);
     if (event.key === 'Escape') {
       setSearchInput('');
       onEscape();
@@ -57,11 +64,13 @@ const SearchBox: FC<ISearchBoxProps> = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
       <TextField
+        onClick={onClick}
         css={inputBaseCss}
         inputRef={inputRef}
         value={searchInput}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onKeyDownCapture={onKeyDownCapture}
         placeholder={placeholder}
         variant="outlined"
         InputProps={{

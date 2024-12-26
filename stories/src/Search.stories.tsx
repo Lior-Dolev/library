@@ -6,8 +6,10 @@ import {
   SearchResultsItem,
   SearchResultsItemSkeleton,
   SearchTypeFilters,
+  GroupHeader,
+  ResultItem,
 } from '@horus-library/search';
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import SnowshoeingIcon from '@mui/icons-material/Snowshoeing';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
@@ -46,6 +48,77 @@ export const Default = () => {
   );
 };
 
+type SearchResultItem = ResultItem & {
+  name: string;
+  icon: ReactNode;
+  description?: string;
+};
+
+export const fullSearchComponent = () => {
+  const groupHeaders: GroupHeader[] = [
+    { primaryText: 'בגדים', type: 'clothes' },
+    { primaryText: 'משחקים', type: 'games' },
+  ];
+
+  const resultItems: ResultItem[] = [
+    {
+      id: '1',
+      type: 'clothes',
+      displayText: '123',
+      name: 'חולצה 123',
+      icon: <FitnessCenterIcon />,
+    },
+    {
+      id: '2',
+      name: 'מכנסיים',
+      displayText: 'q12',
+      type: 'clothes',
+      icon: <FitnessCenterIcon />,
+    },
+    {
+      id: '3',
+      name: 'jaja',
+      type: 'games',
+      displayText: 'asas',
+      icon: <LocalLaundryServiceIcon />,
+      description: 'אחלה משחק מומלץ לתכניצנים',
+    },
+  ];
+
+  const onSearch = (text: string, type?: string) => {
+    console.log('text searched: ', text);
+  };
+
+  const renderItem = ({
+    id,
+    name,
+    type,
+    icon,
+    description,
+  }: ResultItem): JSX.Element => {
+    return (
+      <SearchResultsItem
+        key={id}
+        title={name as string}
+        icon={icon as ReactNode}
+        titleCaption={description as string | undefined}
+      />
+    );
+  };
+
+  return (
+    <Search
+      onSearch={onSearch}
+      groupHeaders={groupHeaders}
+      resultItems={resultItems}
+      renderItem={renderItem}
+      onItemClick={function (item: { type: string; id: string }): void {
+        throw new Error('Function not implemented.');
+      }}
+    />
+  );
+};
+
 export const SearchBoxStory = () => {
   return (
     <SearchBox
@@ -57,6 +130,9 @@ export const SearchBoxStory = () => {
         console.log('escaping');
       }}
       searchDebounceMS={1000}
+      onClick={() => {
+        console.log('click');
+      }}
     />
   );
 };
