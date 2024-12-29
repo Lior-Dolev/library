@@ -10,7 +10,6 @@ import {
   ResultItem,
 } from '@horus-library/search';
 import { ReactNode, useCallback, useState } from 'react';
-import SnowshoeingIcon from '@mui/icons-material/Snowshoeing';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 
@@ -48,16 +47,17 @@ export const Default = () => {
   );
 };
 
-type SearchResultItem = ResultItem & {
-  name: string;
-  icon: ReactNode;
-  description?: string;
-};
+// type SearchResultItem = ResultItem & {
+//   name: string;
+//   icon: ReactNode;
+//   description?: string;
+// };
 
-export const fullSearchComponent = () => {
+export const FullSearchComponent = () => {
   const groupHeaders: GroupHeader[] = [
     { primaryText: 'בגדים', type: 'clothes' },
     { primaryText: 'משחקים', type: 'games' },
+    { primaryText: 'משחקsים', type: 'gsames' },
   ];
 
   const resultItems: ResultItem[] = [
@@ -87,12 +87,17 @@ export const fullSearchComponent = () => {
 
   const onSearch = (text: string, type?: string) => {
     console.log('text searched: ', text);
+    console.log('type searched: ', type);
+  };
+
+  const onSelect = (value: unknown) => {
+    console.log('value: ', value);
   };
 
   const renderItem = ({
     id,
     name,
-    type,
+    // type,
     icon,
     description,
   }: ResultItem): JSX.Element => {
@@ -102,6 +107,11 @@ export const fullSearchComponent = () => {
         title={name as string}
         icon={icon as ReactNode}
         titleCaption={description as string | undefined}
+        selected={false}
+        onSelect={onSelect}
+        index={0}
+        style={{}}
+        data={undefined}
       />
     );
   };
@@ -112,9 +122,7 @@ export const fullSearchComponent = () => {
       groupHeaders={groupHeaders}
       resultItems={resultItems}
       renderItem={renderItem}
-      onItemClick={function (item: { type: string; id: string }): void {
-        throw new Error('Function not implemented.');
-      }}
+      onItemClick={onSelect}
     />
   );
 };
@@ -147,59 +155,59 @@ export const SearchTitles = () => {
   );
 };
 
-export const resultItemSkeleton = () => {
+export const ResultItemSkeleton = () => {
   return <SearchResultsItemSkeleton />;
 };
 
-export const resultItem = () => {
-  return (
-    <>
-      <SearchResultsItem
-        key={'shoes'}
-        title={'אולסטאר'}
-        titleCaption="אחלה נעל"
-        icon={<SnowshoeingIcon />}
-      />
-      <SearchResultsItem
-        key={'shoes'}
-        title={'אדידס 1234'}
-        //   titleCaption="אחלה נעל"
-        icon={<SnowshoeingIcon />}
-      />
-    </>
-  );
-};
+// export const resultItem = () => {
+//   return (
+//     <>
+//       <SearchResultsItem
+//         key={'shoes'}
+//         title={'אולסטאר'}
+//         titleCaption="אחלה נעל"
+//         icon={<SnowshoeingIcon />}
+//       />
+//       <SearchResultsItem
+//         key={'shoes'}
+//         title={'אדידס 1234'}
+//         //   titleCaption="אחלה נעל"
+//         icon={<SnowshoeingIcon />}
+//       />
+//     </>
+//   );
+// };
 
-export const a = () => {
-  return (
-    <div>
-      <SearchResultGroupTitle
-        primaryText={'נעליים'}
-        captionText="תחפשו דגם ספציפי על ידי הזנה של 4 תווים לפחות..."
-      />
-      <SearchResultsItem
-        key={'adidas'}
-        title={'אדידס'}
-        icon={<FitnessCenterIcon />}
-      />
-      <SearchResultsItem
-        key={'nike'}
-        title={'נייקי בייקי'}
-        icon={<FitnessCenterIcon />}
-        titleCaption=" הנעל הטובה והמוכרת מבית נייקי בייקי"
-      />
+// export const a = () => {
+//   return (
+//     <div>
+//       <SearchResultGroupTitle
+//         primaryText={'נעליים'}
+//         captionText="תחפשו דגם ספציפי על ידי הזנה של 4 תווים לפחות..."
+//       />
+//       <SearchResultsItem
+//         key={'adidas'}
+//         title={'אדידס'}
+//         icon={<FitnessCenterIcon />}
+//       />
+//       <SearchResultsItem
+//         key={'nike'}
+//         title={'נייקי בייקי'}
+//         icon={<FitnessCenterIcon />}
+//         titleCaption=" הנעל הטובה והמוכרת מבית נייקי בייקי"
+//       />
 
-      <SearchResultGroupTitle primaryText={'מכנסיים'} count={2} />
-      <SearchResultsItem
-        key={'shorts'}
-        title={'שורט'}
-        icon={<LocalLaundryServiceIcon />}
-      />
-      <SearchResultsItem
-        key={'taaitz'}
-        title={'טייץ'}
-        icon={<LocalLaundryServiceIcon />}
-      />
-    </div>
-  );
-};
+//       <SearchResultGroupTitle primaryText={'מכנסיים'} count={2} />
+//       <SearchResultsItem
+//         key={'shorts'}
+//         title={'שורט'}
+//         icon={<LocalLaundryServiceIcon />}
+//       />
+//       <SearchResultsItem
+//         key={'taaitz'}
+//         title={'טייץ'}
+//         icon={<LocalLaundryServiceIcon />}
+//       />
+//     </div>
+//   );
+// };

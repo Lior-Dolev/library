@@ -17,14 +17,14 @@ const selectedTypeCss = css({
   },
 });
 const baseCss = css({
-  width: '10em',
-  height: '3em',
+  width: '120px',
+  height: '50px',
   borderRadius: 10,
   fontSize: 15,
   display: 'flex',
   flexDirection: 'row-reverse',
-  alignItems: 'center', // Ensure vertical alignment
-  justifyContent: 'center', // Center content
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({

@@ -9,37 +9,43 @@ interface ISerachTypeFiltersProps {
   onSelect: (type: string) => void;
 }
 
+const divCss = css({ display: 'flex', flexDirection: 'row-reverse' });
+
 const searchTypeFiltersCss = css({
   display: 'flex',
   flexDirection: 'row-reverse',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
   gap: '10px',
+  padding: '5px',
 });
+
+const title = 'סוג:';
+
 const SearchTypeFilters: FC<ISerachTypeFiltersProps> = ({
   values,
   selected,
   onSelect,
 }) => {
-  const title = 'סוג:';
-
   return (
-    <div css={searchTypeFiltersCss}>
+    <div css={divCss}>
       <Typography>{title}</Typography>
-      <SearchTypeFilterButton
-        type={'all'}
-        label={'הכל'}
-        onSelectTypeFilter={onSelect}
-        isSelected={'all' === selected}
-      ></SearchTypeFilterButton>
-      {values.map(({ type, label }) => (
+      <div css={searchTypeFiltersCss}>
         <SearchTypeFilterButton
-          type={type}
-          label={label}
+          type={'all'}
+          label={'הכל'}
           onSelectTypeFilter={onSelect}
-          isSelected={type === selected}
+          isSelected={'all' === selected}
         ></SearchTypeFilterButton>
-      ))}
+        {values.map(({ type, label }) => (
+          <SearchTypeFilterButton
+            type={type}
+            label={label}
+            onSelectTypeFilter={onSelect}
+            isSelected={type === selected}
+          ></SearchTypeFilterButton>
+        ))}
+      </div>
     </div>
   );
 };

@@ -14,10 +14,10 @@ interface ISearchBoxProps {
 }
 
 const inputBaseCss = css({
-  width: '20em',
+  width: '300px',
   transition: 'width 0.3s ease-in-out', // Smooth transition
   ':focus-within': {
-    width: '40em', // Target the focus-within state of the container
+    width: '500px', // Target the focus-within state of the container
   },
   '& .MuiInputBase-input': {
     textAlign: 'right', // Align text inside the input

@@ -43,7 +43,7 @@ const Search: FC<ISearchProps> = ({
   onItemClick,
 }: ISearchProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<FixedSizeList<any>>(null);
+  const listRef = useRef<FixedSizeList<unknown[]>>(null);
   const [isListOpen, setIsListOpen] = useState<boolean>(false);
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>(
     defaultSelectedTypeFilter
@@ -99,7 +99,7 @@ const Search: FC<ISearchProps> = ({
       setSearchText(trimmedValue);
       onSearchProp(trimmedValue, selectedTypeFilter);
     },
-    [searchText, onSearchProp]
+    [searchText, onSearchProp, selectedTypeFilter]
   );
 
   const openList = (): void => {

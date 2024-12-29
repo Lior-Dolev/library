@@ -3,6 +3,7 @@ import { Skeleton } from '@mui/material';
 import { FC } from 'react';
 
 interface ISearchResultsItemSkeletonProps {}
+
 const skeletonResultItemSkeletonCss = css({
   display: 'flex',
   flexDirection: 'row-reverse',
@@ -15,7 +16,8 @@ const textSkeletonsCss = css({
   flexDirection: 'column',
   alignItems: 'end',
 });
-const SearchResultsItemSkeleton: FC<ISearchResultsItemSkeletonProps> = ({}) => {
+
+const SearchResultsItemSkeleton: FC<ISearchResultsItemSkeletonProps> = () => {
   return (
     <div css={skeletonResultItemSkeletonCss}>
       <Skeleton variant="circular" width={40} height={40} />

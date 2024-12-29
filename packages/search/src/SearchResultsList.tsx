@@ -33,7 +33,7 @@ const SearchResultsList: ForwardRefExoticComponent<
               captionText={captionText}
               key={type}
             />
-            {groupedByTypeLists[type].map(renderItem)}
+            {groupedByTypeLists[type]?.map(renderItem)}
           </>
         ))}
       </List>

@@ -1,5 +1,5 @@
+import { css } from '@emotion/react';
 import { Box } from '@mui/material';
-import groupBy from 'lodash/groupBy';
 import {
   forwardRef,
   ForwardRefExoticComponent,
@@ -20,19 +20,27 @@ export interface ISearchResultsDropdownProps {
   onItemClick: (item: ResultItem) => void;
 }
 
+const dropdownCss = css({
+  width: '500px',
+  hieght: '20vh',
+  overflowY: 'auto',
+  margin: 0,
+  padding: '2px',
+});
+
 const SearchResultsDropdown: ForwardRefExoticComponent<
-  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<any[]>>
-> = forwardRef<FixedSizeList<any[]>, ISearchResultsDropdownProps>(
+  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<unknown[]>>
+> = forwardRef<FixedSizeList<unknown[]>, ISearchResultsDropdownProps>(
   (
     {
       groupHeaders,
-      onItemClick,
+      // onItemClick,
       onTypeFilterClick,
       renderItem,
       resultItems,
       selectedTypeFilter,
-    }: ISearchResultsDropdownProps,
-    ref
+    }: ISearchResultsDropdownProps
+    // ref
   ) => {
     const groupHeadersToShow = useMemo(
       () =>
@@ -42,25 +50,13 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
       [selectedTypeFilter, groupHeaders]
     );
 
-    const resultItemsGroupedByType = useMemo(
-      () => groupBy(resultItems, 'type'),
-      [resultItems]
-    );
+    // const resultItemsGroupedByType = useMemo(
+    //   () => groupBy(resultItems, 'type'),
+    //   [resultItems]
+    // );
 
     return (
-      <Box
-        // ref={listRef}
-        sx={{
-          width: '40em',
-          // backgroundColor: '#fff',
-          // border: '1px solid #e0e0e0',
-          // borderRadius: '8px',
-          // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-          // padding: '16px',
-          // overflowY: 'auto',
-          // maxHeight: '50vh',
-        }}
-      >
+      <Box css={dropdownCss}>
         {/* Type Filters */}
         <SearchTypeFilters
           values={groupHeaders.map(({ primaryText, type }) => ({
@@ -81,61 +77,5 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
     );
   }
 );
-// ({
-//  ({ groupHeaders,
-//   resultItems,
-//   selectedTypeFilter,
-//   onTypeFilterClick,
-//   renderItem,
-//   onItemClick,}:SearchResultsDropdownProps,ref)
-// }) => {
-// //   const listRef = useRef<HTMLDivElement>(null);
-
-//   const groupHeadersToShow = useMemo(
-//     () =>
-//       selectedTypeFilter === 'all'
-//         ? groupHeaders
-//         : groupHeaders.filter((header) => header.type === selectedTypeFilter),
-//     [selectedTypeFilter, groupHeaders]
-//   );
-
-//   const resultItemsGroupedByType = useMemo(
-//     () => groupBy(resultItems, 'type'),
-//     [resultItems]
-//   );
-
-//   return (
-//     <Box
-//       ref={listRef}
-//       sx={{
-//         width: '40em',
-//         // backgroundColor: '#fff',
-//         // border: '1px solid #e0e0e0',
-//         // borderRadius: '8px',
-//         // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-//         // padding: '16px',
-//         // overflowY: 'auto',
-//         // maxHeight: '50vh',
-//       }}
-//     >
-//       {/* Type Filters */}
-//       <SearchTypeFilters
-//         values={groupHeaders.map(({ primaryText, type }) => ({
-//           label: primaryText,
-//           type,
-//         }))}
-//         selected={selectedTypeFilter}
-//         onSelect={onTypeFilterClick}
-//       />
-
-//       {/* Results List */}
-//       <SearchResultsList
-//         groupHeaders={groupHeadersToShow}
-//         resultItems={resultItems}
-//         renderItem={renderItem}
-//       />
-//     </Box>
-//   );
-// };
 
 export default SearchResultsDropdown;
