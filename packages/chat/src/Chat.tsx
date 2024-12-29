@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Children, isValidElement, type FC, type ReactNode } from "react";
+import { ChatComponentName } from "./componentNames";
 
 export interface IChatProps {
   /**
@@ -55,31 +56,31 @@ function validateChildren(children: ReactNode[]) {
 
   if (childArray.length < 2 || childArray.length > 3) {
     console.warn(
-      `Chat component expects 2 or 3 children: ChatHeader, ChatMain, and optionally ChatFooter. Received ${childArray.length} children.`
+      `Chat component expects 2 or 3 children: ${ChatComponentName.header}, ${ChatComponentName.main}, and optionally ${ChatComponentName.footer}. Received ${childArray.length} children.`
     );
     return false;
   }
 
-  if (!hasDisplayName(childArray[0], "ChatHeader")) {
+  if (!hasDisplayName(childArray[0], ChatComponentName.header)) {
     console.warn(
-      `The first child of Chat must be a ChatHeader component.`
+      `The first child of Chat must be a ${ChatComponentName.header} component.`
     );
     return false;
   }
 
-  if (!hasDisplayName(childArray[1], "ChatMain")) {
+  if (!hasDisplayName(childArray[1], ChatComponentName.main)) {
     console.warn(
-      `The second child of Chat must be a ChatMain component.`
+      `The second child of Chat must be a ${ChatComponentName.main} component.`
     );
     return false;
   }
 
   if (
     childArray.length === 3 &&
-    !hasDisplayName(childArray[2], "ChatFooter")
+    !hasDisplayName(childArray[2], ChatComponentName.footer)
   ) {
     console.warn(
-      `The third child of Chat must be a ChatFooter component.`
+      `The third child of Chat must be a ${ChatComponentName.footer} component.`
     );
     return false;
   }

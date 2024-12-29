@@ -1,6 +1,7 @@
 import { forwardRef, type ForwardRefExoticComponent, type ReactNode, type RefAttributes } from "react";
 import ChatFooterForm, { type IChatFooterFormRef } from "./ChatFooterForm";
 import { css } from "@emotion/react";
+import { ChatComponentName } from "../componentNames";
 
 export interface IChatFooterProps {
   /* actions like "approve" */
@@ -42,6 +43,6 @@ const ChatFooter: ForwardRefExoticComponent<IChatFooterPropsWithRef> = forwardRe
   </div>
 ))
 
-ChatFooter.displayName = 'ChatFooter'
+ChatFooter.displayName = ChatComponentName.footer
 
 export default ChatFooter;

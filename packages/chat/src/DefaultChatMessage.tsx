@@ -1,4 +1,4 @@
-import { FC, forwardRef, ForwardRefExoticComponent, Key, ReactEventHandler, RefAttributes, type CSSProperties, type ReactNode } from "react";
+import { type FC, forwardRef, type ForwardRefExoticComponent, type Key, type ReactEventHandler, type RefAttributes, type CSSProperties, type ReactNode } from "react";
 import ChatMessage, {
   ChatMessageAvatar,
   ChatMessageContent,

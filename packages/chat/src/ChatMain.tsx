@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import type { FC, ReactNode } from "react";
 import { AutoSizer, List, ListRowRenderer } from "react-virtualized";
 import { virtualizedChatCache } from "./virtualizedChatCache";
+import { ChatComponentName } from "./componentNames";
 
 export interface IChatMainProps {
   isLoading?: boolean;
@@ -29,7 +30,7 @@ const BaseChatMain: FC<IBaseChatMainProps> = ({
   <div css={fullHeightCss}>{children}</div>
 )
 
-BaseChatMain.displayName = 'ChatMain'
+BaseChatMain.displayName = ChatComponentName.main
 
 const VirtualizedChatMain: FC<IChatMainProps> = ({ messagesCount, rowRenderer }) => (
   <BaseChatMain>

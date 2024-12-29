@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from "react";
 import Typography from '@horus-library/typography';
+import { ChatComponentName } from "../componentNames";
 
 export interface IChatMessageContentProps {
   children: ReactNode;
@@ -14,6 +15,6 @@ const ChatMessageContent: FC<IChatMessageContentProps> = ({ children }) => <div 
   gridArea: 'content'
 }} >{typeof children === 'string' ? <Typography style={{ whiteSpace: 'pre-wrap' }} >{children}</Typography> : children} </div>
 
-ChatMessageContent.displayName = 'ChatMessageContent'
+ChatMessageContent.displayName = ChatComponentName.messageContent
 
 export default ChatMessageContent;

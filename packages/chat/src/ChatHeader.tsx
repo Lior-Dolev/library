@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from 'react';
+import { ChatComponentName } from './componentNames';
 
 export interface IChatHeaderProps {
   /**
@@ -30,6 +31,6 @@ const ChatHeader: FC<IChatHeaderProps> = ({
     </div>
   </div>;
 
-ChatHeader.displayName = 'ChatHeader'
+ChatHeader.displayName = ChatComponentName.header
 
 export default ChatHeader;
