@@ -1,4 +1,4 @@
-import { forwardRef, ForwardRefExoticComponent, ReactEventHandler, RefAttributes, type CSSProperties, type ReactNode } from "react";
+import { FC, forwardRef, ForwardRefExoticComponent, Key, ReactEventHandler, RefAttributes, type CSSProperties, type ReactNode } from "react";
 import ChatMessage, {
   ChatMessageAvatar,
   ChatMessageContent,
@@ -9,27 +9,32 @@ import ChatMessage, {
   type IChatMessageSeenByUnitsProps
 } from "./ChatMessage";
 import Typography from "@horus-library/typography";
+import { CellMeasurer, ListRowProps } from "react-virtualized";
+import { virtualizedChatCache } from "./virtualizedChatCache";
 
-export interface IDefaultChatMessageProps extends IChatMessageSeenByUnitsProps {
+interface IBaseDefaultChatMessageProps extends IChatMessageSeenByUnitsProps {
   avatarText: string;
   avatarTooltip: IChatMessageAvatarProps['tooltipContent'];
   children: ReactNode;
   isMine: boolean;
+  messsageId: Key;
   onLoad?: ReactEventHandler<HTMLDivElement>;
   style?: CSSProperties;
   timestamp: number;
 }
 
-const DefaultChatMessage: ForwardRefExoticComponent<IDefaultChatMessageProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, IDefaultChatMessageProps>(({ avatarText,
+const BaseDefaultChatMessage: ForwardRefExoticComponent<IBaseDefaultChatMessageProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, IBaseDefaultChatMessageProps>(({
+  avatarText,
   avatarTooltip,
   children,
   hasSeenByAll,
   isMine,
+  messsageId,
   onLoad,
   seenByUsers,
   style,
   timestamp }) => {
-  return (<ChatMessage direction={isMine ? 'rtl' : 'ltr'} onLoad={onLoad} style={style} >
+  return (<ChatMessage direction={isMine ? 'rtl' : 'ltr'} key={messsageId} onLoad={onLoad} style={style} >
     <ChatMessageAvatar tooltipContent={avatarTooltip} >
       <Typography>{avatarText}</Typography>
     </ChatMessageAvatar>
@@ -43,4 +48,47 @@ const DefaultChatMessage: ForwardRefExoticComponent<IDefaultChatMessageProps & R
   </ChatMessage>)
 })
 
-export default DefaultChatMessage;
+export interface IVirtualizedDefaultChatMessageProps extends Omit<IBaseDefaultChatMessageProps, 'onLoad' | 'style'>, Omit<ListRowProps, 'columnIndex'> {
+}
+
+const VirtualizedDefaultChatMessage: FC<IVirtualizedDefaultChatMessageProps> = ({
+  avatarText,
+  avatarTooltip,
+  children,
+  hasSeenByAll,
+  index,
+  isMine,
+  key,
+  messsageId,
+  parent,
+  seenByUsers,
+  style,
+  timestamp
+}) => (
+  <CellMeasurer
+    cache={virtualizedChatCache}
+    columnIndex={0}
+    key={key}
+    parent={parent}
+    rowIndex={index}
+  >
+    {({ measure, registerChild }) => (
+      <BaseDefaultChatMessage
+        style={style}
+        ref={registerChild}
+        onLoad={measure}
+        avatarText={avatarText}
+        avatarTooltip={avatarTooltip}
+        hasSeenByAll={hasSeenByAll}
+        isMine={isMine}
+        messsageId={messsageId}
+        seenByUsers={seenByUsers}
+        timestamp={timestamp}
+      >
+        {children}
+      </BaseDefaultChatMessage>
+    )}
+  </CellMeasurer>
+)
+
+export default VirtualizedDefaultChatMessage;

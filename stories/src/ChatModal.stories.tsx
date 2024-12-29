@@ -4,7 +4,7 @@ import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
 import { useRef, useState } from 'react';
-import { AutoSizer, CellMeasurer, CellMeasurerCache, List, type ListRowRenderer } from 'react-virtualized';
+import { type ListRowRenderer } from 'react-virtualized';
 
 const meta = {
   title: 'Components/Chat',
@@ -211,38 +211,28 @@ const messages: {
     }
   ]
 
-const cache = new CellMeasurerCache({
-  defaultHeight: 50,
-  fixedWidth: true
-});
-
-const rowRenderer: ListRowRenderer = ({ index, key, parent, style }) => {
+const rowRenderer: ListRowRenderer = ({ index, isScrolling, isVisible, key, parent, style }) => {
   const { avatarText, avatarTooltip, hasSeenByAll, isMine, id, seenByUsers, text, timestamp } = messages[index];
 
   return (
-    <CellMeasurer
-      cache={cache}
-      columnIndex={0}
+    <DefaultChatMessage
+      style={style}
+      avatarText={avatarText}
+      avatarTooltip={avatarTooltip}
+      hasSeenByAll={hasSeenByAll}
+      index={index}
+      isMine={isMine}
+      isScrolling={isScrolling}
+      isVisible={isVisible}
       key={key}
+      messsageId={id}
       parent={parent}
-      rowIndex={index}
+      seenByUsers={seenByUsers}
+      timestamp={timestamp}
     >
-      {({ measure, registerChild }) => (
-        <DefaultChatMessage
-          style={style}
-          ref={registerChild}
-          onLoad={measure}
-          avatarText={avatarText}
-          avatarTooltip={avatarTooltip}
-          hasSeenByAll={hasSeenByAll}
-          isMine={isMine}
-          key={id}
-          seenByUsers={seenByUsers}
-          timestamp={timestamp}
-        >{text}</DefaultChatMessage>
-      )}
-    </CellMeasurer>
-  );
+      {text}
+    </DefaultChatMessage>
+  )
 }
 
 export const ChatDefault = () => {
@@ -264,19 +254,10 @@ export const ChatDefault = () => {
           <IconButton><LocationSearching /></IconButton>
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
-        <ChatMain>
-          <AutoSizer>
-            {({ width, height }) => (
-              <List
-                deferredMeasurementCache={cache}
-                rowHeight={cache.rowHeight}
-                rowRenderer={rowRenderer}
-                height={height}
-                rowCount={messages.length}
-                width={width}
-              />)}
-          </AutoSizer>
-        </ChatMain>
+        <ChatMain
+          messagesCount={messages.length}
+          rowRenderer={rowRenderer}
+        />
         <ChatFooter isLoading={isLoading} onSubmit={onSubmit} ref={chatFooterRef}>
           <Button variant={'contained'} >{text}</Button>
         </ChatFooter>
