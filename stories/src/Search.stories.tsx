@@ -47,17 +47,10 @@ export const Default = () => {
   );
 };
 
-// type SearchResultItem = ResultItem & {
-//   name: string;
-//   icon: ReactNode;
-//   description?: string;
-// };
-
 export const FullSearchComponent = () => {
   const groupHeaders: GroupHeader[] = [
     { primaryText: 'בגדים', type: 'clothes' },
     { primaryText: 'משחקים', type: 'games' },
-    { primaryText: 'משחקsים', type: 'gsames' },
   ];
 
   const resultItems: ResultItem[] = [
@@ -65,19 +58,19 @@ export const FullSearchComponent = () => {
       id: '1',
       type: 'clothes',
       displayText: '123',
-      name: 'חולצה 123',
+      // name: 'חולצה 123',
       icon: <FitnessCenterIcon />,
     },
     {
       id: '2',
-      name: 'מכנסיים',
+      // name: 'מכנסיים',
       displayText: 'q12',
       type: 'clothes',
       icon: <FitnessCenterIcon />,
     },
     {
       id: '3',
-      name: 'jaja',
+      // name: 'jaja',
       type: 'games',
       displayText: 'asas',
       icon: <LocalLaundryServiceIcon />,
@@ -96,15 +89,16 @@ export const FullSearchComponent = () => {
 
   const renderItem = ({
     id,
-    name,
+    // name,
     // type,
     icon,
     description,
+    displayText,
   }: ResultItem): JSX.Element => {
     return (
       <SearchResultsItem
         key={id}
-        title={name as string}
+        title={displayText}
         icon={icon as ReactNode}
         titleCaption={description as string | undefined}
         selected={false}

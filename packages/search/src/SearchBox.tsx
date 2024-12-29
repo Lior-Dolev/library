@@ -1,5 +1,12 @@
 import { debounce, InputAdornment, TextField } from '@mui/material';
-import { FC, useCallback, useRef, useState, type KeyboardEvent } from 'react';
+import {
+  FC,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent,
+} from 'react';
 import SearchIcon from './SearchIcon';
 import { css } from '@emotion/react';
 interface ISearchBoxProps {
@@ -26,7 +33,7 @@ const inputBaseCss = css({
 const SearchBox: FC<ISearchBoxProps> = ({
   onEscape,
   isSearching,
-  searchDebounceMS = 300,
+  searchDebounceMS = 500,
   placeholder = 'חיפוש',
   onSearch,
   onClick,
@@ -36,21 +43,23 @@ const SearchBox: FC<ISearchBoxProps> = ({
   const [searchInput, setSearchInput] = useState<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const debouncedSearch = useCallback(
-    debounce((value: string) => {
-      const trimmedValue = value.trim();
-      if (trimmedValue) {
-        onSearch(trimmedValue);
-      }
-    }, searchDebounceMS),
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        onSearch(value);
+      }, searchDebounceMS),
     [onSearch, searchDebounceMS]
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchInput(value);
-    debouncedSearch(value);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+
+      setSearchInput(value);
+      debouncedSearch(value);
+    },
+    [debouncedSearch]
+  );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     onKeyDown?.(event);

@@ -2,6 +2,7 @@ import {
   FC,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -73,8 +74,6 @@ const Search: FC<ISearchProps> = ({
 
   const onKeyDownCapture = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
-      console.log(event);
-
       if (event.key === 'ArrowUp') {
         onMoveUp();
         return;
@@ -91,7 +90,6 @@ const Search: FC<ISearchProps> = ({
   const onSearch = useCallback(
     (value: string) => {
       if (typeof value !== 'string') return;
-
       const trimmedValue = value.trim();
 
       if (searchText === trimmedValue) return;
@@ -101,6 +99,12 @@ const Search: FC<ISearchProps> = ({
     },
     [searchText, onSearchProp, selectedTypeFilter]
   );
+
+  const filteredOptions = useMemo(() => {
+    return (
+      resultItems.filter((item) => item.displayText.includes(searchText)) ?? []
+    );
+  }, [resultItems, searchText]);
 
   const openList = (): void => {
     setIsListOpen(true);
@@ -145,7 +149,7 @@ const Search: FC<ISearchProps> = ({
           onItemClick={onItemClick}
           onTypeFilterClick={onTypeFilterClick}
           renderItem={renderItem}
-          resultItems={resultItems}
+          resultItems={filteredOptions}
           selectedTypeFilter={selectedTypeFilter}
           ref={listRef}
         />
