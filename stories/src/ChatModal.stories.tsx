@@ -1,9 +1,10 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageMatadata, ChatMessageDateTime, SeenByUnits, ChatMessageSeenByUnits } from '@horus-library/chat';
+import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, SeenByUnits, DefaultChatMessage } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
 import { useRef, useState } from 'react';
+import { AutoSizer, CellMeasurer, CellMeasurerCache, List, type ListRowRenderer } from 'react-virtualized';
 
 const meta = {
   title: 'Components/Chat',
@@ -98,6 +99,7 @@ const author162 = {
 const createUnitTooltip = ({ userId, unitName, username }: { username: string; unitName: string; userId: string }) => `${unitName}, ${username}, ${userId}`
 
 const messages: {
+  id: string;
   text: string,
   isMine: boolean,
   avatarText: string,
@@ -107,6 +109,7 @@ const messages: {
   seenByUsers: SeenByUnits
 }[] = [
     {
+      id: '1',
       text: `הייתי היום בבריכה והלכתי אחרי זה לים.
 אח״כ התקלחתי והתיישבתי על הספה ואז הדלקתי את הטלויזיה.
 לא היה מה לראות בנטפליקס.`,
@@ -126,6 +129,7 @@ const messages: {
       }
     },
     {
+      id: '2',
       text: `די נו, לא באמת...`,
       isMine: true,
       avatarText: '84',
@@ -142,6 +146,7 @@ const messages: {
       }
     },
     {
+      id: '3',
       text: `לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולהע צופעט למרקוח איבן איף, ברומץ כלרשט מיחוצים. קלאצי לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. קוואזי במר מודוף.`,
       isMine: false,
       avatarText: '162',
@@ -158,6 +163,7 @@ const messages: {
       }
     },
     {
+      id: '4',
       text: `קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
       isMine: false,
       avatarText: '162',
@@ -174,6 +180,7 @@ const messages: {
       }
     },
     {
+      id: '5',
       text: `קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.`,
       isMine: true,
       avatarText: '84',
@@ -187,6 +194,7 @@ const messages: {
       }
     },
     {
+      id: '6',
       text: `הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחו נמרגי שהכים תוק, הדש שנרא התידם הכייר וק.
 
 קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף מוסן מנת. להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי.`,
@@ -202,6 +210,40 @@ const messages: {
       }
     }
   ]
+
+const cache = new CellMeasurerCache({
+  defaultHeight: 50,
+  fixedWidth: true
+});
+
+const rowRenderer: ListRowRenderer = ({ index, key, parent, style }) => {
+  const { avatarText, avatarTooltip, hasSeenByAll, isMine, id, seenByUsers, text, timestamp } = messages[index];
+
+  return (
+    <CellMeasurer
+      cache={cache}
+      columnIndex={0}
+      key={key}
+      parent={parent}
+      rowIndex={index}
+    >
+      {({ measure, registerChild }) => (
+        <DefaultChatMessage
+          style={style}
+          ref={registerChild}
+          onLoad={measure}
+          avatarText={avatarText}
+          avatarTooltip={avatarTooltip}
+          hasSeenByAll={hasSeenByAll}
+          isMine={isMine}
+          key={id}
+          seenByUsers={seenByUsers}
+          timestamp={timestamp}
+        >{text}</DefaultChatMessage>
+      )}
+    </CellMeasurer>
+  );
+}
 
 export const ChatDefault = () => {
   const chatFooterRef = useRef<IChatFooterFormRef>(null);
@@ -223,16 +265,17 @@ export const ChatDefault = () => {
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
         <ChatMain>
-          {messages.map(({ avatarText, avatarTooltip, hasSeenByAll, isMine, seenByUsers, text, timestamp }) => <ChatMessage direction={isMine ? 'rtl' : 'ltr'} >
-            <ChatMessageAvatar tooltipContent={avatarTooltip} ><Typography>{avatarText}</Typography></ChatMessageAvatar>
-            <ChatMessageContent>
-              {text}
-            </ChatMessageContent>
-            <ChatMessageMatadata>
-              <ChatMessageSeenByUnits hasSeenByAll={hasSeenByAll} seenByUsers={seenByUsers} />
-              <ChatMessageDateTime timestamp={timestamp} />
-            </ChatMessageMatadata>
-          </ChatMessage>)}
+          <AutoSizer>
+            {({ width, height }) => (
+              <List
+                deferredMeasurementCache={cache}
+                rowHeight={cache.rowHeight}
+                rowRenderer={rowRenderer}
+                height={height}
+                rowCount={messages.length}
+                width={width}
+              />)}
+          </AutoSizer>
         </ChatMain>
         <ChatFooter isLoading={isLoading} onSubmit={onSubmit} ref={chatFooterRef}>
           <Button variant={'contained'} >{text}</Button>

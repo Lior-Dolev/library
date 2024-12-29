@@ -14,6 +14,7 @@
   "devDependencies": {
     "@horus-library/accordion": "*",
     "@horus-library/caption": "*",
+    "@horus-library/chat": "*",
     "@horus-library/file-viewer": "*",
     "@horus-library/panel": "*",
     "@horus-library/stepper": "*",
@@ -21,7 +22,9 @@
     "@horus-library/theme": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*"
+    "@horus-library/typography": "*",
+    "@types/react-virtualized": "9.22.0",
+    "esbuild-plugin-react-virtualized": "1.0.4"
   },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.13",
@@ -32,7 +35,8 @@
     "@storybook/react": "7.6.13",
     "@storybook/react-vite": "7.6.13",
     "@storybook/test": "7.6.1",
-    "storybook": "7.6.13"
+    "storybook": "7.6.13",
+    "react-virtualized": "9.22.5"
   },
   "peerDependencies": {
     "@mui/material": "5.15.6",
