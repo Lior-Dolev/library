@@ -3,7 +3,7 @@ import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatM
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type ListRowRenderer } from 'react-virtualized';
 
 const meta = {
@@ -238,6 +238,16 @@ const rowRenderer: ListRowRenderer = ({ index, isScrolling, isVisible, key, pare
 export const ChatDefault = () => {
   const chatFooterRef = useRef<IChatFooterFormRef>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [firstUnseenIndex, setFirstUnseenIndex] = useState<number | undefined>(undefined);
+  const hasSetIndexRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasSetIndexRef.current && messages.length > 0) {
+      const firstUnseenMessageIndex = messages.findIndex(message => !message.hasSeenByAll);
+      setFirstUnseenIndex(firstUnseenMessageIndex !== -1 ? firstUnseenMessageIndex : 0);
+      hasSetIndexRef.current = true;  // Mark as set
+    }
+  }, [messages]);
 
   const onSubmit = async (text: string) => {
     console.log("Message received:", text);
@@ -255,6 +265,7 @@ export const ChatDefault = () => {
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>
         <ChatMain
+          firstUnseenMessage={firstUnseenIndex}
           messagesCount={messages.length}
           rowRenderer={rowRenderer}
         />
