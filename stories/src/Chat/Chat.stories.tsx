@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ChatModal, ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, ChatMessage, ChatMessageAvatar, SeenByUnits, DefaultChatMessage } from '@horus-library/chat';
+import { ChatHeader, ChatFooter, type IChatFooterFormRef, Chat, ChatMain, SeenByUnits, DefaultChatMessage } from '@horus-library/chat';
 import Typography from '@horus-library/typography'
 import { Button, IconButton } from '@mui/material';
 import { LocationSearching, AirplanemodeActive } from '@mui/icons-material'
@@ -8,80 +8,16 @@ import { type ListRowRenderer } from 'react-virtualized';
 
 const meta = {
   title: 'Components/Chat',
-  component: ChatModal,
+  component: Chat,
   tags: ['autodocs'],
-} as Meta<typeof ChatModal>;
+} as Meta<typeof Chat>;
 
 export default meta;
 
 const titleText = `שם כלשהו לאובייקט`
 const title = <Typography>{titleText}</Typography>
-export const Default = () => (
-  <div style={{ width: '100px' }} >
-    <ChatHeader id={'123'} title={title}>
-      <IconButton><LocationSearching /></IconButton>
-      <IconButton><AirplanemodeActive /></IconButton>
-    </ChatHeader>
-  </div>
-);
 
 const text = `אישור האובייקט`
-
-
-export const ChatFooterNoActions = () => (
-  <div>
-    <ChatFooter onSubmit={(text) => console.log(text)} />
-  </div>
-)
-
-export const ChatFooterMultipleActions = () => (
-  <div style={{ width: '200px' }}>
-    <ChatFooter onSubmit={(text) => console.log(text)}>
-      <Button variant={'contained'} >{text}</Button>
-      <Button variant={'contained'} >{text}</Button>
-      <Button variant={'contained'} >{text}</Button>
-    </ChatFooter>
-  </div>
-)
-
-export const ChatFooterDefault = () => {
-  const chatFooterRef = useRef<IChatFooterFormRef>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const onSubmit = async (text: string) => {
-    console.log("Message received:", text);
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate 2-second delay
-    setIsLoading(false)
-    chatFooterRef.current?.clearTextbox(); // Clear the textbox
-  };
-
-  return (
-    <div >
-      <ChatFooter isLoading={isLoading} onSubmit={onSubmit} ref={chatFooterRef}>
-        <Button variant={'contained'} >{text}</Button>
-      </ChatFooter>
-    </div>
-  )
-}
-
-const messageText = `הייתי היום בבריכה והלכתי אחרי זה לים.
-אח״כ התקלחתי והתיישבתי על הספה ואז הדלקתי את הטלויזיה.
-לא היה מה לראות בנטפליקס.`
-
-export const ChatLeftMessage = () => {
-  return (
-    <ChatMessage direction={'ltr'} >{messageText}</ChatMessage>
-  )
-}
-
-const messageText2 = `די נו, לא באמת...`
-
-export const ChatRightMessage = () => {
-  return (
-    <ChatMessage direction={'rtl'} >{messageText2}</ChatMessage>
-  )
-}
 
 const author84 = {
   username: `ליאור דולב`,
@@ -275,28 +211,4 @@ export const ChatDefault = () => {
       </Chat>
     </div>
   )
-}
-
-export const ChatMessageAvatarNumbers = () => {
-  return (<div style={{ display: 'flex', gap: '1em' }} >
-    <ChatMessageAvatar tooltipContent={createUnitTooltip(author84)} >84</ChatMessageAvatar>
-    <ChatMessageAvatar tooltipContent={createUnitTooltip(author162)} >162</ChatMessageAvatar>
-  </div>)
-}
-
-const iafText = `ח״א`
-
-const authorIAF = {
-  username: `גל בן אריה`,
-  unitName: `ח״א`,
-  userId: `m7572345`
-}
-
-export const ChatMessageAvatarText = () => {
-  return <ChatMessageAvatar tooltipContent={createUnitTooltip(authorIAF)}>{iafText}</ChatMessageAvatar>
-}
-
-const botText = `הבוט של הורוס אש`
-export const ChatMessageAvatarLogo = () => {
-  return <ChatMessageAvatar tooltipContent={botText} src={'./horus logo.jpg'} />
 }
