@@ -2,7 +2,6 @@ import {
   FC,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -33,6 +32,7 @@ interface ISearchProps {
   resultItems: ResultItem[];
   renderItem: (item: ResultItem) => JSX.Element;
   onItemClick: (item: ResultItem) => void;
+  isLoading: boolean;
 }
 
 const Search: FC<ISearchProps> = ({
@@ -42,15 +42,42 @@ const Search: FC<ISearchProps> = ({
   resultItems,
   renderItem,
   onItemClick,
+  isLoading: isSearching,
 }: ISearchProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<FixedSizeList<unknown[]>>(null);
+  // const lRef = useRef<HTMLDivElement>(null);
   const [isListOpen, setIsListOpen] = useState<boolean>(false);
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>(
     defaultSelectedTypeFilter
   );
   const [searchText, setSearchText] = useState<string>('');
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
+
+  const handleSearchChange = useCallback(
+    async (value: string) => {
+      if (typeof value !== 'string') return;
+      const trimmedValue = value.trim();
+
+      if (searchText === trimmedValue) return;
+
+      setSearchText(trimmedValue);
+      await onSearchProp(trimmedValue, selectedTypeFilter);
+    },
+    [searchText, onSearchProp, selectedTypeFilter]
+  );
+
+  const handleTypeFilterChange = useCallback((typeId: string) => {
+    setSelectedTypeFilter(typeId);
+  }, []);
+
+  const openList = useCallback((): void => {
+    setIsListOpen(true);
+  }, []);
+
+  const closeList = useCallback((): void => {
+    setIsListOpen(false);
+  }, []);
 
   useEffect(() => {
     setSelectedOptionIndex(0);
@@ -87,37 +114,6 @@ const Search: FC<ISearchProps> = ({
     [onMoveDown, onMoveUp]
   );
 
-  const onSearch = useCallback(
-    (value: string) => {
-      if (typeof value !== 'string') return;
-      const trimmedValue = value.trim();
-
-      if (searchText === trimmedValue) return;
-
-      setSearchText(trimmedValue);
-      onSearchProp(trimmedValue, selectedTypeFilter);
-    },
-    [searchText, onSearchProp, selectedTypeFilter]
-  );
-
-  const filteredOptions = useMemo(() => {
-    return (
-      resultItems.filter((item) => item.displayText.includes(searchText)) ?? []
-    );
-  }, [resultItems, searchText]);
-
-  const openList = (): void => {
-    setIsListOpen(true);
-  };
-
-  const closeList = (): void => {
-    setIsListOpen(false);
-  };
-
-  const onTypeFilterClick = useCallback((typeId: string) => {
-    setSelectedTypeFilter(typeId);
-  }, []);
-
   return (
     <div
       style={{
@@ -130,8 +126,8 @@ const Search: FC<ISearchProps> = ({
     >
       <SearchBox
         onClick={openList}
-        onSearch={onSearch}
-        isSearching={false}
+        onSearch={handleSearchChange}
+        isSearching={isSearching}
         onEscape={closeList}
         onKeyDownCapture={onKeyDownCapture}
         onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
@@ -140,18 +136,20 @@ const Search: FC<ISearchProps> = ({
           const selectedOption = resultItems[selectedOptionIndex];
           (document.activeElement as HTMLElement).blur();
           closeList();
-          onSearch(selectedOption.displayText);
+          handleSearchChange(selectedOption.displayText);
         }}
       />
       {isListOpen && (
         <SearchResultsDropdown
           groupHeaders={groupHeaders}
           onItemClick={onItemClick}
-          onTypeFilterClick={onTypeFilterClick}
+          onTypeFilterClick={handleTypeFilterChange}
           renderItem={renderItem}
-          resultItems={filteredOptions}
+          resultItems={resultItems}
           selectedTypeFilter={selectedTypeFilter}
           ref={listRef}
+          selectedOptionIndex={selectedOptionIndex}
+          isLoading={isSearching}
         />
       )}
     </div>

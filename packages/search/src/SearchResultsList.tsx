@@ -8,17 +8,23 @@ import {
 } from 'react';
 import { GroupHeader, ResultItem } from './Search';
 import SearchResultGroupTitle from './SearchResultGroupTitle';
+import SearchResultsItemSkeleton from './SearchResultItem/SearchResultsItemSkeleton';
 
 interface ISearchResultsList {
   groupHeaders: GroupHeader[];
   resultItems: ResultItem[];
   renderItem: (item: ResultItem) => JSX.Element;
+  selectedOptionIndex: number;
+  isLoading: boolean;
 }
 
 const SearchResultsList: ForwardRefExoticComponent<
   ISearchResultsList & RefAttributes<HTMLDataListElement>
 > = forwardRef<HTMLDataListElement, ISearchResultsList>(
-  ({ groupHeaders, renderItem, resultItems }, ref) => {
+  (
+    { groupHeaders, renderItem, selectedOptionIndex, resultItems, isLoading },
+    ref
+  ) => {
     const groupedByTypeLists = useMemo(
       () => groupBy(resultItems, 'type'),
       [resultItems]
@@ -33,7 +39,21 @@ const SearchResultsList: ForwardRefExoticComponent<
               captionText={captionText}
               key={type}
             />
-            {groupedByTypeLists[type]?.map(renderItem)}
+            {isLoading ? (
+              <>
+                <SearchResultsItemSkeleton />
+                <SearchResultsItemSkeleton />
+              </>
+            ) : (
+              groupedByTypeLists[type]?.map((item, index) => (
+                <div>
+                  {renderItem({
+                    ...item,
+                    selected: index === selectedOptionIndex,
+                  })}
+                </div>
+              ))
+            )}
           </>
         ))}
       </List>

@@ -18,6 +18,8 @@ export interface ISearchResultsDropdownProps {
   onTypeFilterClick: (type: string) => void;
   renderItem: (item: ResultItem) => JSX.Element;
   onItemClick: (item: ResultItem) => void;
+  selectedOptionIndex: number;
+  isLoading: boolean;
 }
 
 const dropdownCss = css({
@@ -39,6 +41,8 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
       renderItem,
       resultItems,
       selectedTypeFilter,
+      selectedOptionIndex,
+      isLoading,
     }: ISearchResultsDropdownProps
     // ref
   ) => {
@@ -49,11 +53,6 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
           : groupHeaders.filter((header) => header.type === selectedTypeFilter),
       [selectedTypeFilter, groupHeaders]
     );
-
-    // const resultItemsGroupedByType = useMemo(
-    //   () => groupBy(resultItems, 'type'),
-    //   [resultItems]
-    // );
 
     return (
       <Box css={dropdownCss}>
@@ -68,10 +67,13 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
         />
 
         {/* Results List */}
+
         <SearchResultsList
+          isLoading={isLoading}
           groupHeaders={groupHeadersToShow}
           resultItems={resultItems}
           renderItem={renderItem}
+          selectedOptionIndex={selectedOptionIndex}
         />
       </Box>
     );
