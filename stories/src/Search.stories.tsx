@@ -47,41 +47,42 @@ export const Default = () => {
   );
 };
 
+const groupHeaders: GroupHeader[] = [
+  { primaryText: 'בגדים', type: 'clothes' },
+  { primaryText: 'משחקים', type: 'games' },
+];
+
+const generateItems = (type: string, count: number): ResultItem[] => {
+  return Array.from({ length: count }, (_, index) => ({
+    id: `${type}-${index + 1}`,
+    type,
+    displayText: `${type} item ${index + 1}`,
+    icon:
+      type === 'clothes' ? <FitnessCenterIcon /> : <LocalLaundryServiceIcon />,
+  }));
+};
+
+const resultItems = [
+  ...generateItems('games', 500),
+  ...generateItems('clothes', 500),
+];
+
 export const FullSearchComponent = () => {
-  const groupHeaders: GroupHeader[] = [
-    { primaryText: 'בגדים', type: 'clothes' },
-    { primaryText: 'משחקים', type: 'games' },
-  ];
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const resultItems: ResultItem[] = [
-    {
-      id: '1',
-      type: 'clothes',
-      displayText: '123',
-      // name: 'חולצה 123',
-      icon: <FitnessCenterIcon />,
-    },
-    {
-      id: '2',
-      // name: 'מכנסיים',
-      displayText: 'q12',
-      type: 'clothes',
-      icon: <FitnessCenterIcon />,
-    },
-    {
-      id: '3',
-      // name: 'jaja',
-      type: 'games',
-      displayText: 'asas',
-      icon: <LocalLaundryServiceIcon />,
-      description: 'אחלה משחק מומלץ לתכניצנים',
-    },
-  ];
+  const [filteredResultItems, setFilteredResultItems] =
+    useState<ResultItem[]>(resultItems);
 
-  const onSearch = (text: string, type?: string) => {
-    console.log('text searched: ', text);
-    console.log('type searched: ', type);
-  };
+  const onSearch = useCallback((text: string, type?: string) => {
+    setIsLoading(true);
+    setFilteredResultItems(
+      resultItems.filter(({ displayText }) => displayText.includes(text))
+    );
+
+    setTimeout(() => setIsLoading(false), 5000);
+
+    console.log('type: ' + type);
+  }, []);
 
   const onSelect = (value: unknown) => {
     console.log('value: ', value);
@@ -89,8 +90,6 @@ export const FullSearchComponent = () => {
 
   const renderItem = ({
     id,
-    // name,
-    // type,
     icon,
     description,
     displayText,
@@ -114,9 +113,10 @@ export const FullSearchComponent = () => {
     <Search
       onSearch={onSearch}
       groupHeaders={groupHeaders}
-      resultItems={resultItems}
+      resultItems={filteredResultItems}
       renderItem={renderItem}
       onItemClick={onSelect}
+      isLoading={isLoading}
     />
   );
 };
