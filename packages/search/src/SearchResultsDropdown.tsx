@@ -8,12 +8,12 @@ import {
 } from 'react';
 import { FixedSizeList } from 'react-window';
 import { GroupHeader, ResultItem } from './Search';
-import SearchResultsList from './SearchResultsList';
+import SearchResultsList, { ListItem } from './SearchResultsList';
 import SearchTypeFilters from './SearchTypeFilters/SearchTypeFilters';
 
 export interface ISearchResultsDropdownProps {
   groupHeaders: GroupHeader[];
-  resultItems: ResultItem[];
+  resultItems: ListItem[];
   selectedTypeFilter: string;
   onTypeFilterClick: (type: string) => void;
   renderItem: (item: ResultItem) => JSX.Element;
@@ -31,8 +31,8 @@ const dropdownCss = css({
 });
 
 const SearchResultsDropdown: ForwardRefExoticComponent<
-  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<unknown[]>>
-> = forwardRef<FixedSizeList<unknown[]>, ISearchResultsDropdownProps>(
+  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<any[]>>
+> = forwardRef<FixedSizeList<any[]>, ISearchResultsDropdownProps>(
   (
     {
       groupHeaders,
@@ -43,8 +43,9 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
       selectedTypeFilter,
       selectedOptionIndex,
       isLoading,
-    }: ISearchResultsDropdownProps
-    // ref
+      onItemClick,
+    }: ISearchResultsDropdownProps,
+    ref
   ) => {
     const groupHeadersToShow = useMemo(
       () =>
@@ -74,6 +75,8 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
           resultItems={resultItems}
           renderItem={renderItem}
           selectedOptionIndex={selectedOptionIndex}
+          onItemClick={onItemClick}
+          ref={ref}
         />
       </Box>
     );

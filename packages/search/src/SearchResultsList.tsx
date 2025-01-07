@@ -1,62 +1,88 @@
-import { List } from '@mui/material';
-import groupBy from 'lodash/groupBy';
+import { ListItem } from '@mui/material';
+
 import {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
-  useMemo,
+  useCallback,
 } from 'react';
 import { GroupHeader, ResultItem } from './Search';
 import SearchResultGroupTitle from './SearchResultGroupTitle';
-import SearchResultsItemSkeleton from './SearchResultItem/SearchResultsItemSkeleton';
+
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 interface ISearchResultsList {
   groupHeaders: GroupHeader[];
-  resultItems: ResultItem[];
+  resultItems: ListItem[];
   renderItem: (item: ResultItem) => JSX.Element;
   selectedOptionIndex: number;
   isLoading: boolean;
+  onItemClick: (item: ResultItem) => void;
 }
 
+export type ListItem =
+  | {
+      type: 'header';
+      header: GroupHeader;
+    }
+  | { type: 'item'; item: ResultItem };
+
+const ITEM_HEIGHT = 50;
+
 const SearchResultsList: ForwardRefExoticComponent<
-  ISearchResultsList & RefAttributes<HTMLDataListElement>
-> = forwardRef<HTMLDataListElement, ISearchResultsList>(
+  ISearchResultsList & RefAttributes<FixedSizeList<any[]>>
+> = forwardRef<FixedSizeList<any[]>, ISearchResultsList>(
   (
-    { groupHeaders, renderItem, selectedOptionIndex, resultItems, isLoading },
+    { renderItem, selectedOptionIndex, resultItems, isLoading, onItemClick },
     ref
   ) => {
-    const groupedByTypeLists = useMemo(
-      () => groupBy(resultItems, 'type'),
-      [resultItems]
+    const Row = useCallback(
+      ({ index, style }: ListChildComponentProps<ListItem[]>) => {
+        const listItem = resultItems[index];
+
+        if (listItem.type === 'header') {
+          return (
+            <div style={{ ...style }}>
+              <SearchResultGroupTitle
+                primaryText={listItem.header.primaryText}
+                captionText={listItem.header.captionText}
+              />
+            </div>
+          );
+        }
+
+        if (listItem.type === 'item') {
+          const isSelected = selectedOptionIndex === index;
+          return (
+            <div
+              style={{
+                ...style,
+                background: isSelected ? 'yellow' : 'transparent',
+              }}
+              onClick={() => onItemClick(listItem.item)}
+            >
+              {renderItem(listItem.item)}
+            </div>
+          );
+        }
+
+        return null;
+      },
+      [onItemClick, renderItem, resultItems, selectedOptionIndex]
     );
+    console.log('flattendList.length: ', resultItems.length);
 
     return (
-      <List>
-        {groupHeaders.map(({ primaryText, type, captionText }) => (
-          <>
-            <SearchResultGroupTitle
-              primaryText={primaryText}
-              captionText={captionText}
-              key={type}
-            />
-            {isLoading ? (
-              <>
-                <SearchResultsItemSkeleton />
-                <SearchResultsItemSkeleton />
-              </>
-            ) : (
-              groupedByTypeLists[type]?.map((item, index) => (
-                <div>
-                  {renderItem({
-                    ...item,
-                    selected: index === selectedOptionIndex,
-                  })}
-                </div>
-              ))
-            )}
-          </>
-        ))}
-      </List>
+      <FixedSizeList
+        height={300}
+        itemCount={resultItems.length}
+        itemSize={ITEM_HEIGHT}
+        width="100%"
+        itemData={resultItems}
+        ref={ref}
+      >
+        {Row}
+      </FixedSizeList>
     );
   }
 );

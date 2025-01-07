@@ -2,6 +2,7 @@ import {
   FC,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -9,6 +10,8 @@ import {
 import { FixedSizeList } from 'react-window';
 import SearchBox from './SearchBox';
 import SearchResultsDropdown from './SearchResultsDropdown';
+import { ListItem } from './SearchResultsList';
+import groupBy from 'lodash/groupBy';
 
 export type GroupHeader = {
   type: string;
@@ -44,15 +47,14 @@ const Search: FC<ISearchProps> = ({
   onItemClick,
   isLoading: isSearching,
 }: ISearchProps) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<FixedSizeList<unknown[]>>(null);
-  // const lRef = useRef<HTMLDivElement>(null);
-  const [isListOpen, setIsListOpen] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>('');
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>(
     defaultSelectedTypeFilter
   );
-  const [searchText, setSearchText] = useState<string>('');
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
+  const [isListOpen, setIsListOpen] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<FixedSizeList<any[]>>(null);
 
   const handleSearchChange = useCallback(
     async (value: string) => {
@@ -69,6 +71,7 @@ const Search: FC<ISearchProps> = ({
 
   const handleTypeFilterChange = useCallback((typeId: string) => {
     setSelectedTypeFilter(typeId);
+    setSelectedOptionIndex(0);
   }, []);
 
   const openList = useCallback((): void => {
@@ -78,6 +81,24 @@ const Search: FC<ISearchProps> = ({
   const closeList = useCallback((): void => {
     setIsListOpen(false);
   }, []);
+
+  const groupedByTypeLists = useMemo(
+    () => groupBy(resultItems, 'type'),
+    [resultItems]
+  );
+
+  const flattendList: ListItem[] = useMemo(
+    () =>
+      groupHeaders?.flatMap((header) => {
+        const headerItem: ListItem = { type: 'header', header };
+        const listItems: ListItem[] = groupedByTypeLists[header.type]?.map(
+          (item) => ({ type: 'item', item })
+        );
+
+        return [headerItem, ...(listItems ?? [])];
+      }),
+    [groupedByTypeLists, groupHeaders]
+  );
 
   useEffect(() => {
     setSelectedOptionIndex(0);
@@ -89,29 +110,33 @@ const Search: FC<ISearchProps> = ({
 
   const onMoveUp = useCallback(() => {
     setSelectedOptionIndex((prev) =>
-      prev > 0 ? prev - 1 : resultItems.length - 1
+      prev > 0 ? prev - 1 : flattendList.length - 1
     );
-  }, [resultItems, setSelectedOptionIndex]);
+  }, [flattendList.length]);
 
   const onMoveDown = useCallback(() => {
     setSelectedOptionIndex((prev) =>
-      prev < resultItems.length - 1 ? prev + 1 : 0
+      prev < flattendList.length - 1 ? prev + 1 : 0
     );
-  }, [resultItems, setSelectedOptionIndex]);
+  }, [flattendList.length]);
 
   const onKeyDownCapture = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'ArrowUp') {
         onMoveUp();
+        console.log('selected index: ', selectedOptionIndex);
+
         return;
       }
 
       if (event.key === 'ArrowDown') {
         onMoveDown();
+        console.log('selected index: ', selectedOptionIndex);
+
         return;
       }
     },
-    [onMoveDown, onMoveUp]
+    [onMoveDown, onMoveUp, selectedOptionIndex]
   );
 
   return (
@@ -145,7 +170,7 @@ const Search: FC<ISearchProps> = ({
           onItemClick={onItemClick}
           onTypeFilterClick={handleTypeFilterChange}
           renderItem={renderItem}
-          resultItems={resultItems}
+          resultItems={flattendList}
           selectedTypeFilter={selectedTypeFilter}
           ref={listRef}
           selectedOptionIndex={selectedOptionIndex}
