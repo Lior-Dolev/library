@@ -13,6 +13,7 @@ interface ISearchBoxProps {
   onClick: () => void;
   onSearch: (text: string) => void | Promise<void>;
   isSearching: boolean;
+  isFocused: boolean;
   searchDebounceMS?: number;
   placeholder?: string;
   onEscape: () => void;
@@ -20,19 +21,21 @@ interface ISearchBoxProps {
   onKeyDown?: (event: KeyboardEvent<HTMLDivElement>) => void;
 }
 
-const inputBaseCss = css({
-  width: '300px',
-  transition: 'width 0.3s ease-in-out', // Smooth transition
-  ':focus-within': {
-    width: '500px', // Target the focus-within state of the container
-  },
-  '& .MuiInputBase-input': {
-    textAlign: 'right', // Align text inside the input
-  },
-});
+const inputBaseCss = (isFocused: boolean) =>
+  css({
+    width: isFocused ? '500px' : '300px',
+    transition: 'width 0.3s ease-in-out', // Smooth transition
+    ':focus-within': {
+      width: '500px', // Target the focus-within state of the container
+    },
+    '& .MuiInputBase-input': {
+      textAlign: 'right', // Align text inside the input
+    },
+  });
 const SearchBox: FC<ISearchBoxProps> = ({
   onEscape,
   isSearching,
+  isFocused,
   searchDebounceMS = 500,
   placeholder = 'חיפוש',
   onSearch,
@@ -74,7 +77,7 @@ const SearchBox: FC<ISearchBoxProps> = ({
     <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
       <TextField
         onClick={onClick}
-        css={inputBaseCss}
+        css={inputBaseCss(isFocused)}
         inputRef={inputRef}
         value={searchInput}
         onChange={handleChange}

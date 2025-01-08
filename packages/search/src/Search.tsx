@@ -53,6 +53,7 @@ const Search: FC<ISearchProps> = ({
   );
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
   const [isListOpen, setIsListOpen] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<FixedSizeList<ListItem[]>>(null);
 
@@ -74,8 +75,9 @@ const Search: FC<ISearchProps> = ({
     setSelectedOptionIndex(0);
   }, []);
 
-  const openList = useCallback((): void => {
+  const onSearchBoxClick = useCallback((): void => {
     setIsListOpen(true);
+    setIsFocused(true);
   }, []);
 
   const closeList = useCallback((): void => {
@@ -113,6 +115,24 @@ const Search: FC<ISearchProps> = ({
   useEffect(() => {
     listRef.current?.scrollToItem(selectedOptionIndex);
   }, [selectedOptionIndex]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setIsFocused(false);
+        setIsListOpen(false);
+        console.log('oustside');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const onMoveUp = useCallback(() => {
     setSelectedOptionIndex((prev) =>
@@ -152,13 +172,15 @@ const Search: FC<ISearchProps> = ({
         flexDirection: 'column',
         alignItems: 'end',
         gap: '5px',
+        width: '500px',
       }}
       ref={wrapperRef}
     >
       <SearchBox
-        onClick={openList}
+        onClick={onSearchBoxClick}
         onSearch={handleSearchChange}
         isSearching={isSearching}
+        isFocused={isFocused}
         onEscape={closeList}
         onKeyDownCapture={onKeyDownCapture}
         onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
