@@ -54,7 +54,7 @@ const Search: FC<ISearchProps> = ({
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
   const [isListOpen, setIsListOpen] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<FixedSizeList<any[]>>(null);
+  const listRef = useRef<FixedSizeList<ListItem[]>>(null);
 
   const handleSearchChange = useCallback(
     async (value: string) => {
@@ -86,10 +86,16 @@ const Search: FC<ISearchProps> = ({
     () => groupBy(resultItems, 'type'),
     [resultItems]
   );
-
+  const groupHeadersToShow = useMemo(
+    () =>
+      selectedTypeFilter === 'all'
+        ? groupHeaders
+        : groupHeaders.filter((header) => header.type === selectedTypeFilter),
+    [selectedTypeFilter, groupHeaders]
+  );
   const flattendList: ListItem[] = useMemo(
     () =>
-      groupHeaders?.flatMap((header) => {
+      groupHeadersToShow?.flatMap((header) => {
         const headerItem: ListItem = { type: 'header', header };
         const listItems: ListItem[] = groupedByTypeLists[header.type]?.map(
           (item) => ({ type: 'item', item })
@@ -97,7 +103,7 @@ const Search: FC<ISearchProps> = ({
 
         return [headerItem, ...(listItems ?? [])];
       }),
-    [groupedByTypeLists, groupHeaders]
+    [groupHeadersToShow, groupedByTypeLists]
   );
 
   useEffect(() => {

@@ -30,8 +30,8 @@ export type ListItem =
 const ITEM_HEIGHT = 50;
 
 const SearchResultsList: ForwardRefExoticComponent<
-  ISearchResultsList & RefAttributes<FixedSizeList<any[]>>
-> = forwardRef<FixedSizeList<any[]>, ISearchResultsList>(
+  ISearchResultsList & RefAttributes<FixedSizeList<ListItem[]>>
+> = forwardRef<FixedSizeList<ListItem[]>, ISearchResultsList>(
   (
     { renderItem, selectedOptionIndex, resultItems, isLoading, onItemClick },
     ref

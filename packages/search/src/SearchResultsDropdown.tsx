@@ -1,11 +1,6 @@
 import { css } from '@emotion/react';
 import { Box } from '@mui/material';
-import {
-  forwardRef,
-  ForwardRefExoticComponent,
-  RefAttributes,
-  useMemo,
-} from 'react';
+import { forwardRef, ForwardRefExoticComponent, RefAttributes } from 'react';
 import { FixedSizeList } from 'react-window';
 import { GroupHeader, ResultItem } from './Search';
 import SearchResultsList, { ListItem } from './SearchResultsList';
@@ -31,12 +26,11 @@ const dropdownCss = css({
 });
 
 const SearchResultsDropdown: ForwardRefExoticComponent<
-  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<any[]>>
-> = forwardRef<FixedSizeList<any[]>, ISearchResultsDropdownProps>(
+  ISearchResultsDropdownProps & RefAttributes<FixedSizeList<ListItem[]>>
+> = forwardRef<FixedSizeList<ListItem[]>, ISearchResultsDropdownProps>(
   (
     {
       groupHeaders,
-      // onItemClick,
       onTypeFilterClick,
       renderItem,
       resultItems,
@@ -47,14 +41,6 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
     }: ISearchResultsDropdownProps,
     ref
   ) => {
-    const groupHeadersToShow = useMemo(
-      () =>
-        selectedTypeFilter === 'all'
-          ? groupHeaders
-          : groupHeaders.filter((header) => header.type === selectedTypeFilter),
-      [selectedTypeFilter, groupHeaders]
-    );
-
     return (
       <Box css={dropdownCss}>
         {/* Type Filters */}
@@ -71,7 +57,7 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
 
         <SearchResultsList
           isLoading={isLoading}
-          groupHeaders={groupHeadersToShow}
+          groupHeaders={groupHeaders}
           resultItems={resultItems}
           renderItem={renderItem}
           selectedOptionIndex={selectedOptionIndex}
