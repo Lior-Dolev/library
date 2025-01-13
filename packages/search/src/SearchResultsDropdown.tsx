@@ -23,7 +23,7 @@ export interface ISearchResultsDropdownProps {
 
 const dropdownCss = css({
   width: '500px',
-  height: '20vh',
+  // height: '20vh',
   overflowY: 'auto',
   margin: 0,
   padding: '2px',
