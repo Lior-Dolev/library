@@ -9,9 +9,9 @@ interface ISerachTypeFiltersProps {
   onSelect: (type: string) => void;
 }
 
-const divCss = css({ display: 'flex', flexDirection: 'row-reverse' });
+const divCSS = css({ display: 'flex', flexDirection: 'row-reverse' });
 
-const searchTypeFiltersCss = css({
+const searchTypeFiltersCSS = css({
   display: 'flex',
   flexDirection: 'row-reverse',
   flexWrap: 'wrap',
@@ -28,9 +28,9 @@ const SearchTypeFilters: FC<ISerachTypeFiltersProps> = ({
   onSelect,
 }) => {
   return (
-    <div css={divCss}>
+    <div css={divCSS}>
       <Typography>{title}</Typography>
-      <div css={searchTypeFiltersCss}>
+      <div css={searchTypeFiltersCSS}>
         <SearchTypeFilterButton
           type={'all'}
           label={'הכל'}

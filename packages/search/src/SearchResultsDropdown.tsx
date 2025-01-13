@@ -11,15 +11,19 @@ export interface ISearchResultsDropdownProps {
   resultItems: ListItem[];
   selectedTypeFilter: string;
   onTypeFilterClick: (type: string) => void;
-  renderItem: (item: ResultItem) => JSX.Element;
-  onItemClick: (item: ResultItem) => void;
+  renderItem: (
+    item: ResultItem,
+    selected: boolean,
+    onItemClick: (item: ResultItem) => void
+  ) => JSX.Element;
   selectedOptionIndex: number;
   isLoading: boolean;
+  onItemClick: (item: ResultItem) => void;
 }
 
 const dropdownCss = css({
   width: '500px',
-  hieght: '20vh',
+  height: '20vh',
   overflowY: 'auto',
   margin: 0,
   padding: '2px',
@@ -36,7 +40,6 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
       resultItems,
       selectedTypeFilter,
       selectedOptionIndex,
-      isLoading,
       onItemClick,
     }: ISearchResultsDropdownProps,
     ref
@@ -56,13 +59,12 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
         {/* Results List */}
 
         <SearchResultsList
-          isLoading={isLoading}
           groupHeaders={groupHeaders}
           resultItems={resultItems}
           renderItem={renderItem}
           selectedOptionIndex={selectedOptionIndex}
-          onItemClick={onItemClick}
           ref={ref}
+          onItemClick={onItemClick}
         />
       </Box>
     );

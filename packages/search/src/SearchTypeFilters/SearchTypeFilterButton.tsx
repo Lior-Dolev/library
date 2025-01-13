@@ -9,23 +9,21 @@ interface ISearchTypeFilterButtonProps extends ChipProps {
   onSelectTypeFilter: (type: string) => void;
 }
 
-const selectedTypeCss = css({
-  backgroundColor: 'green',
-  color: 'white',
-  '&:hover': {
-    backgroundColor: 'darkgreen', // Darker green when hovered while selected
-  },
-});
-const baseCss = css({
-  width: '120px',
-  height: '50px',
-  borderRadius: 10,
-  fontSize: 15,
-  display: 'flex',
-  flexDirection: 'row-reverse',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+const baseCSS = (isSelected: boolean) =>
+  css({
+    width: '120px',
+    height: '50px',
+    borderRadius: 10,
+    fontSize: 15,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: isSelected ? '#2e7d32' : '#424242',
+    '&:hover': {
+      backgroundColor: isSelected ? '#1b5e20' : '#5a5a5a', // Darker tones on hover
+    },
+  });
 
 const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({
   type,
@@ -33,17 +31,18 @@ const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({
   onSelectTypeFilter: onSelect,
   isSelected,
 }) => {
-  const cssStyles = useMemo(() => {
-    return !isSelected ? [baseCss] : [baseCss, selectedTypeCss];
-  }, [isSelected]);
+  const icon = useMemo(
+    () => (isSelected ? <DoneIcon fontSize="small" /> : <></>),
+    [isSelected]
+  );
 
   return (
     <Chip
-      css={cssStyles}
+      css={baseCSS(isSelected)}
       key={type}
       label={label}
       onClick={() => onSelect(type)}
-      icon={isSelected ? <DoneIcon fontSize="small" /> : <></>}
+      icon={icon}
     />
   );
 };

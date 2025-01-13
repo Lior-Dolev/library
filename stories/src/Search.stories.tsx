@@ -9,7 +9,7 @@ import {
   GroupHeader,
   ResultItem,
 } from '@horus-library/search';
-import { ReactNode, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 
@@ -74,37 +74,36 @@ export const FullSearchComponent = () => {
     useState<ResultItem[]>(resultItems);
 
   const onSearch = useCallback((text: string, type?: string) => {
-    setIsLoading(true);
     setFilteredResultItems(
       resultItems.filter(({ displayText }) => displayText.includes(text))
     );
 
-    setTimeout(() => setIsLoading(false), 5000);
+    //simulates a search with an api
+    if (text.length > 4) {
+      setIsLoading(true);
 
-    console.log('type: ' + type);
+      setTimeout(() => setIsLoading(false), 5000);
+    }
   }, []);
 
   const onSelect = (value: unknown) => {
     console.log('value: ', value);
   };
 
-  const renderItem = ({
-    id,
-    icon,
-    description,
-    displayText,
-  }: ResultItem): JSX.Element => {
+  const renderItem = (
+    item: ResultItem,
+    selected: boolean,
+    onItemClick: (item: ResultItem) => void
+  ): JSX.Element => {
     return (
       <SearchResultsItem
-        key={id}
-        title={displayText}
-        icon={icon as ReactNode}
-        titleCaption={description as string | undefined}
-        selected={false}
-        onSelect={onSelect}
-        index={0}
-        style={{}}
-        data={undefined}
+        key={item.id}
+        title={item.displayText}
+        icon={item.icon}
+        titleCaption={item.description}
+        selected={selected}
+        onSelect={onItemClick}
+        data={item}
       />
     );
   };
@@ -135,6 +134,7 @@ export const SearchBoxStory = () => {
       onClick={() => {
         console.log('click');
       }}
+      isFocused={false}
     />
   );
 };

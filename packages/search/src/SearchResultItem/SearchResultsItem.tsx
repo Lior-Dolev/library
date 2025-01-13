@@ -1,16 +1,17 @@
 import React, { FC, useCallback } from 'react';
-import { ListChildComponentProps } from 'react-window';
 import SearchResultItemMain from './SearchResultItemMain';
 import SearchResultListItemBase from './SearchResultListItemBase';
+import { ResultItem } from '../Search';
 
-interface SearchResultsItemProps extends ListChildComponentProps {
+interface SearchResultsItemProps {
   key: string;
   title: string;
   titleCaption?: string;
   icon: React.ReactNode;
   disabled?: boolean;
   selected: boolean;
-  onSelect: (value: Record<string, unknown>) => void;
+  onSelect: (value: ResultItem) => void;
+  data: ResultItem;
 }
 
 const SearchResultsItem: FC<SearchResultsItemProps> = ({

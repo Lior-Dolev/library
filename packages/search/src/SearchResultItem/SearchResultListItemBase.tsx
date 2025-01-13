@@ -14,18 +14,19 @@ const resultItemBaseCss = css({
   padding: '8px 16px',
   gap: '16px',
   cursor: 'pointer',
+  textAlign: 'right',
 
   '&:hover': {
-    backgroundColor: 'red',
+    backgroundColor: '#30363d',
   },
 });
 
-const selectedItemCss = css({ backgroundColor: 'red' });
+const selectedItemCss = css({ backgroundColor: '#3f444a' });
 
 const disabledItemCss = css({
   cursor: 'auto',
   '&:hover': {
-    backgroundColor: 'auto',
+    backgroundColor: 'transparent',
   },
 });
 

@@ -1,5 +1,6 @@
 import {
   FC,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -10,8 +11,7 @@ import {
 import { FixedSizeList } from 'react-window';
 import SearchBox from './SearchBox';
 import SearchResultsDropdown from './SearchResultsDropdown';
-import { ListItem } from './SearchResultsList';
-import groupBy from 'lodash/groupBy';
+import { Item, ListItem } from './SearchResultsList';
 
 export type GroupHeader = {
   type: string;
@@ -25,6 +25,8 @@ export type ResultItem = {
   type: string;
   id: string;
   displayText: string;
+  description?: string;
+  icon?: ReactNode;
   [key: string]: unknown;
 };
 
@@ -33,7 +35,11 @@ interface ISearchProps {
   defaultSelectedTypeFilter?: string;
   groupHeaders: GroupHeader[];
   resultItems: ResultItem[];
-  renderItem: (item: ResultItem) => JSX.Element;
+  renderItem: (
+    item: ResultItem,
+    selected: boolean,
+    onItemClick: (item: ResultItem) => void
+  ) => JSX.Element;
   onItemClick: (item: ResultItem) => void;
   isLoading: boolean;
 }
@@ -44,7 +50,7 @@ const Search: FC<ISearchProps> = ({
   groupHeaders,
   resultItems,
   renderItem,
-  onItemClick,
+  onItemClick: onItemClickProp,
   isLoading: isSearching,
 }: ISearchProps) => {
   const [searchText, setSearchText] = useState<string>('');
@@ -52,7 +58,7 @@ const Search: FC<ISearchProps> = ({
     defaultSelectedTypeFilter
   );
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
-  const [isListOpen, setIsListOpen] = useState<boolean>(false);
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<FixedSizeList<ListItem[]>>(null);
@@ -75,19 +81,22 @@ const Search: FC<ISearchProps> = ({
     setSelectedOptionIndex(0);
   }, []);
 
-  const onSearchBoxClick = useCallback((): void => {
-    setIsListOpen(true);
+  const focusSearch = useCallback((): void => {
     setIsFocused(true);
   }, []);
 
-  const closeList = useCallback((): void => {
-    setIsListOpen(false);
+  const unfocusSearch = useCallback((): void => {
+    setIsFocused(false);
   }, []);
 
-  const groupedByTypeLists = useMemo(
-    () => groupBy(resultItems, 'type'),
-    [resultItems]
+  const onItemClick = useCallback(
+    (item: ResultItem) => {
+      onItemClickProp(item);
+      unfocusSearch();
+    },
+    [onItemClickProp, unfocusSearch]
   );
+
   const groupHeadersToShow = useMemo(
     () =>
       selectedTypeFilter === 'all'
@@ -97,20 +106,26 @@ const Search: FC<ISearchProps> = ({
   );
   const flattendList: ListItem[] = useMemo(
     () =>
-      groupHeadersToShow?.flatMap((header) => {
+      groupHeadersToShow.reduce((acc, header) => {
         const headerItem: ListItem = { type: 'header', header };
-        const listItems: ListItem[] = groupedByTypeLists[header.type]?.map(
-          (item) => ({ type: 'item', item })
-        );
+        const items: ListItem[] = resultItems
+          .filter((item) => item.type === header.type)
+          .map((item) => ({ type: 'item', item }));
+        acc.push(...[headerItem, ...items]);
 
-        return [headerItem, ...(listItems ?? [])];
-      }),
-    [groupHeadersToShow, groupedByTypeLists]
+        if (isSearching) {
+          acc.push({ type: 'skeleton' });
+          acc.push({ type: 'skeleton' });
+        }
+
+        return acc;
+      }, [] as ListItem[]),
+    [groupHeadersToShow, isSearching, resultItems]
   );
 
   useEffect(() => {
     setSelectedOptionIndex(0);
-  }, [isListOpen]);
+  }, [isFocused]);
 
   useEffect(() => {
     listRef.current?.scrollToItem(selectedOptionIndex);
@@ -122,9 +137,7 @@ const Search: FC<ISearchProps> = ({
         wrapperRef.current &&
         !wrapperRef.current.contains(event.target as Node)
       ) {
-        setIsFocused(false);
-        setIsListOpen(false);
-        console.log('oustside');
+        unfocusSearch();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -132,7 +145,7 @@ const Search: FC<ISearchProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [unfocusSearch]);
 
   const onMoveUp = useCallback(() => {
     setSelectedOptionIndex((prev) =>
@@ -150,19 +163,15 @@ const Search: FC<ISearchProps> = ({
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'ArrowUp') {
         onMoveUp();
-        console.log('selected index: ', selectedOptionIndex);
-
         return;
       }
 
       if (event.key === 'ArrowDown') {
         onMoveDown();
-        console.log('selected index: ', selectedOptionIndex);
-
         return;
       }
     },
-    [onMoveDown, onMoveUp, selectedOptionIndex]
+    [onMoveDown, onMoveUp]
   );
 
   return (
@@ -177,25 +186,27 @@ const Search: FC<ISearchProps> = ({
       ref={wrapperRef}
     >
       <SearchBox
-        onClick={onSearchBoxClick}
+        onClick={focusSearch}
         onSearch={handleSearchChange}
         isSearching={isSearching}
         isFocused={isFocused}
-        onEscape={closeList}
+        onEscape={unfocusSearch}
         onKeyDownCapture={onKeyDownCapture}
         onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
           if (!(event.key === 'Enter' && resultItems.length > 0)) return;
 
-          const selectedOption = resultItems[selectedOptionIndex];
+          const selectedItem = resultItems.find(
+            (item) =>
+              item.id === (flattendList[selectedOptionIndex] as Item).item.id
+          );
           (document.activeElement as HTMLElement).blur();
-          closeList();
-          handleSearchChange(selectedOption.displayText);
+
+          onItemClick(selectedItem!);
         }}
       />
-      {isListOpen && (
+      {isFocused && (
         <SearchResultsDropdown
           groupHeaders={groupHeaders}
-          onItemClick={onItemClick}
           onTypeFilterClick={handleTypeFilterChange}
           renderItem={renderItem}
           resultItems={flattendList}
@@ -203,6 +214,7 @@ const Search: FC<ISearchProps> = ({
           ref={listRef}
           selectedOptionIndex={selectedOptionIndex}
           isLoading={isSearching}
+          onItemClick={onItemClick}
         />
       )}
     </div>
