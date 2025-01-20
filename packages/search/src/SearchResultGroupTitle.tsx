@@ -8,7 +8,7 @@ interface ISearchResultGroupTitleProps {
   count?: number;
 }
 
-const searchResultGroupTitleContainerCss = css({
+const searchResultGroupTitleContainerCSS = css({
   display: 'flex',
   alignItems: 'baseline',
   flexDirection: 'row-reverse',
@@ -22,7 +22,7 @@ const SearchResultGroupTitle: FC<ISearchResultGroupTitleProps> = ({
   return (
     <div>
       <Divider sx={{ background: 'white' }} />
-      <div css={searchResultGroupTitleContainerCss}>
+      <div css={searchResultGroupTitleContainerCSS}>
         <Typography variant="h5" fontWeight={'bold'}>
           {primaryText}
         </Typography>

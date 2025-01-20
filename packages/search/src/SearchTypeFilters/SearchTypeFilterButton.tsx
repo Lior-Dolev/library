@@ -9,7 +9,7 @@ interface ISearchTypeFilterButtonProps extends ChipProps {
   onSelectTypeFilter: (type: string) => void;
 }
 
-const baseCSS = (isSelected: boolean) =>
+const chipCSS = (isSelected: boolean) =>
   css({
     width: '120px',
     height: '50px',
@@ -38,7 +38,7 @@ const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({
 
   return (
     <Chip
-      css={baseCSS(isSelected)}
+      css={chipCSS(isSelected)}
       key={type}
       label={label}
       onClick={() => onSelect(type)}

@@ -63,8 +63,8 @@ const generateItems = (type: string, count: number): ResultItem[] => {
 };
 
 const resultItems = [
-  ...generateItems('games', 500),
-  ...generateItems('clothes', 500),
+  ...generateItems('games', 10),
+  ...generateItems('clothes', 10),
 ];
 
 export const FullSearchComponent = () => {
@@ -152,56 +152,3 @@ export const SearchTitles = () => {
 export const ResultItemSkeleton = () => {
   return <SearchResultsItemSkeleton />;
 };
-
-// export const resultItem = () => {
-//   return (
-//     <>
-//       <SearchResultsItem
-//         key={'shoes'}
-//         title={'אולסטאר'}
-//         titleCaption="אחלה נעל"
-//         icon={<SnowshoeingIcon />}
-//       />
-//       <SearchResultsItem
-//         key={'shoes'}
-//         title={'אדידס 1234'}
-//         //   titleCaption="אחלה נעל"
-//         icon={<SnowshoeingIcon />}
-//       />
-//     </>
-//   );
-// };
-
-// export const a = () => {
-//   return (
-//     <div>
-//       <SearchResultGroupTitle
-//         primaryText={'נעליים'}
-//         captionText="תחפשו דגם ספציפי על ידי הזנה של 4 תווים לפחות..."
-//       />
-//       <SearchResultsItem
-//         key={'adidas'}
-//         title={'אדידס'}
-//         icon={<FitnessCenterIcon />}
-//       />
-//       <SearchResultsItem
-//         key={'nike'}
-//         title={'נייקי בייקי'}
-//         icon={<FitnessCenterIcon />}
-//         titleCaption=" הנעל הטובה והמוכרת מבית נייקי בייקי"
-//       />
-
-//       <SearchResultGroupTitle primaryText={'מכנסיים'} count={2} />
-//       <SearchResultsItem
-//         key={'shorts'}
-//         title={'שורט'}
-//         icon={<LocalLaundryServiceIcon />}
-//       />
-//       <SearchResultsItem
-//         key={'taaitz'}
-//         title={'טייץ'}
-//         icon={<LocalLaundryServiceIcon />}
-//       />
-//     </div>
-//   );
-// };

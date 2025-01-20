@@ -8,10 +8,10 @@ import {
   useState,
   type KeyboardEvent,
 } from 'react';
-import { FixedSizeList } from 'react-window';
+import { VariableSizeList } from 'react-window';
 import SearchBox from './SearchBox';
 import SearchResultsDropdown from './SearchResultsDropdown';
-import { Item, ListItem } from './SearchResultsList';
+import { ListItem } from './SearchResultsList';
 
 export type GroupHeader = {
   type: string;
@@ -44,6 +44,9 @@ interface ISearchProps {
   isLoading: boolean;
 }
 
+const isResultListItem = (item: GroupHeader | ResultItem): item is ResultItem =>
+  'id' in item;
+
 const Search: FC<ISearchProps> = ({
   onSearch: onSearchProp,
   defaultSelectedTypeFilter = 'all',
@@ -61,9 +64,9 @@ const Search: FC<ISearchProps> = ({
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<FixedSizeList<ListItem[]>>(null);
+  const listRef = useRef<VariableSizeList<ListItem[]>>(null);
 
-  const handleSearchChange = useCallback(
+  const onSearch = useCallback(
     async (value: string) => {
       if (typeof value !== 'string') return;
       const trimmedValue = value.trim();
@@ -76,7 +79,7 @@ const Search: FC<ISearchProps> = ({
     [searchText, onSearchProp, selectedTypeFilter]
   );
 
-  const handleTypeFilterChange = useCallback((typeId: string) => {
+  const onTypeFilterChange = useCallback((typeId: string) => {
     setSelectedTypeFilter(typeId);
     setSelectedOptionIndex(0);
   }, []);
@@ -87,7 +90,9 @@ const Search: FC<ISearchProps> = ({
 
   const unfocusSearch = useCallback((): void => {
     setIsFocused(false);
-  }, []);
+    setSearchText('');
+    onSearchProp('');
+  }, [onSearchProp]);
 
   const onItemClick = useCallback(
     (item: ResultItem) => {
@@ -97,31 +102,22 @@ const Search: FC<ISearchProps> = ({
     [onItemClickProp, unfocusSearch]
   );
 
-  const groupHeadersToShow = useMemo(
-    () =>
+  const headersAndItemsList = useMemo(() => {
+    const filteredHeaders =
       selectedTypeFilter === 'all'
         ? groupHeaders
-        : groupHeaders.filter((header) => header.type === selectedTypeFilter),
-    [selectedTypeFilter, groupHeaders]
-  );
-  const flattendList: ListItem[] = useMemo(
-    () =>
-      groupHeadersToShow.reduce((acc, header) => {
-        const headerItem: ListItem = { type: 'header', header };
-        const items: ListItem[] = resultItems
-          .filter((item) => item.type === header.type)
-          .map((item) => ({ type: 'item', item }));
-        acc.push(...[headerItem, ...items]);
+        : groupHeaders.filter((header) => selectedTypeFilter === header.type);
 
-        if (isSearching) {
-          acc.push({ type: 'skeleton' });
-          acc.push({ type: 'skeleton' });
-        }
+    return filteredHeaders.reduce(
+      (acc, header) => {
+        acc.push(header);
+        acc.push(...resultItems.filter((item) => item.type === header.type));
 
         return acc;
-      }, [] as ListItem[]),
-    [groupHeadersToShow, isSearching, resultItems]
-  );
+      },
+      [] as (GroupHeader | ResultItem)[]
+    );
+  }, [groupHeaders, resultItems, selectedTypeFilter]);
 
   useEffect(() => {
     setSelectedOptionIndex(0);
@@ -147,17 +143,39 @@ const Search: FC<ISearchProps> = ({
     };
   }, [unfocusSearch]);
 
+  const findNextSelectableIndex = useCallback(
+    (currentIndex: number, direction: 1 | -1) => {
+      let newIndex = currentIndex + direction;
+
+      if (newIndex < 0) {
+        newIndex = headersAndItemsList.length - 1;
+      } else if (newIndex >= headersAndItemsList.length) {
+        newIndex = 0;
+      }
+
+      while (!isResultListItem(headersAndItemsList[newIndex])) {
+        newIndex += direction;
+
+        if (newIndex < 0) {
+          newIndex = headersAndItemsList.length - 1;
+        } else if (newIndex >= headersAndItemsList.length) {
+          newIndex = 0;
+        }
+        if (newIndex === currentIndex) break;
+      }
+
+      return newIndex;
+    },
+    [headersAndItemsList]
+  );
+
   const onMoveUp = useCallback(() => {
-    setSelectedOptionIndex((prev) =>
-      prev > 0 ? prev - 1 : flattendList.length - 1
-    );
-  }, [flattendList.length]);
+    setSelectedOptionIndex((prev) => findNextSelectableIndex(prev, -1));
+  }, [findNextSelectableIndex]);
 
   const onMoveDown = useCallback(() => {
-    setSelectedOptionIndex((prev) =>
-      prev < flattendList.length - 1 ? prev + 1 : 0
-    );
-  }, [flattendList.length]);
+    setSelectedOptionIndex((prev) => findNextSelectableIndex(prev, 1));
+  }, [findNextSelectableIndex]);
 
   const onKeyDownCapture = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -186,8 +204,9 @@ const Search: FC<ISearchProps> = ({
       ref={wrapperRef}
     >
       <SearchBox
+        searchText={searchText}
         onClick={focusSearch}
-        onSearch={handleSearchChange}
+        onSearch={onSearch}
         isSearching={isSearching}
         isFocused={isFocused}
         onEscape={unfocusSearch}
@@ -197,19 +216,22 @@ const Search: FC<ISearchProps> = ({
 
           const selectedItem = resultItems.find(
             (item) =>
-              item.id === (flattendList[selectedOptionIndex] as Item).item.id
+              item.id ===
+              (headersAndItemsList[selectedOptionIndex] as ResultItem).id
           );
           (document.activeElement as HTMLElement).blur();
 
+          setSearchText('');
+          onSearch('');
           onItemClick(selectedItem!);
         }}
       />
       {isFocused && (
         <SearchResultsDropdown
           groupHeaders={groupHeaders}
-          onTypeFilterClick={handleTypeFilterChange}
+          onTypeFilterClick={onTypeFilterChange}
           renderItem={renderItem}
-          resultItems={flattendList}
+          resultItems={resultItems}
           selectedTypeFilter={selectedTypeFilter}
           ref={listRef}
           selectedOptionIndex={selectedOptionIndex}

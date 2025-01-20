@@ -7,7 +7,7 @@ interface ISearchResultListItemBaseProps extends ListItemProps {
   selected?: boolean;
 }
 
-const resultItemBaseCss = css({
+const resultItemBaseCSS = css({
   display: 'grid',
   gridTemplateColumns: '1fr auto',
   alignItems: 'center',
@@ -15,15 +15,21 @@ const resultItemBaseCss = css({
   gap: '16px',
   cursor: 'pointer',
   textAlign: 'right',
+  height: 40,
+  boxSizing: 'border-box',
 
   '&:hover': {
     backgroundColor: '#30363d',
   },
 });
 
-const selectedItemCss = css({ backgroundColor: '#3f444a' });
+const selectedItemCSS = css({
+  backgroundColor: '#3f444a',
+  borderRight: '2px solid #0366d6',
+  paddingRight: '12px',
+});
 
-const disabledItemCss = css({
+const disabledItemCSS = css({
   cursor: 'auto',
   '&:hover': {
     backgroundColor: 'transparent',
@@ -38,9 +44,9 @@ const SearchResultListItemBase: FC<ISearchResultListItemBaseProps> = ({
   return (
     <ListItem
       css={[
-        resultItemBaseCss,
-        selected && selectedItemCss,
-        disabled && disabledItemCss,
+        resultItemBaseCSS,
+        selected && selectedItemCSS,
+        disabled && disabledItemCSS,
       ]}
       {...rest}
     />

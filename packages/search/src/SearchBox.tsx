@@ -2,6 +2,7 @@ import { debounce, InputAdornment, TextField } from '@mui/material';
 import {
   FC,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -19,17 +20,19 @@ interface ISearchBoxProps {
   onEscape: () => void;
   onKeyDownCapture?: (event: KeyboardEvent<HTMLDivElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLDivElement>) => void;
+  searchText: string;
 }
 
-const inputBaseCss = (isFocused: boolean) =>
+const inputBaseCSS = (isFocused: boolean) =>
   css({
     width: isFocused ? '500px' : '300px',
-    transition: 'width 0.3s ease-in-out', // Smooth transition
+    background: '#000408',
+    transition: 'width 0.3s ease-in-out',
     ':focus-within': {
-      width: '500px', // Target the focus-within state of the container
+      width: '500px',
     },
     '& .MuiInputBase-input': {
-      textAlign: 'right', // Align text inside the input
+      textAlign: 'right',
     },
   });
 const SearchBox: FC<ISearchBoxProps> = ({
@@ -42,9 +45,12 @@ const SearchBox: FC<ISearchBoxProps> = ({
   onClick,
   onKeyDown,
   onKeyDownCapture,
+  searchText,
 }) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => setSearchInput(searchText), [searchText]);
 
   const debouncedSearch = useMemo(
     () =>
@@ -77,7 +83,7 @@ const SearchBox: FC<ISearchBoxProps> = ({
     <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
       <TextField
         onClick={onClick}
-        css={inputBaseCss(isFocused)}
+        css={inputBaseCSS(isFocused)}
         inputRef={inputRef}
         value={searchInput}
         onChange={handleChange}
