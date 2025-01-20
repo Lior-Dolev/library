@@ -196,7 +196,7 @@ export const ChatDefault = () => {
   return (
     <div style={{ height: '500px' }} >
       <Chat>
-        <ChatHeader id={'123'} title={title}>
+        <ChatHeader id={'chat-header'} title={title}>
           <IconButton><LocationSearching /></IconButton>
           <IconButton><AirplanemodeActive /></IconButton>
         </ChatHeader>

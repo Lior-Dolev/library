@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { Children, isValidElement, type FC, type ReactNode } from "react";
 import { ChatComponentName } from "./componentNames";
+import { Paper } from "@mui/material";
 
 export interface IChatProps {
   /**
@@ -34,9 +35,9 @@ const Chat: FC<IChatProps> = ({ children, readOnly }) => {
       : children;
 
   return (
-    <div css={[chatGridCss, children?.length === 2 ? chatGrid2RowsCss : chatGrid3RowsCss]}>
+    <Paper css={[chatGridCss, children?.length === 2 ? chatGrid2RowsCss : chatGrid3RowsCss]}>
       {filteredChildren}
-    </div>
+    </Paper>
   )
 }
 

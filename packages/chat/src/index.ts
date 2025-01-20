@@ -1,5 +1,5 @@
 export { default as ChatModal } from './ChatModal'
-export { default as ChatHeader } from './ChatHeader'
+export { default as ChatHeader, type IChatHeaderProps } from './ChatHeader'
 export { default as ChatFooter, type IChatFooterFormRef } from './ChatFooter'
 export { default as Chat } from './Chat'
 export { default as ChatMain } from './ChatMain'
