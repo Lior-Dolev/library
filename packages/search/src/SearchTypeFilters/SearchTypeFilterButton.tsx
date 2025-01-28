@@ -32,7 +32,15 @@ const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({
   isSelected,
 }) => {
   const icon = useMemo(
-    () => (isSelected ? <DoneIcon fontSize="small" /> : <></>),
+    () =>
+      isSelected ? (
+        <DoneIcon
+          fontSize="small"
+          style={{ position: 'absolute', right: '20px' }}
+        />
+      ) : (
+        <></>
+      ),
     [isSelected]
   );
 

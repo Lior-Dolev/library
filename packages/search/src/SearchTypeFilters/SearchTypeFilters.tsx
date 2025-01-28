@@ -15,7 +15,7 @@ const searchTypeFiltersCSS = css({
   display: 'flex',
   flexDirection: 'row-reverse',
   flexWrap: 'wrap',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   gap: '10px',
   padding: '5px',
 });
