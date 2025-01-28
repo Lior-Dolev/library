@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { debounce, InputAdornment, TextField } from '@mui/material';
 import {
   FC,
@@ -9,7 +10,6 @@ import {
   type KeyboardEvent,
 } from 'react';
 import SearchIcon from './SearchIcon';
-import { css } from '@emotion/react';
 interface ISearchBoxProps {
   onClick: () => void;
   onSearch: (text: string) => void | Promise<void>;

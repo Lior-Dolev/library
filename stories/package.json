@@ -16,13 +16,13 @@
     "@horus-library/caption": "*",
     "@horus-library/file-viewer": "*",
     "@horus-library/panel": "*",
+    "@horus-library/search": "*",
     "@horus-library/stepper": "*",
     "@horus-library/tabs": "*",
     "@horus-library/theme": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*",
-    "@horus-library/search":"*"
+    "@horus-library/typography": "*"
   },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.13",
