@@ -226,7 +226,6 @@ const Search: FC<ISearchProps> = ({
           onItemClick(selectedItem!);
         }}
       />
-
       <SearchResultsDropdown
         groupHeaders={groupHeaders}
         onTypeFilterClick={onTypeFilterChange}
