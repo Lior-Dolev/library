@@ -23,16 +23,21 @@ export interface ISearchResultsDropdownProps {
   ) => JSX.Element;
   selectedOptionIndex: number;
   isLoading: boolean;
+  isOpen: boolean;
   onItemClick: (item: ResultItem) => void;
 }
 
-const dropdownCSS = css({
-  background: '#0c1117',
-  width: '500px',
-  overflowY: 'auto',
-  margin: 0,
-  padding: '2px',
-});
+const dropdownCSS = (isOpen: boolean) =>
+  css({
+    background: '#0c1117',
+    width: '500px',
+    overflowY: 'auto',
+    margin: 0,
+    padding: '2px',
+    transition: 'height 0.3s ease-in-out',
+    height: isOpen ? '365px' : '0px',
+    visibility: isOpen ? 'visible' : 'hidden',
+  });
 
 const SearchResultsDropdown: ForwardRefExoticComponent<
   ISearchResultsDropdownProps & RefAttributes<VariableSizeList<ListItem[]>>
@@ -47,6 +52,7 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
       selectedOptionIndex,
       onItemClick,
       isLoading,
+      isOpen,
     }: ISearchResultsDropdownProps,
     ref
   ) => {
@@ -59,7 +65,7 @@ const SearchResultsDropdown: ForwardRefExoticComponent<
     );
 
     return (
-      <Box css={dropdownCSS}>
+      <Box css={dropdownCSS(isOpen)}>
         <SearchTypeFilters
           values={groupHeaders.map(({ primaryText, type }) => ({
             label: primaryText,

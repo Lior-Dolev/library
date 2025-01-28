@@ -226,19 +226,19 @@ const Search: FC<ISearchProps> = ({
           onItemClick(selectedItem!);
         }}
       />
-      {isFocused && (
-        <SearchResultsDropdown
-          groupHeaders={groupHeaders}
-          onTypeFilterClick={onTypeFilterChange}
-          renderItem={renderItem}
-          resultItems={resultItems}
-          selectedTypeFilter={selectedTypeFilter}
-          ref={listRef}
-          selectedOptionIndex={selectedOptionIndex}
-          isLoading={isSearching}
-          onItemClick={onItemClick}
-        />
-      )}
+
+      <SearchResultsDropdown
+        groupHeaders={groupHeaders}
+        onTypeFilterClick={onTypeFilterChange}
+        renderItem={renderItem}
+        resultItems={resultItems}
+        selectedTypeFilter={selectedTypeFilter}
+        ref={listRef}
+        selectedOptionIndex={selectedOptionIndex}
+        isLoading={isSearching}
+        isOpen={isFocused}
+        onItemClick={onItemClick}
+      />
     </div>
   );
 };
