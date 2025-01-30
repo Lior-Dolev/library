@@ -9,7 +9,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'import'],
+  plugins: ['react-refresh', 'import', 'sort-keys-fix'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -21,5 +21,6 @@ module.exports = {
         alphabetize: { order: 'asc', caseInsensitive: true },
       },
     ],
+    'sort-keys-fix/sort-keys-fix': 'warn',
   },
 };

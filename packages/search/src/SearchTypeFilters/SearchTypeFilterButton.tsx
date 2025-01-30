@@ -1,7 +1,7 @@
-import { Chip, ChipProps } from '@mui/material';
-import DoneIcon from '@mui/icons-material/Done';
-import { FC, useMemo } from 'react';
 import { css } from '@emotion/react';
+import DoneIcon from '@mui/icons-material/Done';
+import { Chip, ChipProps } from '@mui/material';
+import { FC, useMemo } from 'react';
 
 interface ISearchTypeFilterButtonProps extends ChipProps {
   type: string;
@@ -11,18 +11,18 @@ interface ISearchTypeFilterButtonProps extends ChipProps {
 
 const chipCSS = (isSelected: boolean) =>
   css({
-    width: '120px',
-    height: '50px',
-    borderRadius: 10,
-    fontSize: 15,
-    display: 'flex',
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: isSelected ? '#2e7d32' : '#424242',
     '&:hover': {
       backgroundColor: isSelected ? '#1b5e20' : '#5a5a5a', // Darker tones on hover
     },
+    alignItems: 'center',
+    backgroundColor: isSelected ? '#2e7d32' : '#424242',
+    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    fontSize: 15,
+    height: '50px',
+    justifyContent: 'center',
+    width: '120px',
   });
 
 const SearchTypeFilterButton: FC<ISearchTypeFilterButtonProps> = ({
