@@ -12,6 +12,7 @@ import { VariableSizeList } from 'react-window';
 import SearchBox from './SearchBox';
 import SearchResultsDropdown from './SearchResultsDropdown';
 import { ListItem } from './SearchResultsList';
+import { css } from '@emotion/react';
 
 export type GroupHeader = {
   type: string;
@@ -43,6 +44,13 @@ interface ISearchProps {
   onItemClick: (item: ResultItem) => void;
   isLoading: boolean;
 }
+
+const searchCSS = css({
+  alignItems: 'end',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '500px',
+});
 
 const isResultListItem = (item: GroupHeader | ResultItem): item is ResultItem =>
   'id' in item;
@@ -193,16 +201,7 @@ const Search: FC<ISearchProps> = ({
   );
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'end',
-        gap: '5px',
-        width: '500px',
-      }}
-      ref={wrapperRef}
-    >
+    <div css={searchCSS} ref={wrapperRef}>
       <SearchBox
         searchText={searchText}
         onClick={focusSearch}
