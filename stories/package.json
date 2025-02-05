@@ -15,6 +15,7 @@
     "@horus-library/accordion": "*",
     "@horus-library/caption": "*",
     "@horus-library/file-viewer": "*",
+    "@horus-library/search": "*",
     "@horus-library/panel": "*",
     "@horus-library/stepper": "*",
     "@horus-library/tabs": "*",

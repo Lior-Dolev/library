@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, expect } from '@storybook/test';
-import { Panel } from '.';
+import Panel from '.';
 
 const meta = {
   title: 'Example/Panel',
