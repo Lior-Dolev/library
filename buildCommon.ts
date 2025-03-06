@@ -97,6 +97,7 @@ export const commonUserConfig = (
           name: umdName,
         },
       },
+      minify: false, // Explicitly disable minification
     },
   };
 };
