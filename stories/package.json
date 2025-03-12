@@ -11,20 +11,6 @@
     "start": "npm run storybook",
     "storybook": "storybook dev -p 6006"
   },
-  "devDependencies": {
-    "@horus-library/accordion": "*",
-    "@horus-library/caption": "*",
-    "@horus-library/chat": "*",
-    "@horus-library/file-viewer": "*",
-    "@horus-library/panel": "*",
-    "@horus-library/stepper": "*",
-    "@horus-library/tabs": "*",
-    "@horus-library/theme": "*",
-    "@horus-library/tooltip": "*",
-    "@horus-library/tube-progress": "*",
-    "@horus-library/typography": "*",
-    "esbuild-plugin-react-virtualized": "1.0.4"
-  },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.13",
     "@storybook/addon-interactions": "7.6.13",
@@ -34,10 +20,31 @@
     "@storybook/react": "7.6.13",
     "@storybook/react-vite": "7.6.13",
     "@storybook/test": "7.6.1",
+    "react-hook-form": "7.50.0",
+    "react-resizable": "3.0.5",
     "storybook": "7.6.13"
   },
+  "devDependencies": {
+    "@horus-library/accordion": "*",
+    "@horus-library/button": "*",
+    "@horus-library/caption": "*",
+    "@horus-library/chat": "*",
+    "@horus-library/dialog": "*",
+    "@horus-library/file-viewer": "*",
+    "@horus-library/form": "*",
+    "@horus-library/formatter": "*",
+    "@horus-library/icons": "*",
+    "@horus-library/panel": "*",
+    "@horus-library/stepper": "*",
+    "@horus-library/table": "*",
+    "@horus-library/tabs": "*",
+    "@horus-library/theme": "*",
+    "@horus-library/tooltip": "*",
+    "@horus-library/tube-progress": "*",
+    "@horus-library/typography": "*"
+  },
   "peerDependencies": {
-    "@mui/material": "5.15.6",
+    "@mui/material": "5.14.17",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

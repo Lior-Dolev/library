@@ -9,7 +9,7 @@
     "watch": "vite build --watch"
   },
   "peerDependencies": {
-    "@emotion/react": "11.11.3",
+    "@emotion/react": "11.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

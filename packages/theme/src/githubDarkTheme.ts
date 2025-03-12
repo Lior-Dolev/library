@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import type { PaletteOptions } from '@mui/material/styles';
+import { typographyTheme } from './typographyTheme';
 
 const githubDarkPalette: PaletteOptions = {
   primary: {
@@ -21,6 +22,7 @@ const githubDarkPalette: PaletteOptions = {
 const githubDarkTheme = createTheme({
   palette: githubDarkPalette,
   direction: 'rtl',
+  typography: typographyTheme,
   // You can customize other theme options here, such as typography, spacing, etc.
 });
 

@@ -29,9 +29,7 @@ const DraggableContent: FC<IDraggableContentProps> = ({ children, handleId }) =>
  * @todo - floating element based on a parent element boundaries
  *          consider using mui modal or floating-ui
  */
-const ChatModal: FC<IChatModalProps> = ({ chatHeaderId, children, isOpen, onClose }) => {
-  const _onClose = () => onClose();
-
+const ChatModal: FC<IChatModalProps> = ({ chatHeaderId, children }) => {
   return (
     <div>
       <DraggableContent handleId={chatHeaderId}>{children}</DraggableContent>

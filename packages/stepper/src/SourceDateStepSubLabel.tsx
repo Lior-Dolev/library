@@ -1,16 +1,13 @@
 import type { FC, ReactNode } from 'react';
 import Caption, { CaptionList } from '@horus-library/caption';
-import { formatMilliSecondsDate } from './dateFormatter';
+import { formatMilliSecondsDate } from '@horus-library/formatter';
 
 export interface SourceDateStepSubLabelProps {
   source: ReactNode;
   time: number;
 }
 
-const SourceDateStepSubLabel: FC<SourceDateStepSubLabelProps> = ({
-  source,
-  time,
-}: SourceDateStepSubLabelProps) => (
+const SourceDateStepSubLabel: FC<SourceDateStepSubLabelProps> = ({ source, time }: SourceDateStepSubLabelProps) => (
   <CaptionList>
     <Caption>{source}</Caption>
     <Caption>{formatMilliSecondsDate(time, { shortYear: true })}</Caption>

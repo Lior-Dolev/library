@@ -1,27 +1,32 @@
-// import Box from '@mui/material/Box';
 import { a11yProps } from './a11y';
-// import { Typography } from '@horus-library/typography';
-import { useMemo } from 'react';
+import { type CSSProperties, useMemo } from 'react';
+import { css } from '@emotion/react';
 
 export interface TabPanelProps {
   active?: boolean;
   children: React.ReactNode;
   index: number;
+  style?: CSSProperties;
+  unmountWhenInactive?: boolean;
 }
 
-const TabPanel = ({ active, children, index, ...rest }: TabPanelProps) => {
+const baseTabPanelCSS = css({
+  overflow: 'hidden',
+});
+
+const TabPanel = ({ active, children, index, style, unmountWhenInactive = false, ...rest }: TabPanelProps) => {
   const a11y = useMemo(() => a11yProps(index), [index]);
 
   return (
-    <div role="tabpanel" hidden={!active} {...a11y} {...rest}>
-      {active && children}
-      {/* {active && typeof children === 'string' ? (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      ) : (
-        
-      )} */}
+    <div
+      role="tabpanel"
+      hidden={!active}
+      css={baseTabPanelCSS}
+      {...a11y}
+      style={style}
+      {...rest}
+    >
+      {!unmountWhenInactive ? children : active ? children : null}
     </div>
   );
 };

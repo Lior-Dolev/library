@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 import { Skeleton, useTheme } from '@mui/material';
 import { Box } from '@mui/material';
 import CloseButton from './CloseButton';
@@ -7,11 +7,14 @@ import { css } from '@emotion/react';
 
 export interface PanelHeaderProps {
   children?: ReactNode;
+  className?: string;
   id?: string;
   /** display skeleton while loading */
   isLoading?: boolean;
   onClose: () => void;
   onMinimize?: () => void;
+  style?: CSSProperties;
+  innerDivStyle?: CSSProperties;
 }
 
 const flexCss = css({
@@ -29,7 +32,16 @@ const baseCss = css({
   flexGrow: 0,
 });
 
-const PanelHeader: FC<PanelHeaderProps> = ({ children, id, isLoading, onClose, onMinimize }: PanelHeaderProps) => {
+const PanelHeader: FC<PanelHeaderProps> = ({
+  children,
+  className,
+  id,
+  innerDivStyle,
+  isLoading,
+  onClose,
+  onMinimize,
+  style,
+}: PanelHeaderProps) => {
   const theme = useTheme();
 
   return (
@@ -42,9 +54,14 @@ const PanelHeader: FC<PanelHeaderProps> = ({ children, id, isLoading, onClose, o
           backgroundColor: theme.palette.secondary.main,
         }),
       ]}
+      className={className}
+      style={style}
       id={id}
     >
-      <div css={[flexCss, paddedContentCss]}>
+      <div
+        css={[flexCss, paddedContentCss]}
+        style={innerDivStyle}
+      >
         {isLoading ? (
           <Skeleton
             animation={'wave'}

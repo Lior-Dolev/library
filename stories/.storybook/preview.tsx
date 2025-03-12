@@ -2,6 +2,7 @@ import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
 import type { Preview, Decorator } from '@storybook/react';
 import { darkTheme, lightTheme } from '@horus-library/theme';
 import React, { useMemo } from 'react';
+import './fonts.css';
 
 enum ThemeType {
   dark = 'dark',

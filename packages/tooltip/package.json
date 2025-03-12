@@ -1,6 +1,6 @@
 {
   "name": "@horus-library/tooltip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "@horus-library/typography": "*"
   },
   "peerDependencies": {
-    "@emotion/react": "11.11.3",
+    "@emotion/react": "11.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }
