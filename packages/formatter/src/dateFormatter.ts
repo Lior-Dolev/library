@@ -1,7 +1,7 @@
 enum RelativeDate {
   today = 'היום',
   tomorrow = 'מחר',
-  yesterday = 'אתמול'
+  yesterday = 'אתמול',
 }
 
 const areDatesEqual = (valueA: Date, valueB: Date): boolean => {
@@ -9,7 +9,7 @@ const areDatesEqual = (valueA: Date, valueB: Date): boolean => {
   const compareTo = new Date(valueB);
 
   return input.setHours(0, 0, 0, 0) === compareTo.setHours(0, 0, 0, 0);
-}
+};
 
 const relativeMillisecondsDate = (value: number): RelativeDate | null => {
   const inputDate = new Date(value);
@@ -34,29 +34,31 @@ const relativeMillisecondsDate = (value: number): RelativeDate | null => {
   }
 
   return null;
-}
+};
 
 export const formatOperationalRelativeDate = (value: number): string => {
   if (!value || isNaN(value)) {
-    return ''
+    return '';
   }
 
   const prefix = value < 0 ? '-ש' : '+ש';
 
   const totalMin = Math.abs(value) / 60000;
-  const hours = Math.floor(totalMin / 60)
-  const minutes = Math.floor(totalMin % 60)
+  const hours = Math.floor(totalMin / 60);
+  const minutes = Math.floor(totalMin % 60);
 
-  return `${prefix} ${hours}:${minutes}`
-}
+  return `${prefix} ${hours}:${minutes}`;
+};
 
-
-export const formatMilliSecondsDate = (value: number, options?: ({ shortYear?: boolean; } | { noYear?: boolean; }) & { relative?: boolean }): string => {
+export const formatMilliSecondsDate = (
+  value: number,
+  options?: ({ shortYear?: boolean } | { noYear?: boolean }) & { relative?: boolean },
+): string => {
   if (!value || isNaN(value)) {
-    return ''
+    return '';
   }
 
-  const definedOptions = options || {};;
+  const definedOptions = options || {};
   const { relative } = definedOptions;
 
   if (relative) {
@@ -66,8 +68,8 @@ export const formatMilliSecondsDate = (value: number, options?: ({ shortYear?: b
       return `${relativeDate}, ${new Date(value).toLocaleTimeString('he-IL', {
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: 'asia/jerusalem'
-      })}`
+        timeZone: 'asia/jerusalem',
+      })}`;
     }
   }
 
@@ -77,6 +79,6 @@ export const formatMilliSecondsDate = (value: number, options?: ({ shortYear?: b
     month: '2-digit',
     day: '2-digit',
     minute: '2-digit',
-    timeZone: 'asia/jerusalem'
-  })
-}
+    timeZone: 'asia/jerusalem',
+  });
+};

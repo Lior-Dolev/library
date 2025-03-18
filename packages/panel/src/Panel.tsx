@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 import { Paper, styled } from '@mui/material';
 
 const RootContainer = styled(Paper)({
@@ -12,10 +12,19 @@ const RootContainer = styled(Paper)({
 
 export interface PanelProps {
   children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
 }
 
-const Panel: FC<PanelProps> = ({ children }: PanelProps) => {
-  return <RootContainer>{children}</RootContainer>;
+const Panel: FC<PanelProps> = ({ children, className, style }: PanelProps) => {
+  return (
+    <RootContainer
+      className={className}
+      style={style}
+    >
+      {children}
+    </RootContainer>
+  );
 };
 
 export default Panel;

@@ -1,6 +1,6 @@
 {
   "name": "@horus-library/panel",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -9,10 +9,17 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
+    "@horus-library/button": "*",
+    "@horus-library/icons": "*",
+    "@types/react-resizable": "3.0.8"
   },
   "peerDependencies": {
-    "@mui/material": "5.15.6",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@mui/material": "5.14.17",
+    "clsx": "2.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-resizable": "3.0.5"
   }
 }

@@ -10,11 +10,12 @@
   },
   "devDependencies": {
     "@horus-library/caption": "*",
+    "@horus-library/formatter": "*",
     "@horus-library/tooltip": "*",
     "@horus-library/typography": "*"
   },
   "peerDependencies": {
-    "@mui/material": "5.15.6",
+    "@mui/material": "5.14.17",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

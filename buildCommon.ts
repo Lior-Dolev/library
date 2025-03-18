@@ -41,9 +41,8 @@ const commonGlobals = {
   'react-dom': 'ReactDOM',
 };
 
-const getExternal = (
-  peerDependencies: PackageJson['peerDependencies']
-): string[] => (peerDependencies ? Object.keys(peerDependencies) : []);
+const getExternal = (peerDependencies: PackageJson['peerDependencies']): string[] =>
+  peerDependencies ? Object.keys(peerDependencies) : [];
 
 const getGlobals = (external: string[]) => {
   if (!external || !external.length) {
@@ -51,7 +50,7 @@ const getGlobals = (external: string[]) => {
   }
 
   const existingGloabls: string[] = external.filter(
-    (value) => !!commonGlobals[value] || value.startsWith(horusLibraryPrefix)
+    (value) => !!commonGlobals[value] || value.startsWith(horusLibraryPrefix),
   );
   const existingGloablsEntries = existingGloabls.map((value) => [
     value,
@@ -61,10 +60,7 @@ const getGlobals = (external: string[]) => {
   return Object.fromEntries(existingGloablsEntries);
 };
 
-export const commonUserConfig = (
-  packageJson: PackageJson,
-  entry: string
-): UserConfig => {
+export const commonUserConfig = (packageJson: PackageJson, entry: string): UserConfig => {
   const { name, peerDependencies } = packageJson;
   const external = getExternal(peerDependencies);
   const globals = getGlobals(external);
@@ -80,6 +76,7 @@ export const commonUserConfig = (
     build: {
       copyPublicDir: false,
       emptyOutDir: true,
+      sourcemap: 'inline',
       outDir: 'dist',
       lib: {
         entry,
