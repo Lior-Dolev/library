@@ -138,7 +138,7 @@ const codeTheme = createTheme({
             margin: 0,
           },
           '[type=number]': {
-            '-webkit-appearance': 'textfield',
+            '-moz-appearance': 'textfield',
           },
         },
       },

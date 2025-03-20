@@ -1,5 +1,5 @@
 {
-  "name": "library",
+  "name": "horus-mono-library",
   "private": true,
   "version": "0.0.0",
   "workspaces": [
@@ -11,7 +11,8 @@
     "clean": "lerna clean",
     "dev": "npm run dev --workspace @horus-library/stories",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "start": "npm run start --workspace @horus-library/stories"
+    "start": "npm run start --workspace @horus-library/stories",
+    "publish": "npm run publish --workspaces"
   },
   "dependencies": {
     "@emotion/react": "11.11.1",

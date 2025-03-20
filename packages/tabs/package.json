@@ -9,11 +9,11 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
-    "@horus-library/tooltip": "*",
-    "@horus-library/typography": "*"
+    "@horus-library/tooltip": "*"
   },
   "peerDependencies": {
     "@emotion/react": "11.11.1",
+    "clsx": "2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

@@ -6,7 +6,7 @@ export const useScrollToMessage = (messages: any, isLoading?: boolean) => {
 
   useLayoutEffect(() => {
     if (unseenMessageRef.current && !hasScrolled.current && !isLoading) {
-      unseenMessageRef.current.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+      unseenMessageRef.current.scrollIntoView({ behavior: 'auto', block: 'nearest' });
       hasScrolled.current = true;
     }
   }, [isLoading, messages]);

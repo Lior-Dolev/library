@@ -16,7 +16,7 @@ const HybridTextField: FC<IHybridTextFieldProps> = ({ error, name, onChange, rea
   const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
     const { key } = event || {};
 
-    if (!key || key !== 'Espace') {
+    if (!key || key !== 'Escape') {
       return;
     }
 
