@@ -16,7 +16,10 @@ export interface SelectFieldProps2<TFieldValues extends FieldValues, TFieldName 
 const isOptionEqualToValue = (option: SelectFieldOption2, valueToCompare: SelectFieldOption2): boolean =>
   option?.id === valueToCompare?.id;
 
-const SelectField2 = <TFieldValues extends FieldValues, TFieldName extends FieldPath<TFieldValues>>({
+const SelectField2 = <
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   options,
   name,
   required,

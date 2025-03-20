@@ -1,9 +1,9 @@
-import { TableCell as MUITableCell, useTheme, TableCellProps as MUITableCellProps } from '@mui/material';
-import { FC } from 'react';
+import { TableCell as MUITableCell, useTheme, type TableCellProps as MUITableCellProps } from '@mui/material';
+import type { FC } from 'react';
 
 export interface TableCellProps extends MUITableCellProps {}
 
-const TableCell: FC<MUITableCellProps> = ({ children, ...rest }: MUITableCellProps) => {
+const TableCell: FC<TableCellProps> = ({ children, ...rest }: TableCellProps) => {
   const theme = useTheme();
 
   return (

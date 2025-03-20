@@ -37,7 +37,7 @@ export const Default = () => {
         onClose={toggleDialog}
       >
         <DialogTitle onClose={toggleDialog}>עדיין פה?</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           <DialogContentText>{contentText}</DialogContentText>
           <DialogContentText>{contentText2}</DialogContentText>
         </DialogContent>

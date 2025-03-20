@@ -9,6 +9,7 @@
     "watch": "vite build --watch"
   },
   "peerDependencies": {
+    "@mui/icons-material": "5.14.12",
     "@mui/material": "5.14.17",
     "react": "18.2.0",
     "react-dom": "18.2.0"

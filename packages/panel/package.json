@@ -9,13 +9,15 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
+    "@types/react-resizable": "1.7.4"
+  },
+  "dependencies": {
     "@horus-library/button": "*",
-    "@horus-library/icons": "*",
-    "@types/react-resizable": "3.0.8"
+    "@horus-library/icons": "*"
   },
   "peerDependencies": {
     "@emotion/react": "11.11.1",
-    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "5.14.12",
     "@mui/material": "5.14.17",
     "clsx": "2.1.0",
     "react": "18.2.0",

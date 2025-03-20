@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material';
 import type { FC } from 'react';
-import { WarningAmber as WarningAmberIcon } from '@mui/icons-material';
+import { WarningAmberRounded as WarningAmberIcon } from '@mui/icons-material';
 import HybridDescriptionTypography from './HybridDescriptionTypography';
 import AutomaticRefetchButton from './AutomaticRefetchButton';
 

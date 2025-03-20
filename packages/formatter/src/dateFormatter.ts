@@ -41,7 +41,7 @@ export const formatOperationalRelativeDate = (value: number): string => {
     return '';
   }
 
-  const prefix = value < 0 ? '-ש' : '+ש';
+  const prefix = value < 0 ? 'ש-' : 'ש+';
 
   const totalMin = Math.abs(value) / 60000;
   const hours = Math.floor(totalMin / 60);
