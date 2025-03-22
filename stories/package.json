@@ -9,7 +9,8 @@
     "build-storybook": "storybook build",
     "dev": "npm run start",
     "start": "npm run storybook",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "publish": "npm run build"
   },
   "dependencies": {
     "@storybook/addon-essentials": "7.6.7",
